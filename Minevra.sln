@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minevra.Logic", "Minevra.Lo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minevra.Entities", "Minevra.Entities\Minevra.Entities.csproj", "{07266EF2-27F2-40BD-A643-BF0EB07B9374}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minevra.Services", "Minevra.Services\Minevra.Services.csproj", "{C013B0F0-1091-400C-B8C3-42EC6E3E48F3}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{07266EF2-27F2-40BD-A643-BF0EB07B9374}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07266EF2-27F2-40BD-A643-BF0EB07B9374}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07266EF2-27F2-40BD-A643-BF0EB07B9374}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C013B0F0-1091-400C-B8C3-42EC6E3E48F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C013B0F0-1091-400C-B8C3-42EC6E3E48F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C013B0F0-1091-400C-B8C3-42EC6E3E48F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C013B0F0-1091-400C-B8C3-42EC6E3E48F3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
