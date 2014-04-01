@@ -1,4 +1,5 @@
-﻿using Castle.Windsor;
+﻿using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 using Castle.Windsor.Installer;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
+using Minevra.Entities;
 
 namespace Minevra
 {
@@ -17,13 +19,15 @@ namespace Minevra
 
         protected void Application_Start()
         {
+            InjectContainer();
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            // todo close install windsor container
+            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(_container.Kernel));
         }
 
         /// <summary>
@@ -31,9 +35,13 @@ namespace Minevra
         /// </summary>
         private static void InjectContainer()
         {
-            _container = new WindsorContainer().Install(FromAssembly.This());
-
-            // todo register classes
+            _container = new WindsorContainer();
+            /*
+            _container.Register(
+                Component.For<IMinevraDbContext>()
+                    .ImplementedBy<MinevraDbContext>()
+                    .LifestylePerWebRequest()
+                );*/
         }
 
         /// <summary>
