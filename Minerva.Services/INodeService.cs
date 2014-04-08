@@ -16,9 +16,6 @@ namespace Minerva.Services
         IList<ItemInfo> GetChildrenInfo(int? parentId);
 
         [OperationContract]
-        IList<Item> GetChildren(int? parentId);
-
-        [OperationContract]
         void RemoveItem(int itemId);
 
         [OperationContract]
@@ -28,6 +25,6 @@ namespace Minerva.Services
         void ChangeItem(Item item);
 
         [OperationContract]
-        IList<ItemProperties> GetProperties(int itemId);
+        IList<ItemProperties> GetItemProperties(int itemId);
     }
 }

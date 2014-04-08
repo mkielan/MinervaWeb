@@ -10,6 +10,9 @@ namespace Minerva.Services.Contracts
     public class ItemInfo
     {
         [DataMember]
+        public int Id { get; set; }
+
+        [DataMember]
         public int? ParentId { get; set; }
 
         [DataMember]

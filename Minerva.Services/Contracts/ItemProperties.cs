@@ -9,8 +9,10 @@ namespace Minerva.Services.Contracts
     [DataContract]
     public class ItemProperties
     {
+        [DataMember]
+        public string Name;
 
         [DataMember]
-        public string name;
+        public string Value;
     }
 }

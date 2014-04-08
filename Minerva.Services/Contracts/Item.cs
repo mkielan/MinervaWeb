@@ -9,6 +9,7 @@ namespace Minerva.Services.Contracts
     [DataContract]
     public class Item : ItemInfo
     {
+        [DataMember]
         public FileObject File { get; set; }
     }
 }
