@@ -4,7 +4,7 @@ using BundleTransformer.Core.Transformers;
 using System.Web;
 using System.Web.Optimization;
 
-namespace Minevra
+namespace Minerva
 {
     public class BundleConfig
     {

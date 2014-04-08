@@ -8,16 +8,16 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
-using Minevra.Models;
-using Minevra.Entities;
+using Minerva.Models;
+using Minerva.Entities;
 
-namespace Minevra.Controllers
+namespace Minerva.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
         public AccountController()
-            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinevraDbContext())))
+            : this(new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinervaDbContext())))
         {
         }
 

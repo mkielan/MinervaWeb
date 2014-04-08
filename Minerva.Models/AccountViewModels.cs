@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Minevra.Models
+namespace Minerva.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

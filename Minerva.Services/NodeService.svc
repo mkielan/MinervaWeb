@@ -1,1 +1,1 @@
-﻿<%@ ServiceHost Language="C#" Debug="true" Service="Minevra.Services.NodeService" CodeBehind="NodeService.svc.cs" %>
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="Minerva.Services.NodeService" CodeBehind="NodeService.svc.cs" %>

@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Minevra.Areas.Api
+namespace Minerva.Areas.Api
 {
     public class ApiAreaRegistration : AreaRegistration 
     {

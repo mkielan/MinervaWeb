@@ -6,7 +6,7 @@ using System.Net.Http;
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace Minevra.Areas.Api.Controllers
+namespace Minerva.Areas.Api.Controllers
 {
     public class NodesController : ApiController
     {

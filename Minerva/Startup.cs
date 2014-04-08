@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(Minevra.Startup))]
-namespace Minevra
+[assembly: OwinStartupAttribute(typeof(Minerva.Startup))]
+namespace Minerva
 {
     public partial class Startup
     {

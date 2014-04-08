@@ -333,15 +333,15 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Minevra.Entities\Minerva.Entities.csproj">
+    <ProjectReference Include="..\Minerva.Entities\Minerva.Entities.csproj">
       <Project>{07266ef2-27f2-40bd-a643-bf0eb07b9374}</Project>
       <Name>Minerva.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Minevra.Logic\Minerva.Logic.csproj">
+    <ProjectReference Include="..\Minerva.Logic\Minerva.Logic.csproj">
       <Project>{f0718202-3be8-4b23-93a9-d6a1a8ba7a03}</Project>
       <Name>Minerva.Logic</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Minevra.Models\Minerva.Models.csproj">
+    <ProjectReference Include="..\Minerva.Models\Minerva.Models.csproj">
       <Project>{34a528c1-f30e-4663-9bce-6ce2f1689b90}</Project>
       <Name>Minerva.Models</Name>
     </ProjectReference>

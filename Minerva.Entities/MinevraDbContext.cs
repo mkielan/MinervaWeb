@@ -2,11 +2,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Minevra.Entities
+namespace Minerva.Entities
 {
-    public class MinevraDbContext : IdentityDbContext<ApplicationUser>
+    public class MinervaDbContext : IdentityDbContext<ApplicationUser>
     {
-        public MinevraDbContext()
+        public MinervaDbContext()
             : base("DefaultConnection")
         {
         }

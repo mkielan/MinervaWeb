@@ -5,9 +5,9 @@ using System.Runtime.Serialization;
 using System.ServiceModel;
 using System.ServiceModel.Web;
 using System.Text;
-using Minevra.Services.Contracts;
+using Minerva.Services.Contracts;
 
-namespace Minevra.Services
+namespace Minerva.Services
 {
     [ServiceContract]
     public interface INodeService

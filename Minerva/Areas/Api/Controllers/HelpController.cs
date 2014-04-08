@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace Minevra.Areas.Api.Controllers
+namespace Minerva.Areas.Api.Controllers
 {
     public class HelpController : Controller
     {

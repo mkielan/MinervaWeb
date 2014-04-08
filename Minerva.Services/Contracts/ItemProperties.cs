@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace Minevra.Services.Contracts
+namespace Minerva.Services.Contracts
 {
     [DataContract]
     public class ItemProperties
