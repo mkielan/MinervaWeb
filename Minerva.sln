@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva", "Minerva\Minerva.csproj", "{2835FDBA-96BA-4D5C-850D-A909BB12F4E3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B3DCC63E-CFD8-4355-85AF-C82AD655AEF1} = {B3DCC63E-CFD8-4355-85AF-C82AD655AEF1}
+	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8948764E-424A-4791-8614-E54C7C42212B}"
 EndProject
