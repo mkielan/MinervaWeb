@@ -5,7 +5,7 @@ using System.Web;
 using Castle.MicroKernel;
 using System.Web.Mvc;
 
-namespace Minerva
+namespace Minerva.Infrastructore
 {
     class ControllerFactory : DefaultControllerFactory
     {

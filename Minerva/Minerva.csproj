@@ -204,24 +204,21 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\FileController.cs" />
     <Compile Include="ApiControllers\ItemInfoController.cs" />
+    <Compile Include="ApiControllers\TestController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ControllerFactory.cs" />
+    <Compile Include="Infrastructure\ControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Service References\NodeServiceReference\Reference.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -296,22 +293,6 @@
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
     <Content Include="Scripts\_references.js" />
-    <Content Include="Service References\NodeServiceReference\Minerva.NodeServiceReference.Item.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\NodeServiceReference\Minerva.NodeServiceReference.ItemInfo.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <Content Include="Service References\NodeServiceReference\Minerva.NodeServiceReference.ItemProperties.datasource">
-      <DependentUpon>Reference.svcmap</DependentUpon>
-    </Content>
-    <None Include="Service References\NodeServiceReference\NodeService.disco" />
-    <None Include="Service References\NodeServiceReference\configuration91.svcinfo" />
-    <None Include="Service References\NodeServiceReference\configuration.svcinfo" />
-    <None Include="Service References\NodeServiceReference\Reference.svcmap">
-      <Generator>WCF Proxy Generator</Generator>
-      <LastGenOutput>Reference.cs</LastGenOutput>
-    </None>
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -338,16 +319,6 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <None Include="Service References\NodeServiceReference\NodeService.wsdl" />
-    <None Include="Service References\NodeServiceReference\NodeService.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NodeServiceReference\NodeService1.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Service References\NodeServiceReference\NodeService2.xsd">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -355,27 +326,16 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Minerva.Entities\Minerva.Entities.csproj">
       <Project>{07266ef2-27f2-40bd-a643-bf0eb07b9374}</Project>
       <Name>Minerva.Entities</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Minerva.Logic\Minerva.Logic.csproj">
-      <Project>{f0718202-3be8-4b23-93a9-d6a1a8ba7a03}</Project>
-      <Name>Minerva.Logic</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Minerva.Models\Minerva.Models.csproj">
       <Project>{34a528c1-f30e-4663-9bce-6ce2f1689b90}</Project>
       <Name>Minerva.Models</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadataStorage Include="Service References\NodeServiceReference\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

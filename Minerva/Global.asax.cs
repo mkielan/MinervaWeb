@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Minerva.Models;
-using Minerva.NodeServiceReference;
+using Minerva.Infrastructore;
 using System.Reflection;
 
 namespace Minerva
@@ -28,6 +28,8 @@ namespace Minerva
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(_container.Kernel));
         }
 
         /// <summary>
@@ -38,14 +40,12 @@ namespace Minerva
             _container = new WindsorContainer();
 
             _container.Install(FromAssembly.This());
-
+            /*
             _container.Register(
                 Component.For<INodeService>()
                     .ImplementedBy<NodeServiceClient>()
-                    .LifestylePerWebRequest()
-                );
-
-            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(_container.Kernel));
+                    .LifestyleSingleton()
+                );*/
         }
 
         /// <summary>

@@ -4,34 +4,35 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Minerva.Models.ItemInfo;
 
 namespace Minerva.ApiControllers
 {
     public class ItemInfoController : ApiController
     {
-        // GET api/<controller>
-        public IEnumerable<string> Get()
+        // GET api/iteminfo
+        public IEnumerable<Item> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
+        // GET api/iteminfo/5
+        public Item Get(int id)
         {
-            return "value";
+            return null;
         }
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
-
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        // POST api/iteminfo
+        public void Post([FromBody]Item value)
         {
         }
 
-        // DELETE api/<controller>/5
+        // PUT api/iteminfo/5
+        public void Put(int id, [FromBody]Item value)
+        {
+        }
+
+        // DELETE api/iteminfo/5
         public void Delete(int id)
         {
         }
