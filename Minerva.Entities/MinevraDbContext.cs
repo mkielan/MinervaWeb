@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
+using Minerva.Entities.Sources;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 
 namespace Minerva.Entities
 {
@@ -10,5 +12,11 @@ namespace Minerva.Entities
             : base("DefaultConnection")
         {
         }
+
+        public DbSet<Source> Sources { get; set; }
+
+        public DbSet<InternalSource> InternalSources { get; set; }
+
+        public DbSet<FtpSource> FtpSources { get; set; }
     }
 }
