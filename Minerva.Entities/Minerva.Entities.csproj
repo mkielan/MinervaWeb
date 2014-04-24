@@ -55,7 +55,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\FtpSource.cs" />
     <Compile Include="Sources\InternalSource.cs" />
-    <Compile Include="Sources\Internal\Item.cs" />
+    <Compile Include="Sources\Internal\Directory.cs" />
+    <Compile Include="Sources\Internal\File.cs" />
     <Compile Include="Sources\Source.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

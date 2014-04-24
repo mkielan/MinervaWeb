@@ -8,30 +8,21 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources.Internal
 {
-    public enum ItemType : int
-    {
-        File,
-        Directory
-    }
-
-    public class Item : AbstractEntity
+    public class File : AbstractEntity
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
-        public Item Parent { get; set; }
+        public long Id { get; set; }
 
         [Required]
-        public string PhysicalPath { get; set; }
+        public Directory Parent { get; set; }
 
         [Required]
+        [MaxLength(200)]
         public string Name { get; set; }
 
         [Required]
-        public ItemType ItemType { get; set; }
-
-        [Required]
-        public Source Source { get; set; }
+        [MaxLength(200)]
+        public string Extension { get; set; }
     }
 }

@@ -20,6 +20,8 @@ namespace Minerva.Entities
 
         public DbSet<FtpSource> FtpSources { get; set; }
 
-        public DbSet<Item> Items { get; set; }
+        public DbSet<Directory> Directories { get; set; }
+
+        public DbSet<File> Files { get; set; }
     }
 }

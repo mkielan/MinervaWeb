@@ -25,6 +25,6 @@ namespace Minerva.Entities.Sources
 
         public FtpSource FtpSource { get; set; }
         
-        public ICollection<Item> Items { get;set; }
+        public ICollection<Directory> Directories { get;set; }
     }
 }
