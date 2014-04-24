@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Minerva.Entities.Sources.Internal;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -23,5 +24,7 @@ namespace Minerva.Entities.Sources
         public InternalSource InternalSource { get; set; }
 
         public FtpSource FtpSource { get; set; }
+        
+        public ICollection<Item> Items { get;set; }
     }
 }
