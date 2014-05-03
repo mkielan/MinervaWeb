@@ -21,10 +21,15 @@ namespace Minerva.Entities.Sources
         [MaxLength(200)]
         public string Description { get; set; }
 
+        [Required]
+        public ApplicationUser Owner { get; set; }
+
+        public virtual ICollection<ApplicationUser> SharedWith { get; set; }
+
         public InternalSource InternalSource { get; set; }
 
         public FtpSource FtpSource { get; set; }
         
-        public ICollection<Directory> Directories { get;set; }
+        public virtual ICollection<Directory> Directories { get;set; }
     }
 }

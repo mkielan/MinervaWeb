@@ -12,6 +12,7 @@ namespace Minerva.Entities
         public MinervaDbContext()
             : base("DefaultConnection")
         {
+            
         }
 
         public DbSet<Source> Sources { get; set; }
@@ -23,5 +24,20 @@ namespace Minerva.Entities
         public DbSet<Directory> Directories { get; set; }
 
         public DbSet<File> Files { get; set; }
+
+        public DbSet<DiskStructure> DiskStructures { get; set; }
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<File>()
+                        .HasRequired(f => f.DiskStructure)
+                        .WithRequiredDependent();
+            
+            modelBuilder.Entity<Directory>()
+                        .HasRequired(f => f.DiskStructure)
+                        .WithRequiredDependent();
+        }
     }
 }

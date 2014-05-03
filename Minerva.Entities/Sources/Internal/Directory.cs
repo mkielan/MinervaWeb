@@ -18,6 +18,6 @@ namespace Minerva.Entities.Sources.Internal
         [MaxLength(200)]
         public string Name { get; set; }
 
-        public Directory Parent { get; set; }
+        public DiskStructure DiskStructure { get; set; }
     }
 }

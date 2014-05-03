@@ -15,14 +15,13 @@ namespace Minerva.Entities.Sources.Internal
         public long Id { get; set; }
 
         [Required]
-        public Directory Parent { get; set; }
-
-        [Required]
         [MaxLength(200)]
         public string Name { get; set; }
 
         [Required]
         [MaxLength(200)]
         public string Extension { get; set; }
+
+        public DiskStructure DiskStructure { get; set; }
     }
 }
