@@ -74,9 +74,14 @@
     <Compile Include="Migrations\201405032222309_000.Designer.cs">
       <DependentUpon>201405032222309_000.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201405040016367_001.cs" />
+    <Compile Include="Migrations\201405040016367_001.Designer.cs">
+      <DependentUpon>201405040016367_001.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinevraDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\Comment.cs" />
     <Compile Include="Sources\FtpSource.cs" />
     <Compile Include="Sources\InternalSource.cs" />
     <Compile Include="Sources\Internal\Directory.cs" />
@@ -108,6 +113,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201405032222309_000.resx">
       <DependentUpon>201405032222309_000.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201405040016367_001.resx">
+      <DependentUpon>201405040016367_001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
