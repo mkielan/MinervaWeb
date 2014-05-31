@@ -1,21 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Minerva.Repositories
 {
-    public interface IRepository<T, TId>
+    public interface IRepository<T>
     {
-        IList<T> FindAll();
+        void Save();
 
-        T FindById(TId id);
+        void Add(T entity);
 
-        void Save(T entity);
-
-        void Update(T entity, TId id);
+        void Edit(T entity);
 
         void Delete(T entity);
+
+        IQueryable<T> GetAll();
+
+        IQueryable<T> FindBy(Expression<Func<T, bool>> predicate);
     }
 }
