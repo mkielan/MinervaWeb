@@ -42,9 +42,9 @@
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="Directory\Item.cs" />
+    <Compile Include="Drive\DriveFile.cs" />
     <Compile Include="File\Item.cs" />
-    <Compile Include="Items\Info.cs" />
-    <Compile Include="Items\Item.cs" />
+    <Compile Include="ItemsInfo\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
