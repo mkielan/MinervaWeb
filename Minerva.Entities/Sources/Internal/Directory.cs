@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources.Internal
 {
-    public class Directory : AbstractEntity
+    public class Directory : AbstractEntity<Int64>
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
         public DiskStructure DiskStructure { get; set; }
     }
 }

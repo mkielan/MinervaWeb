@@ -8,12 +8,8 @@ using System.Text;
 
 namespace Minerva.Entities.Sources
 {
-    public class Source : AbstractEntity
+    public class Source : AbstractEntity<Int64>
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
-
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }

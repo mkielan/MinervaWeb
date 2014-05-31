@@ -79,7 +79,7 @@
       <DependentUpon>201405040016367_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="MinevraDbContext.cs" />
+    <Compile Include="MinervaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\Comment.cs" />
     <Compile Include="Sources\FtpSource.cs" />

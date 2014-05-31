@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class InternalSource : AbstractEntity
+    public class InternalSource : AbstractEntity<Int64>
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
         [Required]
         public Source Source { get; set; }
     }

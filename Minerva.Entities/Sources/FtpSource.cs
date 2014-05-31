@@ -8,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class FtpSource : AbstractEntity
+    public class FtpSource : AbstractEntity<Int64>
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public long Id { get; set; }
-
         [Required]
         public string Username { get; set; }
 
