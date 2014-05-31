@@ -7,6 +7,9 @@ using System.Web.Http;
 
 namespace Minerva.ApiControllers
 {
+    /// <summary>
+    /// Api do zarządzania plikami.
+    /// </summary>
     public class FileController : ApiController
     {
         // GET api/<controller>/5

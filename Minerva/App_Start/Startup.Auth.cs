@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity;
 using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin.Security.Google;
 using Owin;
 
 namespace Minerva
@@ -31,8 +32,26 @@ namespace Minerva
             //app.UseFacebookAuthentication(
             //   appId: "",
             //   appSecret: "");
+/*
+            var googleClientId = "762955059375-hr9c719v1dh1aasj98t31vtl538al83s.apps.googleusercontent.com";
+            var googleClientSecret = "xvaYRQ8XVb8b_sdAY2PJLHnZ";
 
-            //app.UseGoogleAuthentication();
+#if DEBUG
+            googleClientId = "762955059375-o5sub78tqo75dg35eld1qjl7h92855jf.apps.googleusercontent.com";
+            googleClientSecret = "6X0UhBlVU2FKXCWXkeGS6_ix";
+#endif
+
+            var googleOptions = new GoogleOAuth2AuthenticationOptions
+            {
+                ClientId = googleClientId,
+                ClientSecret = googleClientSecret,
+                CallbackPath = new PathString("/Account/ExternalLoginConfirmation"),
+                
+                /*Provider = new GoogleOAuth2AuthenticationProvider()
+                { 
+                }*/
+            //};
+            app.UseGoogleAuthentication(/*googleOptions*/);
         }
     }
 }

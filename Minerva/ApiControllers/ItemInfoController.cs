@@ -4,31 +4,34 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using Minerva.Models.ItemInfo;
+using Minerva.Models.Items;
 
 namespace Minerva.ApiControllers
 {
+    /// <summary>
+    /// Api do zarządzania informacjami dotyczącymi plików i katalogów.
+    /// </summary>
     public class ItemInfoController : ApiController
     {
         // GET api/iteminfo
-        public IEnumerable<Item> Get()
+        public IEnumerable<Info> Get()
         {
             return null;
         }
 
         // GET api/iteminfo/5
-        public Item Get(int id)
+        public Info Get(int id)
         {
             return null;
         }
 
         // POST api/iteminfo
-        public void Post([FromBody]Item value)
+        public void Post([FromBody]Info value)
         {
         }
 
         // PUT api/iteminfo/5
-        public void Put(int id, [FromBody]Item value)
+        public void Put(int id, [FromBody]Info value)
         {
         }
 
