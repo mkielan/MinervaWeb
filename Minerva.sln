@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30324.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva", "Minerva\Minerva.csproj", "{2835FDBA-96BA-4D5C-850D-A909BB12F4E3}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -17,6 +17,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Services", "Minerva.Services\Minerva.Services.csproj", "{B3DCC63E-CFD8-4355-85AF-C82AD655AEF1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Repositories", "Minerva.Repositories\Minerva.Repositories.csproj", "{FFADF123-9C89-43C6-A4CC-4C18C806EA55}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Common", "Minerva.Common\Minerva.Common.csproj", "{FE59857A-C264-4ACF-BBD8-7E33634FD54E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -44,6 +46,10 @@ Global
 		{FFADF123-9C89-43C6-A4CC-4C18C806EA55}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFADF123-9C89-43C6-A4CC-4C18C806EA55}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FFADF123-9C89-43C6-A4CC-4C18C806EA55}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
