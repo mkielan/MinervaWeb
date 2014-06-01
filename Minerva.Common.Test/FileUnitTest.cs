@@ -76,7 +76,7 @@ namespace Minerva.Common.Test
             {
                 Assert.AreEqual(count++, Directory.GetFiles(tmpPath).Length);
                 
-                var f = new File(string.Format("{0}\\{1}", path, filename));
+                var f = new File(path, filename);
                 f.Save(tmpPath);
             }
 

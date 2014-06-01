@@ -19,10 +19,19 @@ namespace Minerva.Common
 
         public File()
         {
-
         }
 
         public File(string filePath)
+        {
+            Init(filePath);
+        }
+        
+        public File(string dirPath, string fileName)
+        {
+            Init(FullNameFormat(dirPath, fileName));
+        }
+
+        private void Init(string filePath)
         {
             if (!IOFile.Exists(filePath))
             {
@@ -38,6 +47,11 @@ namespace Minerva.Common
         {
             if(IODir.Exists(directoryPath))
                 IOFile.WriteAllBytes(directoryPath + "/" + Name, Content);
+        }
+
+        public static string FullNameFormat(string dirPath, string filename)
+        {
+            return string.Format("{0}\\{1}", dirPath, filename);
         }
     }
 }
