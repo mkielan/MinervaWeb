@@ -9,18 +9,24 @@ namespace Minerva.Common.Test
     public class FileUnitTest
     {
         string path;
+        string tmpPath;
         string[] testFiles = new [] {
             "test1.txt", 
             "test2.txt", 
-            "test2.txt"
+            "test3.txt"
         };
 
         [TestInitialize()]
         public void Init()
         {
             path = Directory.GetParent(
-                Directory.GetCurrentDirectory()
-            ).Parent.Parent.FullName + "\\TestFiles";
+                        Directory.GetCurrentDirectory()
+                    ).Parent.Parent.FullName + "\\TestFiles";
+
+            tmpPath = path + "\\tmp";
+
+            if(Directory.Exists(tmpPath))
+                Directory.Delete(tmpPath, true);
         }
 
         [TestMethod]
@@ -58,6 +64,23 @@ namespace Minerva.Common.Test
                 Assert.AreEqual(file.Name, filename);
                 Assert.IsNotNull(file.Content);
             }
+        }
+
+        [TestMethod]
+        public void TestSave()
+        {
+            Directory.CreateDirectory(tmpPath);
+
+            var count = 0;
+            foreach (var filename in testFiles)
+            {
+                Assert.AreEqual(count++, Directory.GetFiles(tmpPath).Length);
+                
+                var f = new File(string.Format("{0}\\{1}", path, filename));
+                f.Save(tmpPath);
+            }
+
+            Assert.AreEqual(count, Directory.GetFiles(tmpPath).Length);
         }
     }
 }
