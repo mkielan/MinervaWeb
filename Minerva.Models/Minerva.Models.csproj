@@ -42,7 +42,6 @@
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="Directory\Item.cs" />
-    <Compile Include="Drive\DriveFile.cs" />
     <Compile Include="File\Item.cs" />
     <Compile Include="ItemsInfo\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
