@@ -53,13 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FileRepository.cs" />
+    <Compile Include="Local\FileRepository.cs" />
     <Compile Include="Ftp\IFtpConnection.cs" />
     <Compile Include="GenericRepository.cs" />
     <Compile Include="IRepository.cs" />
-    <Compile Include="Local\DirectoryRepository.cs" />
-    <Compile Include="Local\ItemsInfoRepository.cs" />
-    <Compile Include="Local\FileRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

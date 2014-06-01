@@ -1,54 +1,44 @@
-﻿using Minerva.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Minerva.Entities;
+using Minerva.Entities.Sources.Internal;
 using System.Linq.Expressions;
 
 namespace Minerva.Repositories
 {
     /// <summary>
-    /// Repozytorium zarządzania dostępem do plików.
-    /// Wykorzystywana zarwno baza danych jak i system plików.
+    /// Repozytorium plików, z obsługą plików z dysku.
     /// </summary>
-    public class FileRepository : IRepository<Models.File.Item, Int64>
+    public class FileRepository : 
+        GenericRepository<MinervaDbContext, File, Int64>
     {
-        private MinervaDbContext _dbContext;
-
-        public FileRepository(MinervaDbContext dbContext)
+        public override void Add(File entity)
         {
-            _dbContext = dbContext;
+
+            base.Add(entity);
         }
 
-        public void Save()
+        public override void Delete(File entity)
         {
-            _dbContext.SaveChanges();
+            base.Delete(entity);
         }
 
-        public void Add(Models.File.Item entity)
+        public override void Edit(File entity)
         {
-            throw new NotImplementedException();
+            base.Edit(entity);
         }
 
-        public void Edit(Models.File.Item entity)
+        public override IQueryable<File> GetAll()
         {
-            throw new NotImplementedException();
+            return base.GetAll();
         }
 
-        public void Delete(Models.File.Item entity)
+        public override IQueryable<File> FindBy(Expression<Func<File, bool>> predicate)
         {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Models.File.Item> FindAll()
-        {
-            throw new NotImplementedException();
-        }
-
-        public IQueryable<Models.File.Item> FindBy(Expression<Func<Models.File.Item, bool>> predicate)
-        {
-            throw new NotImplementedException();
+            return base.FindBy(predicate);
         }
     }
 }
