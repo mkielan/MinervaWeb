@@ -20,6 +20,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Repositories", "Min
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Common", "Minerva.Common\Minerva.Common.csproj", "{FE59857A-C264-4ACF-BBD8-7E33634FD54E}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{35E5D0A7-A514-4A49-8EFA-F84C6591BB00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Minerva.Common.Test", "Minerva.Common.Test\Minerva.Common.Test.csproj", "{55DAE506-E7B0-4246-9849-E4542E953A8F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestFiles", "TestFiles", "{FECD4049-40D5-4DCB-BC40-497592196EE9}"
+	ProjectSection(SolutionItems) = preProject
+		TestFiles\test1.txt = TestFiles\test1.txt
+		TestFiles\test2.txt = TestFiles\test2.txt
+		TestFiles\test3.txt = TestFiles\test3.txt
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -50,8 +61,16 @@ Global
 		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FE59857A-C264-4ACF-BBD8-7E33634FD54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55DAE506-E7B0-4246-9849-E4542E953A8F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55DAE506-E7B0-4246-9849-E4542E953A8F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55DAE506-E7B0-4246-9849-E4542E953A8F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55DAE506-E7B0-4246-9849-E4542E953A8F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{55DAE506-E7B0-4246-9849-E4542E953A8F} = {35E5D0A7-A514-4A49-8EFA-F84C6591BB00}
+		{FECD4049-40D5-4DCB-BC40-497592196EE9} = {35E5D0A7-A514-4A49-8EFA-F84C6591BB00}
 	EndGlobalSection
 EndGlobal
