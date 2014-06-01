@@ -10,7 +10,7 @@ using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 using Minerva.Models;
-using Minerva.Infrastructore;
+using Minerva.Infrastructure;
 using System.Reflection;
 
 namespace Minerva
