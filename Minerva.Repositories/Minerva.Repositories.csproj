@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CommentRepository.cs" />
+    <Compile Include="DirectoryRepository.cs" />
+    <Compile Include="DiskStructureRepository.cs" />
+    <Compile Include="FileInfoRepository.cs" />
     <Compile Include="Local\FileRepository.cs" />
     <Compile Include="Ftp\IFtpConnection.cs" />
     <Compile Include="GenericRepository.cs" />
@@ -60,6 +64,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Minerva.Common\Minerva.Common.csproj">
+      <Project>{fe59857a-c264-4acf-bbd8-7e33634fd54e}</Project>
+      <Name>Minerva.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Minerva.Entities\Minerva.Entities.csproj">
       <Project>{07266ef2-27f2-40bd-a643-bf0eb07b9374}</Project>
       <Name>Minerva.Entities</Name>
