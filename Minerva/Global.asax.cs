@@ -12,6 +12,10 @@ using System.Web.Routing;
 using Minerva.Models;
 using Minerva.Infrastructure;
 using System.Reflection;
+using Minerva.Repositories;
+using Minerva.Entities;
+using Minerva.Entities.Sources.Internal;
+using Minerva.Entities.Sources;
 
 namespace Minerva
 {
@@ -46,6 +50,24 @@ namespace Minerva
                     .ImplementedBy<NodeServiceClient>()
                     .LifestyleSingleton()
                 );*/
+
+            _container.Register(
+                Component.For<GenericRepository<MinervaDbContext, Directory, Int64>>()
+                    .ImplementedBy<DirectoryRepository>()
+                    .LifestyleSingleton()
+                );
+
+            _container.Register(
+                Component.For<GenericRepository<MinervaDbContext, Comment, Int64>>()
+                    .ImplementedBy<CommentRepository>()
+                    .LifestyleSingleton()
+                );
+
+            _container.Register(
+                Component.For<GenericRepository<MinervaDbContext, DiskStructure, Int64>>()
+                    .ImplementedBy<DiskStructureRepository>()
+                    .LifestyleSingleton()
+                );
         }
 
         /// <summary>

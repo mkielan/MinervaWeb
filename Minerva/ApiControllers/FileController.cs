@@ -1,4 +1,7 @@
-﻿using System;
+﻿using Minerva.Entities;
+using Minerva.Entities.Sources.Internal;
+using Minerva.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -12,25 +15,40 @@ namespace Minerva.ApiControllers
     /// </summary>
     public class FileController : ApiController
     {
-        // GET api/<controller>/5
-        public string Get(int id)
+        private GenericRepository<MinervaDbContext, File, Int64> _fileRepository;
+
+        public FileController()
         {
-            return "value";
+            _fileRepository = new FileRepository(""); // todo path
+        }
+
+        // GET api/<controller>/5
+        public File Get(int id)
+        {
+            // todo ograniczenie dla danego usera
+            return _fileRepository.FindBy(f => f.Id == id).First();
         }
 
         // POST api/<controller>
-        public void Post([FromBody]string value)
+        public void Post([FromBody]File value)
         {
+            throw new NotImplementedException();
         }
 
         // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
+        public void Put(int id, [FromBody]File value)
         {
+            throw new NotImplementedException();
         }
 
         // DELETE api/<controller>/5
         public void Delete(int id)
         {
+            // todo ograniczenie co do własności
+            var entity = _fileRepository.FindBy(f => f.Id == id).First();
+
+            _fileRepository.Delete(entity);
+            _fileRepository.Save();
         }
     }
 }
