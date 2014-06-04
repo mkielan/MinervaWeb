@@ -25,11 +25,6 @@ namespace Minerva.Entities.Sources.Internal
 
         public File File { get; set; }
 
-        /// <summary>
-        /// Kolejność w bierzącym katalogu
-        /// </summary>
-        public int Order { get; set; }
-
         public virtual ICollection<DiskStructure> Children { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
