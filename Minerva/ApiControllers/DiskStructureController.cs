@@ -14,10 +14,9 @@ namespace Minerva.ApiControllers
     {
         private GenericRepository<MinervaDbContext, DiskStructure, Int64> _diskStrRepository;
 
-        public DiskStructureController(
-            GenericRepository<MinervaDbContext, DiskStructure, Int64> diskStrRepository)
+        public DiskStructureController()
         {
-            _diskStrRepository = diskStrRepository;
+            _diskStrRepository = new DiskStructureRepository();
         }
 
         // GET: api/DiskStructure

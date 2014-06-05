@@ -8,12 +8,14 @@ using Minerva.Models.Items;
 using Minerva.Repositories;
 using Minerva.Entities;
 using Minerva.Entities.Sources.Internal;
+using System.Threading.Tasks;
 
 namespace Minerva.ApiControllers
 {
     /// <summary>
     /// Api do zarządzania informacjami dotyczącymi plików i katalogów.
     /// </summary>
+    //todo dodać [Authorize]
     public class FileInfoController : ApiController
     {
         private GenericRepository<MinervaDbContext, File, Int64> _fileRepository;
@@ -35,29 +37,58 @@ namespace Minerva.ApiControllers
         public File Get(int id)
         {
             // todo ograniczenie co do własności
-            return _fileRepository.FindBy(f => f.Id == id).First();
+            return _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
         }
 
         // POST api/iteminfo
-        public void Post([FromBody]File value)
+        public async Task<IHttpActionResult> Post([FromBody]File file)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            _fileRepository.Add(file);
+            _fileRepository.Save();
+
+            return Ok();
         }
 
         // PUT api/iteminfo/5
-        public void Put(int id, [FromBody]File value)
+        public async Task<IHttpActionResult> Put(int id, [FromBody]File file)
         {
-            throw new NotImplementedException();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            var com = _fileRepository.FindBy(c => c.Id == file.Id).FirstOrDefault();
+
+            if (com == null)
+            {
+                return NotFound();
+            }
+
+            _fileRepository.Edit(file);
+            _fileRepository.Save();
+
+            return Ok();
         }
 
         // DELETE api/iteminfo/5
-        public void Delete(int id)
+        public async Task<IHttpActionResult> Delete(int id)
         {
             // todo ograniczyć co do własności
 
-            var entity = _fileRepository.FindBy(f => f.Id == id).First();
+            var entity = _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
+
+            if (entity == null)
+                return NotFound();
+
             _fileRepository.Delete(entity);
             _fileRepository.Save();
+
+            return StatusCode(HttpStatusCode.NoContent);
         }
     }
 }

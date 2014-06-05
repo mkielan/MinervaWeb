@@ -50,24 +50,24 @@ namespace Minerva
                     .ImplementedBy<NodeServiceClient>()
                     .LifestyleSingleton()
                 );*/
-
+            /*
             _container.Register(
                 Component.For<GenericRepository<MinervaDbContext, Directory, Int64>>()
                     .ImplementedBy<DirectoryRepository>()
-                    .LifestyleSingleton()
+                    //.LifestyleSingleton()
                 );
 
             _container.Register(
                 Component.For<GenericRepository<MinervaDbContext, Comment, Int64>>()
                     .ImplementedBy<CommentRepository>()
-                    .LifestyleSingleton()
+                    //.LifestyleSingleton()
                 );
 
             _container.Register(
                 Component.For<GenericRepository<MinervaDbContext, DiskStructure, Int64>>()
                     .ImplementedBy<DiskStructureRepository>()
-                    .LifestyleSingleton()
-                );
+                    //.LifestyleSingleton()
+                );*/
         }
 
         /// <summary>
