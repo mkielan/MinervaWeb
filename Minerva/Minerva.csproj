@@ -262,11 +262,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ApiControllers\AccountController.cs" />
     <Compile Include="ApiControllers\CommentController.cs" />
     <Compile Include="ApiControllers\DirectoryController.cs" />
     <Compile Include="ApiControllers\DiskStructureController.cs" />
     <Compile Include="ApiControllers\FileController.cs" />
     <Compile Include="ApiControllers\FileInfoController.cs" />
+    <Compile Include="ApiControllers\LoginBindingModel.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
