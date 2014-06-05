@@ -21,9 +21,9 @@ namespace Minerva.Entities.Sources.Internal
         [Column("Parent")]
         public DiskStructure Parent { get; set; }
         
-        public Directory Directory { get; set; }
+        public virtual Directory Directory { get; set; }
 
-        public File File { get; set; }
+        public virtual File File { get; set; }
 
         public virtual ICollection<DiskStructure> Children { get; set; }
 

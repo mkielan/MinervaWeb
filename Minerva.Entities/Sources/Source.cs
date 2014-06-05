@@ -22,9 +22,7 @@ namespace Minerva.Entities.Sources
 
         public virtual ICollection<ApplicationUser> SharedWith { get; set; }
 
-        public InternalSource InternalSource { get; set; }
-
-        public FtpSource FtpSource { get; set; }
+        public virtual FtpSource FtpSource { get; set; }
         
         public virtual ICollection<DiskStructure> DiskStrukture { get;set; }
     }

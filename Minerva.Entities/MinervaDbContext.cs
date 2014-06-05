@@ -16,8 +16,6 @@ namespace Minerva.Entities
 
         public DbSet<Source> Sources { get; set; }
 
-        public DbSet<InternalSource> InternalSources { get; set; }
-
         public DbSet<FtpSource> FtpSources { get; set; }
 
         public DbSet<Directory> Directories { get; set; }
@@ -31,12 +29,16 @@ namespace Minerva.Entities
             base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<File>()
-                        .HasRequired(f => f.DiskStructure)
-                        .WithRequiredDependent();
+                .HasRequired(f => f.DiskStructure)
+                .WithRequiredDependent();
             
             modelBuilder.Entity<Directory>()
-                        .HasRequired(f => f.DiskStructure)
-                        .WithRequiredDependent();
+                .HasRequired(f => f.DiskStructure)
+                .WithRequiredDependent();
+
+            modelBuilder.Entity<Source>()
+                .HasOptional(f => f.FtpSource)
+                .WithOptionalDependent();
         }
     }
 }
