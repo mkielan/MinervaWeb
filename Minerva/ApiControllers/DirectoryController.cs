@@ -60,7 +60,7 @@ namespace Minerva.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var com = _directoryRepository.FindBy(c => c.Id == dr.Id).FirstOrDefault();
+            var com = _directoryRepository.FindBy(c => c.Id == dir.Id).FirstOrDefault();
 
             if (com == null)
             {
