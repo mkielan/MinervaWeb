@@ -14,10 +14,10 @@ namespace Minerva.ApiControllers
     [Authorize]
     public class AccountController : ApiController
     {
-        private UserManager<ApplicationUser> UserManager { get; private set; }
+        private UserManager<ApplicationUser> _userManager;
         public AccountController()
         {
-            UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinervaDbContext()));
+            _userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(new MinervaDbContext()));
         }
 
         [AllowAnonymous]
@@ -28,7 +28,7 @@ namespace Minerva.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var user = await UserManager.FindAsync(model.Username, model.Password);
+            var user = await _userManager.FindAsync(model.Username, model.Password);
             if (user != null)
             {
                 await SignInAsync(user, model.RememberMe);
