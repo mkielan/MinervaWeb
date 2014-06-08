@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Minerva.Entities.Sources.Internal
+namespace Minerva.Entities.Sources
 {
     public class DiskStructure : AbstractFkEntity<Int64>
     {
@@ -18,7 +18,6 @@ namespace Minerva.Entities.Sources.Internal
         [MaxLength(500)]
         public string Path { get; set; }
 
-        [Column("Parent")]
         public DiskStructure Parent { get; set; }
         
         public virtual Directory Directory { get; set; }
@@ -28,5 +27,11 @@ namespace Minerva.Entities.Sources.Internal
         public virtual ICollection<DiskStructure> Children { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
+
+        public virtual ICollection<ApplicationUser> AvailableFor { get; set; }
+
+        public virtual ICollection<Tag> Tags { get; set; }
+
+        public virtual ICollection<Resource> Resources { get; set; }
     }
 }

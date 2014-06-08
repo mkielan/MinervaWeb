@@ -7,7 +7,7 @@ using System.Web.Http;
 using Minerva.Models.Items;
 using Minerva.Repositories;
 using Minerva.Entities;
-using Minerva.Entities.Sources.Internal;
+using Minerva.Entities.Sources;
 using System.Threading.Tasks;
 
 namespace Minerva.ApiControllers

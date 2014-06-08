@@ -1,5 +1,5 @@
 ﻿using Minerva.Entities;
-using Minerva.Entities.Sources.Internal;
+using Minerva.Entities.Sources;
 using System;
 using System.Collections.Generic;
 using System.Linq;

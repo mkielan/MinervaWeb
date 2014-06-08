@@ -14,7 +14,6 @@ using Minerva.Infrastructure;
 using System.Reflection;
 using Minerva.Repositories;
 using Minerva.Entities;
-using Minerva.Entities.Sources.Internal;
 using Minerva.Entities.Sources;
 
 namespace Minerva

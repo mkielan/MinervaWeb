@@ -1,5 +1,4 @@
-﻿using Minerva.Entities.Sources.Internal;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,9 +20,7 @@ namespace Minerva.Entities.Sources
         public ApplicationUser Owner { get; set; }
 
         public virtual ICollection<ApplicationUser> SharedWith { get; set; }
-
-        public virtual FtpSource FtpSource { get; set; }
         
-        public virtual ICollection<DiskStructure> DiskStrukture { get;set; }
+        public virtual ICollection<DiskStructure> DiskStructure { get;set; }
     }
 }
