@@ -43,7 +43,11 @@
     <Compile Include="AccountViewModels.cs" />
     <Compile Include="Api\AccountModels.cs" />
     <Compile Include="Api\AccountViewModels.cs" />
+    <Compile Include="Api\Directory.cs" />
+    <Compile Include="Api\File.cs" />
+    <Compile Include="Api\FileInfo.cs" />
     <Compile Include="Api\LoginBindingModel.cs" />
+    <Compile Include="Api\StorageItem.cs" />
     <Compile Include="Directory\Item.cs" />
     <Compile Include="File\Item.cs" />
     <Compile Include="ItemsInfo\Item.cs" />
