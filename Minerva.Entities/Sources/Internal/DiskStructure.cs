@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources.Internal
 {
-    public class DiskStructure : AbstractEntity<Int64>
+    public class DiskStructure : AbstractFkEntity<Int64>
     {
         [Required]
         [MaxLength(200)]

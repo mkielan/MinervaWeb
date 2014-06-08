@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class FtpSource : AbstractEntity<Int64>
+    public class FtpSource : AbstractFkEntity<Int64>
     {
         [Required]
         public string Username { get; set; }

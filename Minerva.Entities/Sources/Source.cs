@@ -8,7 +8,7 @@ using System.Text;
 
 namespace Minerva.Entities.Sources
 {
-    public class Source : AbstractEntity<Int64>
+    public class Source : AbstractFkEntity<Int64>
     {
         [Required]
         [MaxLength(50)]

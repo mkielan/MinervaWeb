@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources.Internal
 {
-    public class File : AbstractEntity<Int64>
+    public class File : AbstractFkEntity<Int64>
     {
         [Required]
         [MaxLength(200)]

@@ -69,6 +69,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AbstractEntity.cs" />
+    <Compile Include="AbstractFkEntity.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="Migrations\201406052053301_000_init.cs" />
     <Compile Include="Migrations\201406052053301_000_init.Designer.cs">

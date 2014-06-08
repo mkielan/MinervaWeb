@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class Comment : AbstractEntity<Int64>
+    public class Comment : AbstractFkEntity<Int64>
     {
         [MaxLength(500)]
         public string Body { get; set; }
