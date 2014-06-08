@@ -11,5 +11,7 @@ namespace Minerva.Entities
         public string Phone { get; set; }
 
         public virtual ICollection<DiskStructure> AccessTo { get; set; }
+
+        public virtual ICollection<Source> Sources { get; set; }
     }
 }

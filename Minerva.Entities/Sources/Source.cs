@@ -17,7 +17,7 @@ namespace Minerva.Entities.Sources
         public string Description { get; set; }
 
         [Required]
-        public ApplicationUser Owner { get; set; }
+        public ICollection<ApplicationUser> Users { get; set; }
 
         public virtual ICollection<ApplicationUser> SharedWith { get; set; }
         
