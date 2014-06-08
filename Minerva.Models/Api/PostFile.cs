@@ -7,21 +7,16 @@ using System.Threading.Tasks;
 
 namespace Minerva.Models.Api
 {
-    public abstract class StorageItem
+    public class PostFile
     {
-        public long Id { get; set; }
-
         [Required]
+        public string Body { get; set; }
+
         [MaxLength(200)]
+        [Required]
         public string Name { get; set; }
 
-        public long ParentId { get; set; }
+        public int? ParentId { get; set; }
 
-        [MaxLength(500)]
-        public string Path { get; set; }
-
-        public DateTime CreateTime { get; set; }
-
-        public DateTime ModificationTime { get; set; }
     }
 }

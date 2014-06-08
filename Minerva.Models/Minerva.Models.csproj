@@ -47,6 +47,7 @@
     <Compile Include="Api\File.cs" />
     <Compile Include="Api\FileInfo.cs" />
     <Compile Include="Api\LoginBindingModel.cs" />
+    <Compile Include="Api\PostFile.cs" />
     <Compile Include="Api\StorageItem.cs" />
     <Compile Include="Directory\Item.cs" />
     <Compile Include="File\Item.cs" />
