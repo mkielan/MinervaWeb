@@ -28,12 +28,17 @@ namespace Minerva.ApiControllers
         }
 
         // GET api/<controller>/5
-        public async Task<File> Get(int id)
+        public IHttpActionResult Get(int id)
         {
             // todo ograniczenie dla danego usera
             var file = _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
 
-            return file;
+            if (file == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(file);
         }
 
         // POST api/<controller>

@@ -34,10 +34,17 @@ namespace Minerva.ApiControllers
         }
 
         // GET api/iteminfo/5
-        public File Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
             // todo ograniczenie co do własności
-            return _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
+            var fi = _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
+
+            if (fi == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(fi);
         }
 
         // POST api/iteminfo

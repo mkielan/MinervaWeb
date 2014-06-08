@@ -41,11 +41,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AccountViewModels.cs" />
+    <Compile Include="Api\AccountModels.cs" />
+    <Compile Include="Api\AccountViewModels.cs" />
+    <Compile Include="Api\LoginBindingModel.cs" />
     <Compile Include="Directory\Item.cs" />
     <Compile Include="File\Item.cs" />
     <Compile Include="ItemsInfo\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 
 namespace Minerva.ApiControllers
@@ -28,11 +29,14 @@ namespace Minerva.ApiControllers
         }
 
         // GET: api/DiskStructure/5
-        public DiskStructure Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
             //todo ograniczenie co do własności
+            var ds = _diskStrRepository.FindBy(f => f.Id == id).FirstOrDefault();
 
-            return _diskStrRepository.FindBy(f => f.Id == id).First();
+            if (ds == null) return NotFound();
+
+            return Ok(ds);
         }
 
         // POST: api/DiskStructure

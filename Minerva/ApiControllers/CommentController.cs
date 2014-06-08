@@ -29,10 +29,16 @@ namespace Minerva.ApiControllers
         }
 
         // GET: api/Comment/5
-        public Comment Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
             // todo ogranczenie co do własności
-            return _commentRepository.FindBy(f => f.Id == id).First();
+            var comment = _commentRepository.FindBy(f => f.Id == id).FirstOrDefault();
+            if (comment == null)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
 
         // POST: api/Comment

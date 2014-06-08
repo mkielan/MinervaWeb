@@ -32,10 +32,13 @@ namespace Minerva.ApiControllers
         }
 
         // GET: api/Directory/5
-        public Directory Get(int id)
+        public async Task<IHttpActionResult> Get(int id)
         {
             // todo ograniczenie co do własności
-            return _directoryRepository.FindBy(d => d.Id == id).FirstOrDefault();
+            var dir = _directoryRepository.FindBy(d => d.Id == id).FirstOrDefault();
+            if (dir == null) return NotFound();
+
+            return Ok(dir);
         }
 
         // POST: api/Directory
