@@ -10,7 +10,7 @@ using Minerva.Entities;
 namespace Minerva.Repositories
 {
     public abstract class GenericRepository<C, T, TId> :
-        IRepository<T> where T : AbstractEntity<TId> where C : DbContext, new () {
+        IRepository<T> where T : AbstractFkEntity<TId> where C : DbContext, new () {
     
         private C _entities = new C();
         

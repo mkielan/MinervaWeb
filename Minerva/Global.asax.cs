@@ -33,7 +33,7 @@ namespace Minerva
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
 
-            ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(_container.Kernel));
+            //ControllerBuilder.Current.SetControllerFactory(new ControllerFactory(_container.Kernel));
         }
 
         /// <summary>

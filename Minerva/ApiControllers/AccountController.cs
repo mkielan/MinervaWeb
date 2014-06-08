@@ -16,10 +16,12 @@ using Microsoft.Owin.Security.OAuth;
 using Minerva.Entities;
 using Minerva.Models.Api;
 using Minerva.Infrastructure;
+using System.Web.Http.Cors;
 
 namespace Minerva.ApiControllers
 {
     [Authorize]
+    //[EnableCors("*", "*", "*")]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
@@ -30,14 +32,14 @@ namespace Minerva.ApiControllers
         {
         }
 
-        public AccountController(UserManager<IdentityUser> userManager,
+        public AccountController(UserManager<ApplicationUser> userManager,
             ISecureDataFormat<AuthenticationTicket> accessTokenFormat)
         {
             UserManager = userManager;
             AccessTokenFormat = accessTokenFormat;
         }
 
-        public UserManager<IdentityUser> UserManager { get; private set; }
+        public UserManager<ApplicationUser> UserManager { get; private set; }
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
         // GET api/Account/UserInfo
@@ -245,7 +247,7 @@ namespace Minerva.ApiControllers
                 return new ChallengeResult(provider, this);
             }
 
-            IdentityUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
+            ApplicationUser user = await UserManager.FindAsync(new UserLoginInfo(externalLogin.LoginProvider,
                 externalLogin.ProviderKey));
 
             bool hasRegistered = user != null;
@@ -321,7 +323,7 @@ namespace Minerva.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            IdentityUser user = new IdentityUser
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = model.UserName
             };
@@ -355,7 +357,7 @@ namespace Minerva.ApiControllers
                 return InternalServerError();
             }
 
-            IdentityUser user = new IdentityUser
+            ApplicationUser user = new ApplicationUser
             {
                 UserName = model.UserName
             };
