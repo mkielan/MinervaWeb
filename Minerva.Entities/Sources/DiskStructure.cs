@@ -13,15 +13,18 @@ namespace Minerva.Entities.Sources
         [Required]
         [MaxLength(200)]
         public string Name { get; set; }
-
+        /*
         [Required]
         [MaxLength(500)]
         public string Path { get; set; }
-
+        */
         public DiskStructure Parent { get; set; }
-        
-        public virtual Directory Directory { get; set; }
 
+        [MaxLength(400)]
+        public string Description { get; set; }
+
+        public virtual Directory Directory { get; set; }
+        
         public virtual File File { get; set; }
 
         public virtual ICollection<DiskStructure> Children { get; set; }

@@ -8,8 +8,11 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class Directory : AbstractFkEntity<Int64>
+    public class Directory : AbstractEntity
     {
-        public DiskStructure DiskStructure { get; set; }
+        [Key, ForeignKey("DiskStructure")]
+        public long DiskStructureId { get; set; }
+
+        public virtual DiskStructure DiskStructure { get; set; }
     }
 }

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Repositories
 {
-    public class DirectoryRepository : GenericRepository<MinervaDbContext, Directory, Int64>
+    public class DirectoryRepository : GenericRepository<MinervaDbContext, Directory>
     {
     }
 }

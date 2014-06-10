@@ -11,7 +11,7 @@ namespace Minerva.Repositories
     /// <summary>
     /// Daje jedynie dostęp do informacji i pliku. Nie daje możliwości pracy z zawartością pliku.
     /// </summary>
-    public class FileInfoRepository : GenericRepository<MinervaDbContext, File, Int64>
+    public class FileInfoRepository : GenericRepository<MinervaDbContext, File>
     {
     }
 }

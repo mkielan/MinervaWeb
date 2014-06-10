@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Repositories
 {
-    public class CommentRepository : GenericRepository<MinervaDbContext, Comment, Int64>
+    public class CommentRepository : GenericRepository<MinervaDbContext, Comment>
     {
     }
 }

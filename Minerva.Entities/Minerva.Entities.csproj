@@ -73,17 +73,9 @@
     <Compile Include="AbstractEntity.cs" />
     <Compile Include="AbstractFkEntity.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201406052053301_000_init.cs" />
-    <Compile Include="Migrations\201406052053301_000_init.Designer.cs">
-      <DependentUpon>201406052053301_000_init.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406081809095_001.cs" />
-    <Compile Include="Migrations\201406081809095_001.Designer.cs">
-      <DependentUpon>201406081809095_001.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201406081825089_002.cs" />
-    <Compile Include="Migrations\201406081825089_002.Designer.cs">
-      <DependentUpon>201406081825089_002.cs</DependentUpon>
+    <Compile Include="Migrations\201406101817170_000_init.cs" />
+    <Compile Include="Migrations\201406101817170_000_init.Designer.cs">
+      <DependentUpon>201406101817170_000_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinervaDbContext.cs" />
@@ -118,18 +110,12 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406052053301_000_init.resx">
-      <DependentUpon>201406052053301_000_init.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406081809095_001.resx">
-      <DependentUpon>201406081809095_001.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406081825089_002.resx">
-      <DependentUpon>201406081825089_002.cs</DependentUpon>
-    </EmbeddedResource>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+    <EmbeddedResource Include="Migrations\201406101817170_000_init.resx">
+      <DependentUpon>201406101817170_000_init.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

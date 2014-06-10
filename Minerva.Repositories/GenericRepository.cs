@@ -9,8 +9,8 @@ using Minerva.Entities;
 
 namespace Minerva.Repositories
 {
-    public abstract class GenericRepository<C, T, TId> :
-        IRepository<T> where T : AbstractFkEntity<TId> where C : DbContext, new () {
+    public abstract class GenericRepository<C, T> :
+        IRepository<T> where T : AbstractEntity where C : DbContext, new () {
     
         private C _entities = new C();
         

@@ -17,7 +17,7 @@ namespace Minerva.Repositories
     /// Nazwy i rozszerzenia brane są z bazy danych.
     /// </summary>
     public class FileRepository : 
-        GenericRepository<MinervaDbContext, File, Int64>
+        GenericRepository<MinervaDbContext, File>
     {
         private Minerva.Common.FileStorage _storage;
 
@@ -37,7 +37,7 @@ namespace Minerva.Repositories
         {
             base.Delete(entity);
 
-            _storage.Delete(entity.Id.ToString());
+            _storage.Delete(entity.DiskStructureId.ToString());
         }
 
         public override void Edit(File entity)
@@ -71,14 +71,14 @@ namespace Minerva.Repositories
         {
             foreach (var file in files)
             {
-                var f = _storage.Get(file.Id.ToString());
+                var f = _storage.Get(file.DiskStructureId.ToString());
                 file.Body = f.Content;
             }
         }
 
         private void ContentComplement(ref File file)
         {
-            var f = _storage.Get(file.Id.ToString());
+            var f = _storage.Get(file.DiskStructureId.ToString());
             file.Body = f.Content;
         }
 
@@ -91,7 +91,7 @@ namespace Minerva.Repositories
             _storage.Save(
                 new CFile
                 {
-                    Name = entity.Id.ToString(),
+                    Name = entity.DiskStructureId.ToString(),
                     Content = entity.Body
                 });
         }

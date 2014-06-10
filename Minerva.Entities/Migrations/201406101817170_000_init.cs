@@ -11,7 +11,7 @@ namespace Minerva.Entities.Migrations
                 "dbo.Directories",
                 c => new
                     {
-                        Id = c.Long(nullable: false, identity: true),
+                        DiskStructureId = c.Long(nullable: false),
                         CreatedTime = c.DateTime(nullable: false),
                         ModificationTime = c.DateTime(),
                         DeletedTime = c.DateTime(),
@@ -19,12 +19,12 @@ namespace Minerva.Entities.Migrations
                         DeletedBy_Id = c.String(maxLength: 128),
                         ModifiedBy_Id = c.String(maxLength: 128),
                     })
-                .PrimaryKey(t => t.Id)
+                .PrimaryKey(t => t.DiskStructureId)
                 .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.DiskStructures", t => t.Id)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructureId)
                 .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .Index(t => t.Id)
+                .Index(t => t.DiskStructureId)
                 .Index(t => t.CreatedBy_Id)
                 .Index(t => t.DeletedBy_Id)
                 .Index(t => t.ModifiedBy_Id);
@@ -37,12 +37,138 @@ namespace Minerva.Entities.Migrations
                         UserName = c.String(),
                         PasswordHash = c.String(),
                         SecurityStamp = c.String(),
+                        Phone = c.String(maxLength: 20),
                         Discriminator = c.String(nullable: false, maxLength: 128),
+                        DiskStructure_Id = c.Long(),
+                        Source_Id = c.Long(),
+                        Source_Id1 = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructure_Id)
+                .ForeignKey("dbo.Sources", t => t.Source_Id)
+                .ForeignKey("dbo.Sources", t => t.Source_Id1)
+                .Index(t => t.DiskStructure_Id)
+                .Index(t => t.Source_Id)
+                .Index(t => t.Source_Id1);
+            
+            CreateTable(
+                "dbo.DiskStructures",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Name = c.String(nullable: false, maxLength: 200),
+                        Description = c.String(maxLength: 400),
+                        CreatedTime = c.DateTime(nullable: false),
+                        ModificationTime = c.DateTime(),
+                        DeletedTime = c.DateTime(),
+                        Parent_Id = c.Long(),
+                        CreatedBy_Id = c.String(maxLength: 128),
+                        DeletedBy_Id = c.String(maxLength: 128),
+                        ModifiedBy_Id = c.String(maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                         Source_Id = c.Long(),
                     })
                 .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.DiskStructures", t => t.Parent_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .ForeignKey("dbo.Sources", t => t.Source_Id)
+                .Index(t => t.Parent_Id)
+                .Index(t => t.CreatedBy_Id)
+                .Index(t => t.DeletedBy_Id)
+                .Index(t => t.ModifiedBy_Id)
+                .Index(t => t.ApplicationUser_Id)
                 .Index(t => t.Source_Id);
+            
+            CreateTable(
+                "dbo.Comments",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Body = c.String(maxLength: 500),
+                        CreatedTime = c.DateTime(nullable: false),
+                        ModificationTime = c.DateTime(),
+                        DeletedTime = c.DateTime(),
+                        CreatedBy_Id = c.String(maxLength: 128),
+                        DeletedBy_Id = c.String(maxLength: 128),
+                        ModifiedBy_Id = c.String(maxLength: 128),
+                        DiskStructure_Id = c.Long(),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructure_Id)
+                .Index(t => t.CreatedBy_Id)
+                .Index(t => t.DeletedBy_Id)
+                .Index(t => t.ModifiedBy_Id)
+                .Index(t => t.DiskStructure_Id);
+            
+            CreateTable(
+                "dbo.Files",
+                c => new
+                    {
+                        DiskStructureId = c.Long(nullable: false),
+                        Extension = c.String(nullable: false, maxLength: 5),
+                        CreatedTime = c.DateTime(nullable: false),
+                        ModificationTime = c.DateTime(),
+                        DeletedTime = c.DateTime(),
+                        CreatedBy_Id = c.String(maxLength: 128),
+                        DeletedBy_Id = c.String(maxLength: 128),
+                        ModifiedBy_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.DiskStructureId)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructureId)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
+                .Index(t => t.DiskStructureId)
+                .Index(t => t.CreatedBy_Id)
+                .Index(t => t.DeletedBy_Id)
+                .Index(t => t.ModifiedBy_Id);
+            
+            CreateTable(
+                "dbo.Resources",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        CreatedTime = c.DateTime(nullable: false),
+                        ModificationTime = c.DateTime(),
+                        DeletedTime = c.DateTime(),
+                        CreatedBy_Id = c.String(maxLength: 128),
+                        DeletedBy_Id = c.String(maxLength: 128),
+                        ModifiedBy_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
+                .Index(t => t.CreatedBy_Id)
+                .Index(t => t.DeletedBy_Id)
+                .Index(t => t.ModifiedBy_Id);
+            
+            CreateTable(
+                "dbo.Tags",
+                c => new
+                    {
+                        Id = c.Long(nullable: false, identity: true),
+                        Name = c.String(maxLength: 100),
+                        CreatedTime = c.DateTime(nullable: false),
+                        ModificationTime = c.DateTime(),
+                        DeletedTime = c.DateTime(),
+                        CreatedBy_Id = c.String(maxLength: 128),
+                        DeletedBy_Id = c.String(maxLength: 128),
+                        ModifiedBy_Id = c.String(maxLength: 128),
+                    })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
+                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
+                .Index(t => t.CreatedBy_Id)
+                .Index(t => t.DeletedBy_Id)
+                .Index(t => t.ModifiedBy_Id);
             
             CreateTable(
                 "dbo.AspNetUserClaims",
@@ -92,120 +218,6 @@ namespace Minerva.Entities.Migrations
                 .PrimaryKey(t => t.Id);
             
             CreateTable(
-                "dbo.DiskStructures",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Name = c.String(nullable: false, maxLength: 200),
-                        Path = c.String(nullable: false, maxLength: 500),
-                        CreatedTime = c.DateTime(nullable: false),
-                        ModificationTime = c.DateTime(),
-                        DeletedTime = c.DateTime(),
-                        Parent_Id = c.Long(),
-                        CreatedBy_Id = c.String(maxLength: 128),
-                        DeletedBy_Id = c.String(maxLength: 128),
-                        Directory_Id = c.Long(),
-                        File_Id = c.Long(),
-                        ModifiedBy_Id = c.String(maxLength: 128),
-                        Source_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.DiskStructures", t => t.Parent_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.Directories", t => t.Directory_Id)
-                .ForeignKey("dbo.Files", t => t.File_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .ForeignKey("dbo.Sources", t => t.Source_Id)
-                .Index(t => t.Parent_Id)
-                .Index(t => t.CreatedBy_Id)
-                .Index(t => t.DeletedBy_Id)
-                .Index(t => t.Directory_Id)
-                .Index(t => t.File_Id)
-                .Index(t => t.ModifiedBy_Id)
-                .Index(t => t.Source_Id);
-            
-            CreateTable(
-                "dbo.Comments",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Body = c.String(maxLength: 500),
-                        Time = c.DateTime(nullable: false),
-                        CreatedTime = c.DateTime(nullable: false),
-                        ModificationTime = c.DateTime(),
-                        DeletedTime = c.DateTime(),
-                        Author_Id = c.String(maxLength: 128),
-                        CreatedBy_Id = c.String(maxLength: 128),
-                        DeletedBy_Id = c.String(maxLength: 128),
-                        ModifiedBy_Id = c.String(maxLength: 128),
-                        DiskStructure_Id = c.Long(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Author_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .ForeignKey("dbo.DiskStructures", t => t.DiskStructure_Id)
-                .Index(t => t.Author_Id)
-                .Index(t => t.CreatedBy_Id)
-                .Index(t => t.DeletedBy_Id)
-                .Index(t => t.ModifiedBy_Id)
-                .Index(t => t.DiskStructure_Id);
-            
-            CreateTable(
-                "dbo.Files",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Extension = c.String(nullable: false, maxLength: 200),
-                        MimeType = c.String(),
-                        Content = c.String(),
-                        CreatedTime = c.DateTime(nullable: false),
-                        ModificationTime = c.DateTime(),
-                        DeletedTime = c.DateTime(),
-                        CreatedBy_Id = c.String(maxLength: 128),
-                        DeletedBy_Id = c.String(maxLength: 128),
-                        ModifiedBy_Id = c.String(maxLength: 128),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.DiskStructures", t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .Index(t => t.Id)
-                .Index(t => t.CreatedBy_Id)
-                .Index(t => t.DeletedBy_Id)
-                .Index(t => t.ModifiedBy_Id);
-            
-            CreateTable(
-                "dbo.FtpSources",
-                c => new
-                    {
-                        Id = c.Long(nullable: false, identity: true),
-                        Username = c.String(nullable: false),
-                        Password = c.String(nullable: false),
-                        PasswordSalt = c.String(nullable: false),
-                        Address = c.String(nullable: false),
-                        CreatedTime = c.DateTime(nullable: false),
-                        ModificationTime = c.DateTime(),
-                        DeletedTime = c.DateTime(),
-                        CreatedBy_Id = c.String(maxLength: 128),
-                        DeletedBy_Id = c.String(maxLength: 128),
-                        ModifiedBy_Id = c.String(maxLength: 128),
-                        Source_Id = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .ForeignKey("dbo.Sources", t => t.Source_Id, cascadeDelete: true)
-                .Index(t => t.CreatedBy_Id)
-                .Index(t => t.DeletedBy_Id)
-                .Index(t => t.ModifiedBy_Id)
-                .Index(t => t.Source_Id);
-            
-            CreateTable(
                 "dbo.Sources",
                 c => new
                     {
@@ -217,103 +229,139 @@ namespace Minerva.Entities.Migrations
                         DeletedTime = c.DateTime(),
                         CreatedBy_Id = c.String(maxLength: 128),
                         DeletedBy_Id = c.String(maxLength: 128),
-                        FtpSource_Id = c.Long(),
                         ModifiedBy_Id = c.String(maxLength: 128),
-                        Owner_Id = c.String(nullable: false, maxLength: 128),
+                        ApplicationUser_Id = c.String(maxLength: 128),
                     })
                 .PrimaryKey(t => t.Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.CreatedBy_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.DeletedBy_Id)
-                .ForeignKey("dbo.FtpSources", t => t.FtpSource_Id)
                 .ForeignKey("dbo.AspNetUsers", t => t.ModifiedBy_Id)
-                .ForeignKey("dbo.AspNetUsers", t => t.Owner_Id, cascadeDelete: true)
+                .ForeignKey("dbo.AspNetUsers", t => t.ApplicationUser_Id)
                 .Index(t => t.CreatedBy_Id)
                 .Index(t => t.DeletedBy_Id)
-                .Index(t => t.FtpSource_Id)
                 .Index(t => t.ModifiedBy_Id)
-                .Index(t => t.Owner_Id);
+                .Index(t => t.ApplicationUser_Id);
+            
+            CreateTable(
+                "dbo.ResourceDiskStructures",
+                c => new
+                    {
+                        Resource_Id = c.Long(nullable: false),
+                        DiskStructure_Id = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Resource_Id, t.DiskStructure_Id })
+                .ForeignKey("dbo.Resources", t => t.Resource_Id, cascadeDelete: true)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructure_Id, cascadeDelete: true)
+                .Index(t => t.Resource_Id)
+                .Index(t => t.DiskStructure_Id);
+            
+            CreateTable(
+                "dbo.TagDiskStructures",
+                c => new
+                    {
+                        Tag_Id = c.Long(nullable: false),
+                        DiskStructure_Id = c.Long(nullable: false),
+                    })
+                .PrimaryKey(t => new { t.Tag_Id, t.DiskStructure_Id })
+                .ForeignKey("dbo.Tags", t => t.Tag_Id, cascadeDelete: true)
+                .ForeignKey("dbo.DiskStructures", t => t.DiskStructure_Id, cascadeDelete: true)
+                .Index(t => t.Tag_Id)
+                .Index(t => t.DiskStructure_Id);
             
         }
         
         public override void Down()
         {
-            DropForeignKey("dbo.FtpSources", "Source_Id", "dbo.Sources");
+            DropForeignKey("dbo.Directories", "ModifiedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Directories", "DiskStructureId", "dbo.DiskStructures");
+            DropForeignKey("dbo.Directories", "DeletedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Directories", "CreatedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Sources", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUsers", "Source_Id1", "dbo.Sources");
             DropForeignKey("dbo.AspNetUsers", "Source_Id", "dbo.Sources");
-            DropForeignKey("dbo.Sources", "Owner_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Sources", "ModifiedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Sources", "FtpSource_Id", "dbo.FtpSources");
             DropForeignKey("dbo.DiskStructures", "Source_Id", "dbo.Sources");
             DropForeignKey("dbo.Sources", "DeletedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Sources", "CreatedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.FtpSources", "ModifiedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.FtpSources", "DeletedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.FtpSources", "CreatedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Directories", "ModifiedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Directories", "Id", "dbo.DiskStructures");
+            DropForeignKey("dbo.AspNetUserClaims", "User_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
+            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
+            DropForeignKey("dbo.DiskStructures", "ApplicationUser_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Tags", "ModifiedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.TagDiskStructures", "DiskStructure_Id", "dbo.DiskStructures");
+            DropForeignKey("dbo.TagDiskStructures", "Tag_Id", "dbo.Tags");
+            DropForeignKey("dbo.Tags", "DeletedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Tags", "CreatedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Resources", "ModifiedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.ResourceDiskStructures", "DiskStructure_Id", "dbo.DiskStructures");
+            DropForeignKey("dbo.ResourceDiskStructures", "Resource_Id", "dbo.Resources");
+            DropForeignKey("dbo.Resources", "DeletedBy_Id", "dbo.AspNetUsers");
+            DropForeignKey("dbo.Resources", "CreatedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.DiskStructures", "ModifiedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.DiskStructures", "File_Id", "dbo.Files");
             DropForeignKey("dbo.Files", "ModifiedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Files", "Id", "dbo.DiskStructures");
+            DropForeignKey("dbo.Files", "DiskStructureId", "dbo.DiskStructures");
             DropForeignKey("dbo.Files", "DeletedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Files", "CreatedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.DiskStructures", "Directory_Id", "dbo.Directories");
             DropForeignKey("dbo.DiskStructures", "DeletedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.DiskStructures", "CreatedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "DiskStructure_Id", "dbo.DiskStructures");
             DropForeignKey("dbo.Comments", "ModifiedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "DeletedBy_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.Comments", "CreatedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Comments", "Author_Id", "dbo.AspNetUsers");
             DropForeignKey("dbo.DiskStructures", "Parent_Id", "dbo.DiskStructures");
-            DropForeignKey("dbo.Directories", "DeletedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.Directories", "CreatedBy_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserClaims", "User_Id", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "UserId", "dbo.AspNetUsers");
-            DropForeignKey("dbo.AspNetUserRoles", "RoleId", "dbo.AspNetRoles");
-            DropForeignKey("dbo.AspNetUserLogins", "UserId", "dbo.AspNetUsers");
-            DropIndex("dbo.Sources", new[] { "Owner_Id" });
+            DropForeignKey("dbo.AspNetUsers", "DiskStructure_Id", "dbo.DiskStructures");
+            DropIndex("dbo.TagDiskStructures", new[] { "DiskStructure_Id" });
+            DropIndex("dbo.TagDiskStructures", new[] { "Tag_Id" });
+            DropIndex("dbo.ResourceDiskStructures", new[] { "DiskStructure_Id" });
+            DropIndex("dbo.ResourceDiskStructures", new[] { "Resource_Id" });
+            DropIndex("dbo.Sources", new[] { "ApplicationUser_Id" });
             DropIndex("dbo.Sources", new[] { "ModifiedBy_Id" });
-            DropIndex("dbo.Sources", new[] { "FtpSource_Id" });
             DropIndex("dbo.Sources", new[] { "DeletedBy_Id" });
             DropIndex("dbo.Sources", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.FtpSources", new[] { "Source_Id" });
-            DropIndex("dbo.FtpSources", new[] { "ModifiedBy_Id" });
-            DropIndex("dbo.FtpSources", new[] { "DeletedBy_Id" });
-            DropIndex("dbo.FtpSources", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.Files", new[] { "ModifiedBy_Id" });
-            DropIndex("dbo.Files", new[] { "DeletedBy_Id" });
-            DropIndex("dbo.Files", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.Files", new[] { "Id" });
-            DropIndex("dbo.Comments", new[] { "DiskStructure_Id" });
-            DropIndex("dbo.Comments", new[] { "ModifiedBy_Id" });
-            DropIndex("dbo.Comments", new[] { "DeletedBy_Id" });
-            DropIndex("dbo.Comments", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.Comments", new[] { "Author_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "Source_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "ModifiedBy_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "File_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "Directory_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "DeletedBy_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.DiskStructures", new[] { "Parent_Id" });
             DropIndex("dbo.AspNetUserRoles", new[] { "RoleId" });
             DropIndex("dbo.AspNetUserRoles", new[] { "UserId" });
             DropIndex("dbo.AspNetUserLogins", new[] { "UserId" });
             DropIndex("dbo.AspNetUserClaims", new[] { "User_Id" });
+            DropIndex("dbo.Tags", new[] { "ModifiedBy_Id" });
+            DropIndex("dbo.Tags", new[] { "DeletedBy_Id" });
+            DropIndex("dbo.Tags", new[] { "CreatedBy_Id" });
+            DropIndex("dbo.Resources", new[] { "ModifiedBy_Id" });
+            DropIndex("dbo.Resources", new[] { "DeletedBy_Id" });
+            DropIndex("dbo.Resources", new[] { "CreatedBy_Id" });
+            DropIndex("dbo.Files", new[] { "ModifiedBy_Id" });
+            DropIndex("dbo.Files", new[] { "DeletedBy_Id" });
+            DropIndex("dbo.Files", new[] { "CreatedBy_Id" });
+            DropIndex("dbo.Files", new[] { "DiskStructureId" });
+            DropIndex("dbo.Comments", new[] { "DiskStructure_Id" });
+            DropIndex("dbo.Comments", new[] { "ModifiedBy_Id" });
+            DropIndex("dbo.Comments", new[] { "DeletedBy_Id" });
+            DropIndex("dbo.Comments", new[] { "CreatedBy_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "Source_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "ApplicationUser_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "ModifiedBy_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "DeletedBy_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "CreatedBy_Id" });
+            DropIndex("dbo.DiskStructures", new[] { "Parent_Id" });
+            DropIndex("dbo.AspNetUsers", new[] { "Source_Id1" });
             DropIndex("dbo.AspNetUsers", new[] { "Source_Id" });
+            DropIndex("dbo.AspNetUsers", new[] { "DiskStructure_Id" });
             DropIndex("dbo.Directories", new[] { "ModifiedBy_Id" });
             DropIndex("dbo.Directories", new[] { "DeletedBy_Id" });
             DropIndex("dbo.Directories", new[] { "CreatedBy_Id" });
-            DropIndex("dbo.Directories", new[] { "Id" });
+            DropIndex("dbo.Directories", new[] { "DiskStructureId" });
+            DropTable("dbo.TagDiskStructures");
+            DropTable("dbo.ResourceDiskStructures");
             DropTable("dbo.Sources");
-            DropTable("dbo.FtpSources");
-            DropTable("dbo.Files");
-            DropTable("dbo.Comments");
-            DropTable("dbo.DiskStructures");
             DropTable("dbo.AspNetRoles");
             DropTable("dbo.AspNetUserRoles");
             DropTable("dbo.AspNetUserLogins");
             DropTable("dbo.AspNetUserClaims");
+            DropTable("dbo.Tags");
+            DropTable("dbo.Resources");
+            DropTable("dbo.Files");
+            DropTable("dbo.Comments");
+            DropTable("dbo.DiskStructures");
             DropTable("dbo.AspNetUsers");
             DropTable("dbo.Directories");
         }

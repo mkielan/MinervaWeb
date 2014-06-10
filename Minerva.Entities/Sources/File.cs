@@ -8,17 +8,14 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class File : AbstractFkEntity<Int64>
+    public class File : AbstractEntity
     {
+        [Key, ForeignKey("DiskStructure")]
+        public long DiskStructureId { get; set; }
+
         [Required]
-        [MaxLength(200)]
+        [MaxLength(5)]
         public string Extension { get; set; }
-
-        public string MimeType { get; set; }
-
-        public string Content { get; set; }
-        
-        public DiskStructure DiskStructure { get; set; }
 
         /// <summary>
         /// Plik w postaci tablicy bajtów. Atrybut nie mapowany do bazy.
@@ -27,5 +24,7 @@ namespace Minerva.Entities.Sources
         /// </summary>
         [NotMapped]
         public byte[] Body { get; set; }
+
+        public virtual DiskStructure DiskStructure { get; set; }
     }
 }
