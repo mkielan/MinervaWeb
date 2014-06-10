@@ -49,6 +49,7 @@
     <Compile Include="Api\Directory\View.cs" />
     <Compile Include="Api\FFile.cs" />
     <Compile Include="Api\FileInfo.cs" />
+    <Compile Include="Api\File\Add.cs" />
     <Compile Include="Api\File\Edit.cs" />
     <Compile Include="Api\File\View.cs" />
     <Compile Include="Api\LoginBindingModel.cs" />

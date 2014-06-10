@@ -274,9 +274,7 @@
     <Compile Include="ApiControllers\AccountController.cs" />
     <Compile Include="ApiControllers\CommentController.cs" />
     <Compile Include="ApiControllers\DirectoryController.cs" />
-    <Compile Include="ApiControllers\DiskStructureController.cs" />
     <Compile Include="ApiControllers\FileController.cs" />
-    <Compile Include="ApiControllers\FileInfoController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -353,7 +351,6 @@
       <SubType>Designer</SubType>
     </None>
     <Content Include="Content\Site.less" />
-    <Content Include="client_secrets.json" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>

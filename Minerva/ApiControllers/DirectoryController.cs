@@ -8,7 +8,8 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using System.Threading.Tasks;
-using Minerva.Models.Api.Directory;
+using DirModels = Minerva.Models.Api.Directory;
+using FileModels = Minerva.Models.Api.File;
 
 namespace Minerva.ApiControllers
 {
@@ -18,13 +19,11 @@ namespace Minerva.ApiControllers
     // todo dodać [Authorize]
     public class DirectoryController : ApiController
     {
-        private GenericRepository<MinervaDbContext, Directory> _directoryRepository;
-        private GenericFullRepository<MinervaDbContext, DiskStructure> _diskStructureRepository;
+        private GenericFullRepository<MinervaDbContext, DiskStructure> _repository;
 
         public DirectoryController()
         {
-            _directoryRepository = new DirectoryRepository();
-            _diskStructureRepository = new DiskStructureRepository();
+            _repository = new DiskStructureRepository();
         }
 
         // GET: api/Directory
@@ -32,49 +31,62 @@ namespace Minerva.ApiControllers
         /// Zwraca listę wszystkich folderów
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<View> Get()
+        public IEnumerable<DirModels.View> Get()
         {
             // todo ograniczenie do katalogu 
             
             return (
-                from d in _directoryRepository.GetAll()
-                select new View {
-                    Id = d.DiskStructureId,
-                    Name = d.DiskStructure.Name,
-                    Description = d.DiskStructure.Description,
+                from d in _repository.GetAll()
+                where d.IsDirectory
+                select new DirModels.View
+                {
+                    Id = d.Id,
+                    Name = d.Name,
+                    Description = d.Description,
                     Img = "", //todo
                 } 
             );
         }
 
         // GET: api/Directory/5
-        public async Task<IHttpActionResult> Get(int id)
+        public async Task<IHttpActionResult> Get(long id)
         {
             // todo ograniczenie co do własności
-            var dir = _directoryRepository.FindBy(d => d.DiskStructureId == id).FirstOrDefault();
+            var dir = _repository
+                .FindBy(
+                    d => 
+                        d.Id == id
+                        && d.IsDirectory
+                ).FirstOrDefault();
             if (dir == null) return NotFound();
 
             return Ok(
-                new View {
-                    Id = dir.DiskStructureId,
-                    Name = dir.DiskStructure.Name,
-                    Description = dir.DiskStructure.Description,
+                new DirModels.View
+                {
+                    Id = dir.Id,
+                    Name = dir.Name,
+                    Description = dir.Description,
                     Img = "" //todo
                 }
            );
         }
 
         // POST: api/Directory
-        public async Task<IHttpActionResult> Post([FromBody]Add directory)
+        /// <summary>
+        /// Dodaje katalog
+        /// </summary>
+        /// <param name="directory"></param>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> Post([FromBody]DirModels.Add directory)
         {
             // sprawdzenie czy istnieje taki rodzic
             DiskStructure parent = null;
 
             try
             {
-                parent = _diskStructureRepository.FindBy(
+                parent = _repository.FindBy(
                     ds => ds.Id == directory.ParentId 
-                        && ds.Directory != null
+                        && ds.IsDirectory
                         ).Single();
             }
             catch (ArgumentNullException exc)
@@ -102,46 +114,111 @@ namespace Minerva.ApiControllers
             };
 
 
-
-            _directoryRepository.Save();
+            _repository.Add(diskStructure);
+            _repository.Save();
 
             return Ok();
         }
 
         // PUT: api/Directory/5
-        public async Task<IHttpActionResult> Put(int id, [FromBody]Directory dir)
+        /// <summary>
+        /// Edytuje katalog
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dir"></param>
+        /// <returns></returns>
+        public async Task<IHttpActionResult> Put(long id, [FromBody]DirModels.Edit dir)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-            var com = _directoryRepository.FindBy(c => c.DiskStructureId == dir.DiskStructureId).FirstOrDefault();
+            var com = _repository
+                .FindBy(
+                    c => c.Id == id
+                        && c.IsDirectory
+                    ).FirstOrDefault();
 
             if (com == null)
             {
                 return NotFound();
             }
 
-            _directoryRepository.Edit(dir);
-            _directoryRepository.Save();
+            com.Name = dir.Name;
+            com.Description = dir.Description;
+
+            _repository.Edit(com);
+            _repository.Save();
 
             return Ok();
         }
 
         // DELETE: api/Directory/5
-        public async Task<IHttpActionResult> Delete(int id)
+        public async Task<IHttpActionResult> Delete(long id)
         {
             // todo ograniczenie tylko do swoich
-            var entity = _directoryRepository.FindBy(d => d.DiskStructureId == id).First();
+            var entity = _repository
+                .FindBy(
+                    d => d.Id == id
+                        && d.IsDirectory
+                    ).First();
 
             if (entity == null)
                 return NotFound();
 
-            _directoryRepository.Delete(entity);
-            _directoryRepository.Save();
+            _repository.Delete(entity);
+            _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Zwraca pliki zawierające się w danym katalogu.
+        /// </summary>
+        /// <param name="id">Id katalogu</param>
+        /// <returns></returns>
+        public IEnumerable<FileModels.View> GetFiles(long id)
+        {
+            var files = _repository.FindBy(
+                    ds => ds.Parent.Id == id
+                        && ds.IsFile == true
+                );
+
+            var retFiles = files.Select(
+                f => new FileModels.View { 
+                    Id = f.Id,
+                    Name = f.Name,
+                    Description = f.Description
+                }
+            );
+
+            return retFiles;
+        }
+
+        /// <summary>
+        /// Zwraca katalogi-dzieci danego katalogu.
+        /// </summary>
+        /// <param name="id">id katalogu</param>
+        /// <returns></returns>
+        public IEnumerable<DirModels.View> GetDirectories(long id)
+        {
+            var dirs = _repository.FindBy(
+                    ds => ds.Parent.Id == id
+                        && ds.IsDirectory == true
+                );
+
+            var retDirs = dirs.Select(
+                f => new DirModels.View
+                {
+                    Id = f.Id,
+                    Name = f.Name,
+                    Description = f.Description,
+                    Img = "" // todo
+                }
+            );
+
+            return retDirs;
         }
     }
 }

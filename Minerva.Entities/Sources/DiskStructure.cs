@@ -23,6 +23,12 @@ namespace Minerva.Entities.Sources
         
         public virtual File File { get; set; }
 
+        [NotMapped]
+        public bool IsDirectory { get { return Directory != null; } }
+
+        [NotMapped]
+        public bool IsFile { get { return File != null; } }
+
         public virtual ICollection<DiskStructure> Children { get; set; }
 
         public virtual ICollection<Comment> Comments { get; set; }
