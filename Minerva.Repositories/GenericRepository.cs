@@ -1,58 +1,56 @@
-﻿using System;
+﻿using Minerva.Entities;
+using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
-using Minerva.Entities;
 
 namespace Minerva.Repositories
 {
-    public abstract class GenericRepository<C, T> :
-        IRepository<T> where T : AbstractEntity where C : DbContext, new () {
-    
+    public class GenericRepository<C, E> :
+        IRepository<E>
+        where E : AbstractEntity
+        where C : DbContext, new()
+    {
+
         private C _entities = new C();
-        
-        public C Context {
-        get { return _entities; }
-        set { _entities = value; }
-    }
-            
-        public void Save()
+
+        public C Context
+        {
+            get { return _entities; }
+            set { _entities = value; }
+        }
+
+        public virtual void Save()
         {
             _entities.SaveChanges();
         }
-            
-        public virtual void Add(T entity)
+
+        public virtual void Add(E entity)
         {
-            entity.CreatedTime = DateTime.Now;
-            
-            _entities.Set<T>().Add(entity);
+            _entities.Set<E>().Add(entity);
         }
-        
-        public virtual void Edit(T entity)
+
+        public virtual void Edit(E entity)
         {
-            entity.ModificationTime = DateTime.Now;
-            
             _entities.Entry(entity).State = EntityState.Modified;
         }
-        
-        public virtual void Delete(T entity)
-        {
-            entity.CreatedTime = DateTime.Now;
 
-            _entities.Set<T>().Remove(entity);
-        }
-        
-        public virtual IQueryable<T> GetAll()
+        public virtual void Delete(E entity)
         {
-            return _entities.Set<T>();
+            _entities.Set<E>().Remove(entity);
         }
-            
-        public virtual IQueryable<T> FindBy(System.Linq.Expressions.Expression<Func<T,bool>> predicate)
+
+        public virtual IQueryable<E> GetAll()
         {
-            return _entities.Set<T>().Where(predicate);
+            return _entities.Set<E>();
+        }
+
+        public virtual IQueryable<E> FindBy(Expression<Func<E, bool>> predicate)
+        {
+            return _entities.Set<E>().Where(predicate);
         }
     }
 }

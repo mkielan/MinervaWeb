@@ -70,9 +70,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractEntity.cs" />
+    <Compile Include="AbstractFullEntity.cs" />
     <Compile Include="AbstractFkEntity.cs" />
     <Compile Include="IdentityModels.cs" />
+    <Compile Include="AbstractEntity.cs" />
     <Compile Include="Migrations\201406101817170_000_init.cs" />
     <Compile Include="Migrations\201406101817170_000_init.Designer.cs">
       <DependentUpon>201406101817170_000_init.cs</DependentUpon>

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities
 {
-    public abstract class AbstractFkEntity<T> : AbstractEntity
+    public abstract class AbstractFkEntity<T> : AbstractFullEntity
     {
         [Key]
         [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]

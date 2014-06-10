@@ -14,7 +14,7 @@ namespace Minerva.ApiControllers
     //todo dodać [Authorize]
     public class CommentController : ApiController
     {
-        private GenericRepository<MinervaDbContext, Comment, Int64> _commentRepository;
+        private GenericFullRepository<MinervaDbContext, Comment> _commentRepository;
 
         public CommentController()
         {

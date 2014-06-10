@@ -19,7 +19,7 @@ namespace Minerva.ApiControllers
     //todo dodać [Authorize]
     public class FileController : ApiController
     {
-        private GenericRepository<MinervaDbContext, File, Int64> _fileRepository;
+        private GenericRepository<MinervaDbContext, File> _fileRepository;
 
         public FileController()
         {
@@ -31,7 +31,7 @@ namespace Minerva.ApiControllers
         public IHttpActionResult Get(int id)
         {
             // todo ograniczenie dla danego usera
-            var file = _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
+            var file = _fileRepository.FindBy(f => f.DiskStructureId == id).FirstOrDefault();
 
             if (file == null)
             {
@@ -63,7 +63,7 @@ namespace Minerva.ApiControllers
                 return BadRequest(ModelState);
             }
 
-            var com = _fileRepository.FindBy(c => c.Id == file.Id).FirstOrDefault();
+            var com = _fileRepository.FindBy(c => c.DiskStructureId == file.DiskStructureId).FirstOrDefault();
 
             if (com == null)
             {
@@ -80,7 +80,7 @@ namespace Minerva.ApiControllers
         public async Task<IHttpActionResult> Delete(int id)
         {
             // todo ograniczenie co do własności
-            var entity = _fileRepository.FindBy(f => f.Id == id).FirstOrDefault();
+            var entity = _fileRepository.FindBy(f => f.DiskStructureId == id).FirstOrDefault();
 
             if (entity == null)
                 return NotFound();
