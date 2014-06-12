@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Minerva.Resources;
 
 namespace Minerva.Controllers
 {
@@ -13,7 +14,7 @@ namespace Minerva.Controllers
         // GET: Storage
         public ActionResult Index()
         {
-            ViewBag.Title = "Your storage";
+            ViewBag.Title = Layout.YourStorage;
 
             var test = new List<GridItem>();
             test.AddRange(

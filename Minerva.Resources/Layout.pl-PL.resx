@@ -118,84 +118,84 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="About" xml:space="preserve">
-    <value>About</value>
+    <value>O projekcie</value>
   </data>
   <data name="Add" xml:space="preserve">
     <value>Dodaj</value>
   </data>
   <data name="AssociationForm" xml:space="preserve">
-    <value>Association Form</value>
+    <value>Dowiązanie konta</value>
   </data>
   <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
+    <value>Zmień hasło</value>
   </data>
   <data name="ChangePasswordForm" xml:space="preserve">
-    <value>Change Password Form</value>
+    <value>Zmiana hasła</value>
   </data>
   <data name="CreateLocalLogin" xml:space="preserve">
-    <value>Create Local Login</value>
+    <value>Utwórz lokalny login</value>
   </data>
   <data name="CreateNewAccount" xml:space="preserve">
-    <value>Create a new account.</value>
+    <value>Utwórz nowe konto.</value>
   </data>
   <data name="Error" xml:space="preserve">
-    <value>Error</value>
+    <value>Błąd</value>
   </data>
   <data name="HelloUser" xml:space="preserve">
-    <value>Hello {0}!</value>
+    <value>Witaj {0}!</value>
   </data>
   <data name="IfDontHaveLocalAccount" xml:space="preserve">
-    <value>if you don't have a local account.</value>
+    <value> jeśli nie posiadasz konta.</value>
   </data>
   <data name="LocalAccountLogin" xml:space="preserve">
-    <value>Use a local account to log in.</value>
+    <value>Użyj lokalne konto do zalogowania.</value>
   </data>
   <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
+    <value>Zaloguj</value>
   </data>
   <data name="LoginFailure" xml:space="preserve">
-    <value>Login Failure</value>
+    <value>Logowanie zakończone niepowodzeniem</value>
   </data>
   <data name="LogInUsingAnotherAccount" xml:space="preserve">
-    <value>Log in using your {0} account</value>
+    <value>Zaloguj wykorzystując twóje konto {0}</value>
   </data>
   <data name="LogOff" xml:space="preserve">
-    <value>LogOff</value>
+    <value>Wyloguj</value>
   </data>
   <data name="ManageAccount" xml:space="preserve">
-    <value>Manage Account</value>
+    <value>Zarządzaj kontem</value>
   </data>
   <data name="Register" xml:space="preserve">
-    <value>Register</value>
+    <value>Zarejestruj</value>
   </data>
   <data name="RegistredLogins" xml:space="preserve">
-    <value>Registered Logins</value>
+    <value>Zarejestrowane loginy</value>
   </data>
   <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
+    <value>Usuń</value>
   </data>
   <data name="RemoveLoginProvider" xml:space="preserve">
-    <value>Remove this {0} login from your account</value>
+    <value>Odepnij {0} login od twojego konta</value>
   </data>
   <data name="SetPassword" xml:space="preserve">
-    <value>Set password</value>
+    <value>Ustaw hasło</value>
   </data>
   <data name="Shared" xml:space="preserve">
-    <value>Shared</value>
+    <value>Udostępniane</value>
   </data>
   <data name="SharedByYou" xml:space="preserve">
-    <value>Shared by you</value>
+    <value>Udostępnione przez Ciebie</value>
   </data>
   <data name="SharedForYou" xml:space="preserve">
-    <value>Shared for you</value>
+    <value>Udostępnione dla Ciebie</value>
   </data>
   <data name="UseAnotherServiceToLogIn" xml:space="preserve">
-    <value>Use another service to log in.</value>
+    <value>Użyj innego serwisu, aby się zalogować.</value>
   </data>
   <data name="YouAreLoggedAs" xml:space="preserve">
-    <value>You're logged in as &lt;strong&gt;{0}&lt;/strong&gt;.</value>
+    <value>Jesteś zalogowany jako &lt;strong&gt;{0}&lt;/strong&gt;.</value>
   </data>
   <data name="YourStorage" xml:space="preserve">
-    <value>Your storage</value>
+    <value>Twoja przestrzeń</value>
   </data>
 </root>

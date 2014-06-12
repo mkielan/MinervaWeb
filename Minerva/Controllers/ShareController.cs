@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Minerva.Resources;
 
 namespace Minerva.Controllers
 {
@@ -13,8 +14,8 @@ namespace Minerva.Controllers
         // GET: Share
         public ActionResult ForYou()
         {
-            ViewBag.Title = "Shared for you";
-
+            ViewBag.Title = Layout.SharedForYou;
+            
             var model = new List<GridItem>();
 
             return View("Storage", model);
@@ -22,7 +23,7 @@ namespace Minerva.Controllers
 
         public ActionResult ByYou()
         {
-            ViewBag.Title = "Shared by you";
+            ViewBag.Title = Layout.SharedByYou;
 
             var model = new List<GridItem>();
 

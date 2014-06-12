@@ -117,85 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
+  <data name="AssociateExternalAccount" xml:space="preserve">
+    <value>Associate your {0} account.</value>
   </data>
-  <data name="Add" xml:space="preserve">
-    <value>Dodaj</value>
+  <data name="ErrorDuringRequestProcessing" xml:space="preserve">
+    <value>An error occurred while processing your request.</value>
   </data>
-  <data name="AssociationForm" xml:space="preserve">
-    <value>Association Form</value>
+  <data name="InfoNoExternalAuth" xml:space="preserve">
+    <value>There are no external authentication services configured.</value>
   </data>
-  <data name="ChangePassword" xml:space="preserve">
-    <value>Change password</value>
+  <data name="InfoSuccessAuthWithExternalAccount" xml:space="preserve">
+    <value>You've successfully authenticated with &lt;strong&gt;{0}&lt;/strong&gt;.
+            Please enter a user name for this site below and click the Register button to finish
+            logging in.</value>
   </data>
-  <data name="ChangePasswordForm" xml:space="preserve">
-    <value>Change Password Form</value>
+  <data name="InfoUnsuccessfullExternalLogin" xml:space="preserve">
+    <value>Unsuccessful login with service.</value>
   </data>
-  <data name="CreateLocalLogin" xml:space="preserve">
-    <value>Create Local Login</value>
-  </data>
-  <data name="CreateNewAccount" xml:space="preserve">
-    <value>Create a new account.</value>
-  </data>
-  <data name="Error" xml:space="preserve">
-    <value>Error</value>
-  </data>
-  <data name="HelloUser" xml:space="preserve">
-    <value>Hello {0}!</value>
-  </data>
-  <data name="IfDontHaveLocalAccount" xml:space="preserve">
-    <value>if you don't have a local account.</value>
-  </data>
-  <data name="LocalAccountLogin" xml:space="preserve">
-    <value>Use a local account to log in.</value>
-  </data>
-  <data name="LogIn" xml:space="preserve">
-    <value>Log in</value>
-  </data>
-  <data name="LoginFailure" xml:space="preserve">
-    <value>Login Failure</value>
-  </data>
-  <data name="LogInUsingAnotherAccount" xml:space="preserve">
-    <value>Log in using your {0} account</value>
-  </data>
-  <data name="LogOff" xml:space="preserve">
-    <value>LogOff</value>
-  </data>
-  <data name="ManageAccount" xml:space="preserve">
-    <value>Manage Account</value>
-  </data>
-  <data name="Register" xml:space="preserve">
-    <value>Register</value>
-  </data>
-  <data name="RegistredLogins" xml:space="preserve">
-    <value>Registered Logins</value>
-  </data>
-  <data name="Remove" xml:space="preserve">
-    <value>Remove</value>
-  </data>
-  <data name="RemoveLoginProvider" xml:space="preserve">
-    <value>Remove this {0} login from your account</value>
-  </data>
-  <data name="SetPassword" xml:space="preserve">
-    <value>Set password</value>
-  </data>
-  <data name="Shared" xml:space="preserve">
-    <value>Shared</value>
-  </data>
-  <data name="SharedByYou" xml:space="preserve">
-    <value>Shared by you</value>
-  </data>
-  <data name="SharedForYou" xml:space="preserve">
-    <value>Shared for you</value>
-  </data>
-  <data name="UseAnotherServiceToLogIn" xml:space="preserve">
-    <value>Use another service to log in.</value>
-  </data>
-  <data name="YouAreLoggedAs" xml:space="preserve">
-    <value>You're logged in as &lt;strong&gt;{0}&lt;/strong&gt;.</value>
-  </data>
-  <data name="YourStorage" xml:space="preserve">
-    <value>Your storage</value>
+  <data name="InfoYouDontHaveLocalLogin" xml:space="preserve">
+    <value>You do not have a local username/password for this site. Add a local
+    account so you can log in without an external login.</value>
   </data>
 </root>

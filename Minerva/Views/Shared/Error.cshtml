@@ -1,9 +1,11 @@
 ﻿@model System.Web.Mvc.HandleErrorInfo
 
+@using res = Minerva.Resources;
+
 @{
-    ViewBag.Title = "Error";
+    ViewBag.Title = res.Layout.Error;
 }
 
-<h1 class="text-danger">Error.</h1>
-<h2 class="text-danger">An error occurred while processing your request.</h2>
+<h1 class="text-danger">@res.Layout.Error.</h1>
+<h2 class="text-danger">@res.Messages.ErrorDuringRequestProcessing</h2>
 
