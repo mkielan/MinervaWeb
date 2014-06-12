@@ -1,6 +1,7 @@
 ﻿using Microsoft.Owin;
+using Microsoft.Owin.Security.OAuth;
 using Owin;
-
+[assembly: OwinStartup(typeof(Minerva.Startup))]
 [assembly: OwinStartupAttribute(typeof(Minerva.Startup))]
 namespace Minerva
 {
@@ -9,6 +10,7 @@ namespace Minerva
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
+            
         }
     }
 }

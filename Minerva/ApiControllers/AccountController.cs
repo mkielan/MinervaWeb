@@ -21,12 +21,11 @@ using System.Web.Http.Cors;
 namespace Minerva.ApiControllers
 {
     [Authorize]
-    //[EnableCors("*", "*", "*")]
     [RoutePrefix("api/Account")]
     public class AccountController : ApiController
     {
         private const string LocalLoginProvider = "Local";
-
+        
         public AccountController()
             : this(Startup.UserManagerFactory(), Startup.OAuthOptions.AccessTokenFormat)
         {
@@ -339,7 +338,7 @@ namespace Minerva.ApiControllers
 
             ApplicationUser user = new ApplicationUser
             {
-                UserName = model.UserName
+                UserName = model.UserName,
             };
 
             IdentityResult result = await UserManager.CreateAsync(user, model.Password);

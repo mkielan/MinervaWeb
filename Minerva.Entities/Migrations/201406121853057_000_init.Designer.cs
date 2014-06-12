@@ -13,7 +13,7 @@ namespace Minerva.Entities.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201406101817170_000_init"; }
+            get { return "201406121853057_000_init"; }
         }
         
         string IMigrationMetadata.Source

@@ -32,12 +32,34 @@ namespace Minerva
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true
+
             };
         }
 
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
-        {
+        {/*
+            app.Use(async (context, next) =>
+            {
+                IOwinRequest req = context.Request;
+                IOwinResponse res = context.Response;
+                if (req.Path.StartsWithSegments(new PathString("/Token")))
+                {
+                    var origin = req.Headers.Get("Origin");
+                    if (!string.IsNullOrEmpty(origin))
+                    {
+                        res.Headers.Set("Access-Control-Allow-Origin", origin);
+                    }
+                    if (req.Method == "OPTIONS")
+                    {
+                        res.StatusCode = 200;
+                        res.Headers.AppendCommaSeparatedValues("Access-Control-Allow-Methods", "GET", "POST");
+                        res.Headers.AppendCommaSeparatedValues("Access-Control-Allow-Headers", "authorization", "content-type");
+                        return;
+                    }
+                }
+                await next();
+            });*/
             // Enable the application to use a cookie to store information for the signed in user
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
@@ -46,6 +68,9 @@ namespace Minerva
             });
             // Use a cookie to temporarily store information about a user logging in with a third party login provider
             app.UseExternalSignInCookie(DefaultAuthenticationTypes.ExternalCookie);
+
+            // Enable the application to use bearer tokens to authenticate users
+            app.UseOAuthBearerTokens(OAuthOptions);
 
             // Uncomment the following lines to enable logging in with third party login providers
             //app.UseMicrosoftAccountAuthentication(

@@ -74,9 +74,9 @@
     <Compile Include="AbstractFkEntity.cs" />
     <Compile Include="IdentityModels.cs" />
     <Compile Include="AbstractEntity.cs" />
-    <Compile Include="Migrations\201406101817170_000_init.cs" />
-    <Compile Include="Migrations\201406101817170_000_init.Designer.cs">
-      <DependentUpon>201406101817170_000_init.cs</DependentUpon>
+    <Compile Include="Migrations\201406121853057_000_init.cs" />
+    <Compile Include="Migrations\201406121853057_000_init.Designer.cs">
+      <DependentUpon>201406121853057_000_init.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinervaDbContext.cs" />
@@ -114,8 +114,8 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406101817170_000_init.resx">
-      <DependentUpon>201406101817170_000_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406121853057_000_init.resx">
+      <DependentUpon>201406121853057_000_init.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
