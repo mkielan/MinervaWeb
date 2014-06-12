@@ -1,8 +1,26 @@
-﻿
+﻿@model ICollection<Minerva.Models.Web.Storage.GridItem>
+
+@using GridMvc.Html;
+@using GridMvc.Sorting;
+
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Areas/Api/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<h2>Your storage</h2>
 
+<h2>You are at /folder name/</h2>
+
+@Html.Grid(Model).Columns(columns =>
+    {
+        columns.Add(item => item.Name)
+            .Titled("Name")
+            .SortInitialDirection(GridSortDirection.Descending)
+            .Sortable(true);
+        columns.Add(item => item.LastModification)
+            .Titled("Last modification")
+            .Sortable(true)
+            .Format("{0:dd/MM/yyyy}");
+    }
+).WithPaging(20)
