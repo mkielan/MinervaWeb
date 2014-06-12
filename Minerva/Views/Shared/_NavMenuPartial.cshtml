@@ -1,0 +1,19 @@
+﻿<ul class="nav navbar-nav">
+@if (Request.IsAuthenticated)
+{
+    <li>@Html.ActionLink("Your storage", "Index", "Storage")</li>
+    <li class="dropdown">
+        <a class="dropdown-toggle"
+           data-toggle="dropdown"
+           href="#">
+            Shared
+            <b class="caret"></b>
+        </a>
+        <ul class="dropdown-menu">
+            <li>@Html.ActionLink("Shared for you", "ForYou", "Share")</li>
+            <li>@Html.ActionLink("Shared by you", "ByYou", "Share")</li>
+        </ul>
+    </li>
+}
+    <li>@Html.ActionLink("About", "About", "Home")</li>
+</ul>

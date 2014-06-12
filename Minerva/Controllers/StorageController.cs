@@ -13,6 +13,8 @@ namespace Minerva.Controllers
         // GET: Storage
         public ActionResult Index()
         {
+            ViewBag.Title = "Your storage";
+
             var test = new List<GridItem>();
             test.AddRange(
                 new [] { 
@@ -24,7 +26,7 @@ namespace Minerva.Controllers
                     new GridItem {Id = 6, Name = "File3", Type = ItemType.File, LastModification = DateTime.Now.AddHours(-3) }
                 });
 
-            return View(test);
+            return View("Storage", test);
         }
     }
 }

@@ -20,9 +20,7 @@
                 @Html.ActionLink("Minerva", "Index", "Home", null, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                </ul>
+                @Html.Partial("_NavMenuPartial")
                 @Html.Partial("_LoginPartial")
             </div>
         </div>

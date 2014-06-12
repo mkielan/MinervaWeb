@@ -283,6 +283,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Infrastructure\ApplicationOAuthProvider.cs" />
     <Compile Include="Infrastructure\ChallengeResult.cs" />
@@ -407,11 +408,14 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_GridPager.cshtml" />
     <Content Include="Views\Shared\_Grid.cshtml" />
-    <Content Include="Views\Storage\Index.cshtml" />
+    <Content Include="Views\Shared\Storage.cshtml" />
+    <Content Include="Views\Shared\_NavMenuPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\Share\" />
+    <Folder Include="Views\Storage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
