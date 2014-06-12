@@ -22,14 +22,14 @@ namespace Minerva.Resources {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Model {
+    public class Validation {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Model() {
+        internal Validation() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace Minerva.Resources {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Minerva.Resources.Model", typeof(Model).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("Minerva.Resources.Validation", typeof(Validation).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,29 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Confirm new password.
+        ///   Looks up a localized string similar to The new password and confirmation password do not match..
         /// </summary>
-        public static string ConfirmNewPassword {
+        public static string NewPasswordCompare {
             get {
-                return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
+                return ResourceManager.GetString("NewPasswordCompare", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Current password.
+        ///   Looks up a localized string similar to Field {0} is required.
         /// </summary>
-        public static string CurrentPassword {
+        public static string Required {
             get {
-                return ResourceManager.GetString("CurrentPassword", resourceCulture);
+                return ResourceManager.GetString("Required", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to New password.
+        ///   Looks up a localized string similar to The {0} must be at least {2} characters long..
         /// </summary>
-        public static string NewPassword {
+        public static string StringLength {
             get {
-                return ResourceManager.GetString("NewPassword", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Password.
-        /// </summary>
-        public static string Password {
-            get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Remember me?.
-        /// </summary>
-        public static string RememberMe {
-            get {
-                return ResourceManager.GetString("RememberMe", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to User name.
-        /// </summary>
-        public static string Username {
-            get {
-                return ResourceManager.GetString("Username", resourceCulture);
+                return ResourceManager.GetString("StringLength", resourceCulture);
             }
         }
     }

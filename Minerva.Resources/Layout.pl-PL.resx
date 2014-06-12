@@ -148,7 +148,7 @@
     <value> jeśli nie posiadasz konta.</value>
   </data>
   <data name="LocalAccountLogin" xml:space="preserve">
-    <value>Użyj lokalne konto do zalogowania.</value>
+    <value>s</value>
   </data>
   <data name="LogIn" xml:space="preserve">
     <value>Zaloguj</value>
@@ -157,7 +157,7 @@
     <value>Logowanie zakończone niepowodzeniem</value>
   </data>
   <data name="LogInUsingAnotherAccount" xml:space="preserve">
-    <value>Zaloguj wykorzystując twóje konto {0}</value>
+    <value>Zaloguj wykorzystując twoje konto {0}</value>
   </data>
   <data name="LogOff" xml:space="preserve">
     <value>Wyloguj</value>

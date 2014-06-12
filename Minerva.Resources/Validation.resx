@@ -117,22 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ConfirmNewPassword" xml:space="preserve">
-    <value>Confirm new password</value>
+  <data name="NewPasswordCompare" xml:space="preserve">
+    <value>The new password and confirmation password do not match.</value>
   </data>
-  <data name="CurrentPassword" xml:space="preserve">
-    <value>Current password</value>
+  <data name="Required" xml:space="preserve">
+    <value>Field {0} is required</value>
   </data>
-  <data name="NewPassword" xml:space="preserve">
-    <value>New password</value>
-  </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="RememberMe" xml:space="preserve">
-    <value>Remember me?</value>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>User name</value>
+  <data name="StringLength" xml:space="preserve">
+    <value>The {0} must be at least {2} characters long.</value>
   </data>
 </root>
