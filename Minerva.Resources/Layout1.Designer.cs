@@ -79,11 +79,74 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Add directory.
+        /// </summary>
+        public static string AddDirectory {
+            get {
+                return ResourceManager.GetString("AddDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add directory to current.
+        /// </summary>
+        public static string AddDirectoryTitle {
+            get {
+                return ResourceManager.GetString("AddDirectoryTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Click to see add actions.
+        /// </summary>
+        public static string AddDropDownTitle {
+            get {
+                return ResourceManager.GetString("AddDropDownTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add file.
+        /// </summary>
+        public static string AddFile {
+            get {
+                return ResourceManager.GetString("AddFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Add file to current directory.
+        /// </summary>
+        public static string AddFileTitle {
+            get {
+                return ResourceManager.GetString("AddFileTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Association Form.
         /// </summary>
         public static string AssociationForm {
             get {
                 return ResourceManager.GetString("AssociationForm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
+        public static string Cancel {
+            get {
+                return ResourceManager.GetString("Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Change.
+        /// </summary>
+        public static string Change {
+            get {
+                return ResourceManager.GetString("Change", resourceCulture);
             }
         }
         
@@ -106,6 +169,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Create Local Login.
         /// </summary>
         public static string CreateLocalLogin {
@@ -124,6 +196,42 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Delete.
+        /// </summary>
+        public static string Delete {
+            get {
+                return ResourceManager.GetString("Delete", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Delete selected items.
+        /// </summary>
+        public static string DeleteTitle {
+            get {
+                return ResourceManager.GetString("DeleteTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory.
+        /// </summary>
+        public static string Directory {
+            get {
+                return ResourceManager.GetString("Directory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter name.
+        /// </summary>
+        public static string EnterName {
+            get {
+                return ResourceManager.GetString("EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Error.
         /// </summary>
         public static string Error {
@@ -133,11 +241,29 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File.
+        /// </summary>
+        public static string File {
+            get {
+                return ResourceManager.GetString("File", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello {0}!.
         /// </summary>
         public static string HelloUser {
             get {
                 return ResourceManager.GetString("HelloUser", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Hide.
+        /// </summary>
+        public static string Hide {
+            get {
+                return ResourceManager.GetString("Hide", resourceCulture);
             }
         }
         
@@ -241,11 +367,29 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select file.
+        /// </summary>
+        public static string SelectFile {
+            get {
+                return ResourceManager.GetString("SelectFile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Set password.
         /// </summary>
         public static string SetPassword {
             get {
                 return ResourceManager.GetString("SetPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Share.
+        /// </summary>
+        public static string Share {
+            get {
+                return ResourceManager.GetString("Share", resourceCulture);
             }
         }
         
@@ -277,11 +421,29 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Share selected items.
+        /// </summary>
+        public static string ShareTitle {
+            get {
+                return ResourceManager.GetString("ShareTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use another service to log in..
         /// </summary>
         public static string UseAnotherServiceToLogIn {
             get {
                 return ResourceManager.GetString("UseAnotherServiceToLogIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to YouAreAt.
+        /// </summary>
+        public static string YouAreAt {
+            get {
+                return ResourceManager.GetString("YouAreAt", resourceCulture);
             }
         }
         

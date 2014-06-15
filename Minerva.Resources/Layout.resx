@@ -198,4 +198,58 @@
   <data name="YourStorage" xml:space="preserve">
     <value>Your storage</value>
   </data>
+  <data name="AddDirectory" xml:space="preserve">
+    <value>Add directory</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>Add file</value>
+  </data>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Change" xml:space="preserve">
+    <value>Change</value>
+  </data>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
+  </data>
+  <data name="Directory" xml:space="preserve">
+    <value>Directory</value>
+  </data>
+  <data name="EnterName" xml:space="preserve">
+    <value>Enter name</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>File</value>
+  </data>
+  <data name="SelectFile" xml:space="preserve">
+    <value>Select file</value>
+  </data>
+  <data name="Share" xml:space="preserve">
+    <value>Share</value>
+  </data>
+  <data name="AddDirectoryTitle" xml:space="preserve">
+    <value>Add directory to current</value>
+  </data>
+  <data name="AddDropDownTitle" xml:space="preserve">
+    <value>Click to see add actions</value>
+  </data>
+  <data name="AddFileTitle" xml:space="preserve">
+    <value>Add file to current directory</value>
+  </data>
+  <data name="DeleteTitle" xml:space="preserve">
+    <value>Delete selected items</value>
+  </data>
+  <data name="ShareTitle" xml:space="preserve">
+    <value>Share selected items</value>
+  </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="Hide" xml:space="preserve">
+    <value>Hide</value>
+  </data>
+  <data name="YouAreAt" xml:space="preserve">
+    <value>YouAreAt</value>
+  </data>
 </root>

@@ -44,7 +44,7 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
-    <Compile Include="Layout.Designer.cs">
+    <Compile Include="Layout1.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Layout.resx</DependentUpon>
@@ -73,7 +73,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Layout.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>Layout.Designer.cs</LastGenOutput>
+      <LastGenOutput>Layout1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Messages.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
