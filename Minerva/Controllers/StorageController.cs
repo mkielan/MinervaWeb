@@ -15,6 +15,7 @@ namespace Minerva.Controllers
         public ActionResult Index()
         {
             ViewBag.Title = Layout.YourStorage;
+            ViewBag.Editing = true;
 
             var test = new List<GridItem>();
             test.AddRange(

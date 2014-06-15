@@ -19,7 +19,7 @@ namespace Minerva
             var nullOrderer = new NullOrderer();
 
             var cssBundle = new CustomStyleBundle("~/bundles/css");
-            cssBundle.Include("~/Content/Site.less", "~/Content/bootstrap/bootstrap.less");
+            cssBundle.Include("~/Content/Site.less", "~/Content/bootstrap/bootstrap.less", "~/Content/jasny-bootstrap/jasny-bootstrap.css");
             cssBundle.Transforms.Add(cssTransformer);
             cssBundle.Orderer = nullOrderer;
             bundles.Add(cssBundle);
@@ -46,14 +46,17 @@ namespace Minerva
             modernizrBundle.Orderer = nullOrderer;
             bundles.Add(modernizrBundle);
 
-
             var bootstrapBundle = new CustomScriptBundle("~/bundles/bootstrap");
             bootstrapBundle.Include("~/Scripts/bootstrap.js", "~/Scripts/respond.js");
             bootstrapBundle.Transforms.Add(jsTransformer);
             bootstrapBundle.Orderer = nullOrderer;
             bundles.Add(bootstrapBundle);
 
-
+            var jasnybootstrapBundle = new CustomScriptBundle("~/bundles/jasny-bootstrap");
+            jasnybootstrapBundle.Include("~/Scripts/jasny-bootstrap.js");
+            jasnybootstrapBundle.Transforms.Add(jsTransformer);
+            jasnybootstrapBundle.Orderer = nullOrderer;
+            bundles.Add(jasnybootstrapBundle);
         }
     }
 }

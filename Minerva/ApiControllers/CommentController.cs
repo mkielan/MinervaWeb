@@ -8,6 +8,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using MComment = Minerva.Models.Api.Comment;
 
 namespace Minerva.ApiControllers
 {
@@ -90,6 +91,26 @@ namespace Minerva.ApiControllers
             _commentRepository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);
+        }
+
+        /// <summary>
+        /// Get items for diskstructure.
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public IEnumerable<MComment.View> GetItemComments(long id)
+        {
+            return _commentRepository
+                .FindBy(c => c.DiskStructure.Id == id)
+                .Select(
+                    c => new MComment.View { 
+                        Id = c.Id,
+                        Body = c.Body,
+                        Username = c.CreatedBy.UserName,
+                        Sended = c.CreatedTime
+                    }
+                )
+                .OrderBy(c => c.Sended);
         }
     }
 }

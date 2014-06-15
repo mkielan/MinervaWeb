@@ -10,13 +10,14 @@ using System.Web.Http;
 using System.Threading.Tasks;
 using DirModels = Minerva.Models.Api.Directory;
 using FileModels = Minerva.Models.Api.File;
+using System.Collections;
 
 namespace Minerva.ApiControllers
 {
     /// <summary>
     /// Api do zarządzania katalogami.
     /// </summary>
-    // todo dodać [Authorize]
+    [Authorize]
     public class DirectoryController : ApiController
     {
         private GenericFullRepository<MinervaDbContext, DiskStructure> _repository;
@@ -194,6 +195,15 @@ namespace Minerva.ApiControllers
             );
 
             return retFiles;
+        }
+
+        public IEnumerable<DirModels.View> GetSharedForMe() {
+            return null;
+        }
+
+        public IEnumerable<DirModels.View> GetSheredByMe()
+        {
+            return null;
         }
 
         /// <summary>

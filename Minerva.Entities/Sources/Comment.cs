@@ -12,5 +12,7 @@ namespace Minerva.Entities.Sources
     {
         [MaxLength(500)]
         public string Body { get; set; }
+
+        public DiskStructure DiskStructure { get; set; }
     }
 }
