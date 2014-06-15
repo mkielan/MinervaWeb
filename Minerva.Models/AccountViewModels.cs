@@ -60,5 +60,28 @@ namespace Minerva.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Display(Name = "Phone", ResourceType = typeof(res.Model))]
+        [StringLength(20, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(res.Validation))]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(res.Validation))]
+        [Display(Name = "Email", ResourceType = typeof(res.Model))]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceName = "Email", ErrorMessageResourceType = typeof(res.Validation))]
+        [StringLength(40, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(res.Validation))]
+        public string Email { get; set; }
+    }
+
+    public class UserDataModel
+    {
+        [Display(Name = "Phone", ResourceType = typeof(res.Model))]
+        [StringLength(20, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(res.Validation))]
+        public string Phone { get; set; }
+
+        [Required(ErrorMessageResourceName = "Required", ErrorMessageResourceType = typeof(res.Validation))]
+        [Display(Name = "Email", ResourceType = typeof(res.Model))]
+        [DataType(DataType.EmailAddress, ErrorMessageResourceName = "Email", ErrorMessageResourceType = typeof(res.Validation))]
+        [StringLength(40, ErrorMessageResourceName = "StringLength", ErrorMessageResourceType = typeof(res.Validation))]
+        public string Email { get; set; }
     }
 }

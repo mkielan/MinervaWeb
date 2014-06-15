@@ -1,14 +1,28 @@
 ﻿@using Minerva.Models;
 @using Microsoft.AspNet.Identity;
 @using res = Minerva.Resources;
+
 @{
     ViewBag.Title = res.Layout.ManageAccount;
 }
 
 <h2>@ViewBag.Title.</h2>
 
-<p class="text-success">@ViewBag.StatusMessage</p>
+@if (!string.IsNullOrEmpty(ViewBag.StatusMessage))
+    
+{
+    var alertType = ViewBag.Error ? "danger" : "success";
+    
+    <div class="alert alert-@alertType alert-dismissable">
+        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        @ViewBag.StatusMessage
+    </div>
+}
+
 <div class="row">
+    <div class="col-md-12">
+        @Html.Action("ChangeData")
+    </div>
     <div class="col-md-12">
         @if (ViewBag.HasLocalPassword)
         {
@@ -18,7 +32,6 @@
         {
             @Html.Partial("_SetPasswordPartial")
         }
-
         <section id="externalLogins">
             @Html.Action("RemoveAccountList")
             @Html.Partial("_ExternalLoginsListPartial", new { Action = "LinkLogin", ReturnUrl = ViewBag.ReturnUrl })

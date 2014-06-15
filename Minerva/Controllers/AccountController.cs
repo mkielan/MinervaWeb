@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Owin.Security;
 using Minerva.Models;
 using Minerva.Entities;
+using Minerva.Resources;
 
 namespace Minerva.Controllers
 {
@@ -79,7 +80,11 @@ namespace Minerva.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser() { UserName = model.UserName };
+                var user = new ApplicationUser() { 
+                    UserName = model.UserName, 
+                    Phone = model.Phone, 
+                    Email = model.Email 
+                };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -120,13 +125,17 @@ namespace Minerva.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
-                : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
-                : message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
-                : message == ManageMessageId.Error ? "An error has occurred."
+                message == ManageMessageId.ChangePasswordSuccess ? Messages.ChangePasswordSuccess
+                : message == ManageMessageId.SetPasswordSuccess ? Messages.SetPasswordSuccess
+                : message == ManageMessageId.RemoveLoginSuccess ? Messages.RemoveLoginSuccess
+                : message == ManageMessageId.Error ? Messages.Error
+                : message == ManageMessageId.UserDataChangeSuccess ? Messages.UserDataChangeSuccess
                 : "";
             ViewBag.HasLocalPassword = HasPassword();
+            ViewBag.Error = message == ManageMessageId.Error;
+
             ViewBag.ReturnUrl = Url.Action("Manage");
+
             return View();
         }
 
@@ -178,6 +187,49 @@ namespace Minerva.Controllers
             }
 
             // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+        // GET: /Account/CangeData
+        [HttpGet]
+        [ChildActionOnly]
+        public ActionResult ChangeData()
+        {
+            var model = new UserDataModel();
+
+            using (var dbContext = new MinervaDbContext())
+            {
+                var user = dbContext.Users.First(u => u.UserName == User.Identity.Name);
+
+                model.Phone = user.Phone;
+                model.Email = user.Email;
+            }
+
+            return (ActionResult)PartialView("_ChangeDataPartial", model);
+        }
+
+        // POST: /Account/ChangeData
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangeData(UserDataModel model)
+        {
+            bool hasPassword = HasPassword();
+            ViewBag.HasLocalPassword = hasPassword;
+            ViewBag.ReturnUrl = Url.Action("Manage");
+
+            if (ModelState.IsValid)
+            {
+                using(var dbContext = new MinervaDbContext()) {
+                    var user = dbContext.Users.FirstOrDefault(u => u.UserName == User.Identity.Name);
+                    user.Phone = model.Phone;
+                    user.Email = model.Email;
+
+                    dbContext.SaveChanges();
+                }
+
+                return RedirectToAction("Manage", new { Message = ManageMessageId.UserDataChangeSuccess });
+            }
+
             return View(model);
         }
 
@@ -362,7 +414,8 @@ namespace Minerva.Controllers
             ChangePasswordSuccess,
             SetPasswordSuccess,
             RemoveLoginSuccess,
-            Error
+            Error,
+            UserDataChangeSuccess
         }
 
         private ActionResult RedirectToLocal(string returnUrl)
