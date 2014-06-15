@@ -70,6 +70,24 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Your password has been changed..
+        /// </summary>
+        public static string ChangePasswordSuccess {
+            get {
+                return ResourceManager.GetString("ChangePasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to An error has occurred..
+        /// </summary>
+        public static string Error {
+            get {
+                return ResourceManager.GetString("Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error occurred while processing your request..
         /// </summary>
         public static string ErrorDuringRequestProcessing {
@@ -114,6 +132,33 @@ namespace Minerva.Resources {
         public static string InfoYouDontHaveLocalLogin {
             get {
                 return ResourceManager.GetString("InfoYouDontHaveLocalLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The external login was removed..
+        /// </summary>
+        public static string RemoveLoginSuccess {
+            get {
+                return ResourceManager.GetString("RemoveLoginSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your password has been set..
+        /// </summary>
+        public static string SetPasswordSuccess {
+            get {
+                return ResourceManager.GetString("SetPasswordSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your personal data has been changed..
+        /// </summary>
+        public static string UserDataChangeSuccess {
+            get {
+                return ResourceManager.GetString("UserDataChangeSuccess", resourceCulture);
             }
         }
     }

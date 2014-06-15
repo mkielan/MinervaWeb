@@ -117,11 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="Email" xml:space="preserve">
+    <value>Filed {0} must be e-mail address.</value>
+  </data>
   <data name="NewPasswordCompare" xml:space="preserve">
     <value>The new password and confirmation password do not match.</value>
   </data>
   <data name="Required" xml:space="preserve">
-    <value>Field {0} is required</value>
+    <value>Field {0} is required.</value>
   </data>
   <data name="StringLength" xml:space="preserve">
     <value>The {0} must be at least {2} characters long.</value>

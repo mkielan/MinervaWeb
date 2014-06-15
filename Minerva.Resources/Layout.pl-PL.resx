@@ -252,4 +252,10 @@
   <data name="Hide" xml:space="preserve">
     <value>Schowaj</value>
   </data>
+  <data name="Save" xml:space="preserve">
+    <value>Zapisz</value>
+  </data>
+  <data name="UserData" xml:space="preserve">
+    <value>Dane użytkownika</value>
+  </data>
 </root>

@@ -61,6 +61,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Filed {0} must be e-mail address..
+        /// </summary>
+        public static string Email {
+            get {
+                return ResourceManager.GetString("Email", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new password and confirmation password do not match..
         /// </summary>
         public static string NewPasswordCompare {
@@ -70,7 +79,7 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Field {0} is required.
+        ///   Looks up a localized string similar to Field {0} is required..
         /// </summary>
         public static string Required {
             get {
