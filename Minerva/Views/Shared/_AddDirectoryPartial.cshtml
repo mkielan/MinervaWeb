@@ -1,0 +1,13 @@
+﻿@model Minerva.Models.Api.Directory.Add
+
+@using res = Minerva.Resources
+
+<div class="form-group">
+    @Html.LabelFor(m => m.Name)
+    @Html.TextBoxFor(m => m.Name, new { Class="form-control", Placeholder=@res.Layout.EnterName })
+</div>
+<div class="form-group">
+    @Html.LabelFor(m => m.Description)
+    @Html.TextAreaFor(m => m.Description, new { Class = "form-control", rows = "3", placeholder = @res.Layout.Optional })
+</div>
+@Html.HiddenFor(m => m.ParentId)

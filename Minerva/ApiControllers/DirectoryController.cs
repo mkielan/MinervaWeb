@@ -17,7 +17,7 @@ namespace Minerva.ApiControllers
     /// <summary>
     /// Api do zarządzania katalogami.
     /// </summary>
-    [Authorize]
+    //todo [Authorize]
     public class DirectoryController : ApiController
     {
         private GenericFullRepository<MinervaDbContext, DiskStructure> _repository;
@@ -83,30 +83,32 @@ namespace Minerva.ApiControllers
             // sprawdzenie czy istnieje taki rodzic
             DiskStructure parent = null;
 
-            try
+            if (directory.ParentId.HasValue)
             {
-                parent = _repository.FindBy(
-                    ds => ds.Id == directory.ParentId 
-                        && ds.IsDirectory
-                        ).Single();
+                try
+                {
+                    parent = _repository.FindBy(
+                        ds => ds.Id == directory.ParentId
+                            && ds.IsDirectory
+                            ).Single();
+                }
+                catch (ArgumentNullException exc)
+                {
+                    ModelState["ParentId"].Errors.Add(exc);
+                }
             }
-            catch (ArgumentNullException exc)
-            {
-                ModelState["ParentId"].Errors.Add(exc);
-            }
-            
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
 
-
             var diskStructure = new DiskStructure
             {
                 Name = directory.Name,
                 Description = directory.Description,
                 Parent = parent,
+                CreatedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz")
             };
 
             var dir = new Directory
@@ -177,12 +179,14 @@ namespace Minerva.ApiControllers
         /// <summary>
         /// Zwraca pliki zawierające się w danym katalogu.
         /// </summary>
-        /// <param name="id">Id katalogu</param>
+        /// <param name="id">Id katalogu, null - root</param>
         /// <returns></returns>
-        public IEnumerable<FileModels.View> GetFiles(long id)
+        public IEnumerable<FileModels.View> GetFiles(long? id)
         {
             var files = _repository.FindBy(
-                    ds => ds.Parent.Id == id
+                    ds => 
+                        id.HasValue && id == ds.Parent.Id 
+                        || !id.HasValue && ds.Parent == null
                         && ds.IsFile == true
                 );
 
@@ -211,10 +215,12 @@ namespace Minerva.ApiControllers
         /// </summary>
         /// <param name="id">id katalogu</param>
         /// <returns></returns>
-        public IEnumerable<DirModels.View> GetDirectories(long id)
+        public IEnumerable<DirModels.View> GetDirectories(long? id)
         {
             var dirs = _repository.FindBy(
-                    ds => ds.Parent.Id == id
+                    ds =>
+                        id.HasValue && id == ds.Parent.Id
+                        || !id.HasValue && ds.Parent == null
                         && ds.IsDirectory == true
                 );
 

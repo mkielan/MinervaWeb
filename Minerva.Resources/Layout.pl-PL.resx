@@ -258,4 +258,7 @@
   <data name="UserData" xml:space="preserve">
     <value>Dane użytkownika</value>
   </data>
+  <data name="Optional" xml:space="preserve">
+    <value>Opcjonalnie</value>
+  </data>
 </root>

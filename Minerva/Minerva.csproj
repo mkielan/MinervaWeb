@@ -368,6 +368,7 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\gridmvc.js" />
+    <Content Include="Scripts\gridmvc.lang.pl.js" />
     <Content Include="Scripts\gridmvc.lang.ru.js" />
     <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
@@ -416,6 +417,7 @@
     <Content Include="Views\Shared\Storage.cshtml" />
     <Content Include="Views\Shared\_NavMenuPartial.cshtml" />
     <Content Include="Views\Account\_ChangeDataPartial.cshtml" />
+    <Content Include="Views\Shared\_AddDirectoryPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -79,6 +79,24 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Directory has been added!.
+        /// </summary>
+        public static string DirectoryAdded {
+            get {
+                return ResourceManager.GetString("DirectoryAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Directory has not been added!.
+        /// </summary>
+        public static string DirectoryNotAdded {
+            get {
+                return ResourceManager.GetString("DirectoryNotAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to An error has occurred..
         /// </summary>
         public static string Error {
