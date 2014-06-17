@@ -1,6 +1,7 @@
 namespace Minerva.Entities.Migrations
 {
     using Microsoft.AspNet.Identity.EntityFramework;
+    using Minerva.Entities.Sources;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -21,6 +22,11 @@ namespace Minerva.Entities.Migrations
                 new IdentityRole { Name = "Admin" },
                 new IdentityRole { Name = "User" }
                 );
+
+            context.DiskStructures.AddOrUpdate(ds => ds.Name,
+                new DiskStructure { Name = "root", CreatedTime = DateTime.Now}
+                );
+
         }
     }
 }

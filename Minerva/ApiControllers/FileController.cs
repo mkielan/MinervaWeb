@@ -18,6 +18,7 @@ namespace Minerva.ApiControllers
     /// Api do zarządzania plikami.
     /// </summary>
     //todo dodać [Authorize]
+    [RoutePrefix("api/file")]
     public class FileController : ApiController
     {
         private GenericRepository<MinervaDbContext, DiskStructure> _repository;
@@ -35,7 +36,7 @@ namespace Minerva.ApiControllers
         {
             // todo ograniczenie dla danego usera
             var file = _repository
-                .FindBy(f => f.Id == id && f.IsFile)
+                .FindBy(f => f.Id == id && f.File != null)
                 .FirstOrDefault();
 
             if (file == null)
@@ -46,10 +47,10 @@ namespace Minerva.ApiControllers
             return Ok(new View {
                 Id = file.Id,
                 Name = file.Name,
-                Tags = file.Tags.Select(t => t.Name).ToArray(),
+                Tags = file.Tags != null ? file.Tags.Select(t => t.Name).ToArray() : null,
                 Url = "url", //todo
                 Description = file.Description,
-                Ext = file.File.Extension,
+                Extension = file.File.Extension ?? "",
                 Phone = file.CreatedBy != null && file.CreatedBy.Phone != null ?file.CreatedBy.Phone : "",
                 Creator = file.CreatedBy != null ? file.CreatedBy.UserName : "",
                 LastModificator = file.ModifiedBy != null ? file.ModifiedBy.UserName : ""
@@ -59,26 +60,73 @@ namespace Minerva.ApiControllers
         // POST api/<controller>
         public async Task<IHttpActionResult> Post([FromBody]Add file)
         {// todo ograniczenie dla danego usera
+            DiskStructure parent = null;
+
+            if (file.ParentId >= 0)
+            {
+                try
+                {
+                    var a = _repository.FindBy(
+                        ds => ds.Id == file.ParentId 
+                            && ds.File == null 
+                            && ds.DeletedTime == null
+                    );
+
+                    parent = a.First();
+
+                    var b = _repository.FindBy(ds => ds.Parent.Id == parent.Id && ds.Name == file.Name && ds.DeletedTime == null)
+                        .Any();
+                    if (b)
+                    {
+                        ModelState["ParentId"].Errors.Add("Item with this name already exist in this direcotry");
+                    }
+                }
+                catch (ArgumentNullException exc)
+                {
+                    ModelState["ParentId"].Errors.Add(exc);
+                }
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-
-            var ds = new DiskStructure
+            var user = _repository.Context.Users.First(u => u.UserName == "Mariusz");
+            var diskStructure = new DiskStructure
             {
                 Name = file.Name,
-                Description = file.Description
+                Description = file.Description,
+                Parent = parent,
+                CreatedBy = user,
+                CreatedTime = DateTime.Now
             };
 
-            _repository.Add(ds);
+            var tmp = diskStructure.Name.Split('.');
+
+            _repository.Add(diskStructure);
+            var f = new File { DiskStructureId = 
+                diskStructure.Id, 
+                DiskStructure = diskStructure,
+                Extension = tmp.Length > 1 ? tmp.Last() : null
+            };
+            _repository.Context.Files.Add(f);
+
             _repository.Save();
 
-            return Ok();
+            return Ok(true);
         }
 
         // PUT api/<controller>/5
         public async Task<IHttpActionResult> Put(int id, [FromBody]Edit file)
         {// todo ograniczenie dla danego usera
+
+            var b = _repository.FindBy(ds => ds.Parent.Id == id && ds.Name == file.Name && ds.DeletedTime == null)
+                        .Any();
+            if (b)
+            {
+                ModelState["ParentId"].Errors.Add("Item with this name already exist in this direcotry");
+            }
+
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -93,8 +141,12 @@ namespace Minerva.ApiControllers
 
             com.Name = file.Name;
             com.Description = file.Description;
-
+            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
+            var user = _repository.Context.Users.First(u => u.UserName == "Mariusz");
             if(file.Tags != null) {
+
+                if (com.Tags == null) com.Tags = new List<Tag>();
+
                 foreach(var tag in file.Tags) 
                 {
                     var tagEntity = _repository.Context.Tags.FirstOrDefault(t => t.Name == tag);
@@ -102,22 +154,22 @@ namespace Minerva.ApiControllers
                     if (tagEntity == null)
                     {
                         tagEntity = new Tag { Name = tag };
-                        _tagRepository.Add(tagEntity);
-                        _tagRepository.Save();
+                        tagEntity.CreatedTime = DateTime.Now;
+                        tagEntity.CreatedBy = user;
+                        _repository.Context.Tags.Add(tagEntity);
                     }
-
                     com.Tags.Add(tagEntity);
                 }
             }
             else
             {
-                com.Tags.Clear();
+                if(com.Tags != null) com.Tags.Clear();
             }
 
             _repository.Edit(com);
             _repository.Save();
 
-            return Ok();
+            return Ok(true);
         }
 
         // DELETE api/<controller>/5
@@ -125,20 +177,47 @@ namespace Minerva.ApiControllers
         {
             // todo ograniczenie co do własności
             var entity = _repository
-                .FindBy(f => f.Id == id && f.IsFile)
+                .FindBy(f => f.Id == id && f.File != null && f.DeletedTime == null)
                 .FirstOrDefault();
 
             if (entity == null)
                 return NotFound();
 
+            entity.DeletedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
+            
             _repository.Delete(entity);
             _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        //[Route("{tag}/FindByTag")]
+        //[ActionName("FindByTag")]
+        [HttpGet]
         public IEnumerable<View> FindByTag(string id)
         {
+            var _tag = _repository.Context.Tags.Include("DiskStructures").Where(t => t.Name == id).FirstOrDefault();
+
+            if(_tag != null) {
+                return (
+                    from t in _tag.DiskStructures 
+                    where t.File != null
+                        && t.DeletedTime == null
+                    select new View
+                    {
+                        Id = t.Id,
+                        Name = t.Name,
+                        Tags = t.Tags != null ? t.Tags.Select(tt => tt.Name).ToArray() : null,
+                        Url = "url", //todo
+                        Description = t.Description,
+                        Extension = t.File.Extension ?? "",
+                        Phone = t.CreatedBy != null && t.CreatedBy.Phone != null ? t.CreatedBy.Phone : "",
+                        Creator = t.CreatedBy != null ? t.CreatedBy.UserName : "",
+                        LastModificator = t.ModifiedBy != null ? t.ModifiedBy.UserName : ""
+                    }
+                            );
+            }
+            
             return null; //todo
         }
     }

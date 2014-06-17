@@ -7,13 +7,13 @@ namespace Minerva.Entities.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.0-30225")]
-    public sealed partial class _000_init : IMigrationMetadata
+    public sealed partial class _00_init : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(_000_init));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(_00_init));
         
         string IMigrationMetadata.Id
         {
-            get { return "201406121853057_000_init"; }
+            get { return "201406170158431_00_init"; }
         }
         
         string IMigrationMetadata.Source

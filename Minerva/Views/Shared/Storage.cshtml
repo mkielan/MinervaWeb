@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Minerva.Models.Web.Storage.GridItem>
+﻿@model ICollection<Minerva.Models.Web.Storage.GridItem>
 
 @using GridMvc.Html;
 @using GridMvc.Sorting;
@@ -140,20 +140,22 @@
             if (form.valid()) {
                 var name = $('#add-dir-modal input#Name').val();
                 var description = $('#add-dir-modal textarea#Description').val();
-                var currentId = $('input:hidden#CurrentId');
+                var currentId = $('input:hidden#CurrentId').val();
                 $('#add-dir-modal').modal('hide')
 
                 var sendData = {
-                    Name: name,
-                    ParentId: currentId,
-                    Description: description,
+                    name: name,
+                    parent_id: currentId,
+                    description: description
                 };
 
                 $.ajax({
                     url: 'http://localhost/Minerva/api/Directory',
-                    method: "POST",
+                    method: 'POST',
                     data: JSON.stringify(sendData),
+                    dataType: 'json',
                     contentType: 'application/json; charset=utf-8',
+                    cache: false,
                     success: function (data) {
                         showAlert('@res.Messages.DirectoryAdded', 'success');
                         location.reload(true);

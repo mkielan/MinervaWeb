@@ -13,8 +13,8 @@ namespace Minerva.Entities
         [MaxLength(50)]
         public string Email { get; set; }
 
-        public virtual ICollection<DiskStructure> AccessTo { get; set; }
+        //public virtual ICollection<DiskStructure> AccessTo { get; set; }
 
-        public virtual ICollection<Source> Sources { get; set; }
+        public ICollection<Source> Sources { get; set; }
     }
 }

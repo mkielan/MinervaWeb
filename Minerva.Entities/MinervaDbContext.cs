@@ -15,8 +15,6 @@ namespace Minerva.Entities
 
         public DbSet<Source> Sources { get; set; }
 
-        public DbSet<Directory> Directories { get; set; }
-
         public DbSet<File> Files { get; set; }
 
         public DbSet<DiskStructure> DiskStructures { get; set; }
@@ -28,6 +26,13 @@ namespace Minerva.Entities
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<DiskStructure>()
+                .HasOptional(ds => ds.File);
+
+            modelBuilder.Entity<Tag>()
+                .HasMany(ds => ds.DiskStructures);
+
             /*
             modelBuilder.Entity<File>()
                 .HasRequired(f => f.DiskStructure)
@@ -36,6 +41,7 @@ namespace Minerva.Entities
             modelBuilder.Entity<Directory>()
                 .HasRequired(f => f.DiskStructureId)
                 .WithRequiredDependent(); */
+
         }
     }
 }

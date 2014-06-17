@@ -8,12 +8,11 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class File : AbstractEntity
+    public class File
     {
         [Key, ForeignKey("DiskStructure")]
-        public long DiskStructureId { get; set; }
+        public int DiskStructureId { get; set; }
 
-        [Required]
         [MaxLength(5)]
         public string Extension { get; set; }
 

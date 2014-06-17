@@ -6,12 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Minerva.Entities;
+using System.Linq.Expressions;
 
 namespace Minerva.Repositories
 {
     public abstract class GenericFullRepository<C, T> :
-        GenericRepository<C,T> where T : AbstractFullEntity where C : DbContext, new () {
-            
+        GenericRepository<C,T> where T : AbstractEntity where C : DbContext, new () {
+        
         public virtual void Add(T entity)
         {
             entity.CreatedTime = DateTime.Now;
@@ -29,10 +30,9 @@ namespace Minerva.Repositories
         
         public virtual void Delete(T entity)
         {
-            entity.CreatedTime = DateTime.Now;
+            entity.DeletedTime = DateTime.Now;
 
             base.Delete(entity);
         }
-        
     }
 }

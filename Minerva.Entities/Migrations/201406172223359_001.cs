@@ -7,12 +7,12 @@ namespace Minerva.Entities.Migrations
     {
         public override void Up()
         {
-            AddColumn("dbo.AspNetUsers", "Email", c => c.String(maxLength: 50));
+            AlterColumn("dbo.Files", "Extension", c => c.String(maxLength: 5));
         }
         
         public override void Down()
         {
-            DropColumn("dbo.AspNetUsers", "Email");
+            AlterColumn("dbo.Files", "Extension", c => c.String(nullable: false, maxLength: 5));
         }
     }
 }

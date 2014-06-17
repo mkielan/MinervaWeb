@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,9 +12,11 @@ namespace Minerva.Models.Api.Directory
     {
         [MaxLength(200)]
         [Required]
+        [JsonProperty("name")]
         public string Name { get; set; }
 
         [MaxLength(400)]
+        [JsonProperty("description")]
         public string Description { get; set; }
     }
 }

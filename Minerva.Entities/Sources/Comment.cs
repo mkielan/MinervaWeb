@@ -8,11 +8,15 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class Comment : AbstractFkEntity<Int64>
+    public class Comment : AbstractEntity
     {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [MaxLength(500)]
         public string Body { get; set; }
 
-        public DiskStructure DiskStructure { get; set; }
+        public virtual DiskStructure DiskStructure { get; set; }
     }
 }

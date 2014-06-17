@@ -7,8 +7,12 @@ using System.Text;
 
 namespace Minerva.Entities.Sources
 {
-    public class Source : AbstractFkEntity<Int64>
+    public class Source
     {
+        [Key]
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
@@ -19,8 +23,8 @@ namespace Minerva.Entities.Sources
         [Required]
         public ICollection<ApplicationUser> Users { get; set; }
 
-        public virtual ICollection<ApplicationUser> SharedWith { get; set; }
+        public ICollection<ApplicationUser> SharedWith { get; set; }
         
-        public virtual ICollection<DiskStructure> DiskStructure { get;set; }
+        public ICollection<DiskStructure> DiskStructure { get;set; }
     }
 }

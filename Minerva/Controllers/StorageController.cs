@@ -24,29 +24,22 @@ namespace Minerva.Controllers
         {
             ViewBag.Title = Layout.YourStorage;
             ViewBag.Editing = true;
-            ViewBag.CurrentId = id;
+            ViewBag.CurrentId = id.HasValue ? id : 1;
 
             var ret = _repository
-                .FindBy(d => !id.HasValue && d.Parent == null || id.Value == d.Parent.Id)
+                .FindBy(d => 
+                    (!id.HasValue && d.Parent.Id == 1 
+                    || id.HasValue && id.Value == d.Parent.Id)
+                    && d.DeletedTime == null
+                    )
                 .Select(d => new GridItem {
                     Id = d.Id,
                     Name = d.Name,
-                    Type = d.Directory != null ? ItemType.Directory: ItemType.File,
+                    Type = d.File == null ? ItemType.Directory: ItemType.File,
                     LastModification = d.ModificationTime
                 });
-            /*
-            var test = new List<GridItem>();
-            test.AddRange(
-                new [] { 
-                    new GridItem {Id = 1, Name = "Test1", Type = ItemType.Directory },
-                    new GridItem {Id = 2, Name = "Test2", Type = ItemType.Directory },
-                    new GridItem {Id = 3, Name = "Test3", Type = ItemType.Directory },
-                    new GridItem {Id = 4, Name = "File1", Type = ItemType.File, LastModification = DateTime.Now.AddHours(-15) },
-                    new GridItem {Id = 5, Name = "File2", Type = ItemType.File, LastModification = DateTime.Now.AddHours(-25) },
-                    new GridItem {Id = 6, Name = "File3", Type = ItemType.File, LastModification = DateTime.Now.AddHours(-3) }
-                });*/
 
-            return View("Storage", ret);
+            return View("Storage", ret.ToList());
         }
     }
 }

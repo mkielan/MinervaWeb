@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,12 +9,16 @@ namespace Minerva.Models.Api.Directory
 {
     public class View
     {
-        public long Id { get; set; }
+        [JsonProperty("id")]
+        public int Id { get; set; }
 
+        [JsonProperty("name")]
         public string Name { get; set; }
 
+        [JsonProperty("description")]
         public string Description { get; set; }
 
-        public string Img { get; set; }
+        [JsonProperty("img")]
+        public string Image { get; set; }
     }
 }
