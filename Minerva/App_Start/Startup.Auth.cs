@@ -103,7 +103,7 @@ namespace Minerva
                 { 
                 }*/
             //};
-            app.UseGoogleAuthentication(/*googleOptions*/);
+            ///app.UseGoogleAuthentication(/*googleOptions*/);
         }
     }
 }
