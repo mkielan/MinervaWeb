@@ -29,7 +29,7 @@ namespace Minerva.Helpers
                        Id = d.Id,
                        Name = d.Name,
                        Description = d.Description,
-                       Image = //d.Icon == null ? @"\Content\Image\dir.jpg" : d.Icon.Name
+                       Image = @"\Content\Image\dir.jpg"//d.Icon == null ? @"\Content\Image\dir.jpg" : d.Icon.Name
                    };
         }
 
