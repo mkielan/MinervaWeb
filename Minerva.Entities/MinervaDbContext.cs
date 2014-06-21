@@ -31,17 +31,12 @@ namespace Minerva.Entities
                 .HasOptional(ds => ds.File);
 
             modelBuilder.Entity<Tag>()
-                .HasMany(ds => ds.DiskStructures);
+                .HasMany(ds => ds.DiskStructures)
+                .WithMany(t => t.Tags);
 
-            /*
-            modelBuilder.Entity<File>()
-                .HasRequired(f => f.DiskStructure)
-                .WithRequiredDependent();
-            
-            modelBuilder.Entity<Directory>()
-                .HasRequired(f => f.DiskStructureId)
-                .WithRequiredDependent(); */
-
+            modelBuilder.Entity<DiskStructure>()
+                .HasMany(ds => ds.AvailabolFor)
+                .WithMany(a => a.DiskStructures);
         }
     }
 }

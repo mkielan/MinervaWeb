@@ -74,13 +74,13 @@
   <ItemGroup>
     <Compile Include="AbstractEntity.cs" />
     <Compile Include="IdentityModels.cs" />
-    <Compile Include="Migrations\201406170158431_00_init.cs" />
-    <Compile Include="Migrations\201406170158431_00_init.Designer.cs">
-      <DependentUpon>201406170158431_00_init.cs</DependentUpon>
+    <Compile Include="Migrations\201406211904373_000_initial.cs" />
+    <Compile Include="Migrations\201406211904373_000_initial.Designer.cs">
+      <DependentUpon>201406211904373_000_initial.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201406172223359_001.cs" />
-    <Compile Include="Migrations\201406172223359_001.Designer.cs">
-      <DependentUpon>201406172223359_001.cs</DependentUpon>
+    <Compile Include="Migrations\201406211931146_001.cs" />
+    <Compile Include="Migrations\201406211931146_001.Designer.cs">
+      <DependentUpon>201406211931146_001.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinervaDbContext.cs" />
@@ -91,6 +91,7 @@
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Sources\Comment.cs" />
+    <Compile Include="Sources\DiskStructureAccess.cs" />
     <Compile Include="Sources\File.cs" />
     <Compile Include="Sources\DiskStructure.cs" />
     <Compile Include="Sources\Resource.cs" />
@@ -127,11 +128,11 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201406170158431_00_init.resx">
-      <DependentUpon>201406170158431_00_init.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406211904373_000_initial.resx">
+      <DependentUpon>201406211904373_000_initial.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201406172223359_001.resx">
-      <DependentUpon>201406172223359_001.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201406211931146_001.resx">
+      <DependentUpon>201406211931146_001.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

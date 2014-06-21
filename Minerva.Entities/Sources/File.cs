@@ -16,14 +16,6 @@ namespace Minerva.Entities.Sources
         [MaxLength(5)]
         public string Extension { get; set; }
 
-        /// <summary>
-        /// Plik w postaci tablicy bajtów. Atrybut nie mapowany do bazy.
-        /// Powinien być obsłużony w repozytorium tak, 
-        /// aby pobierać ten plik z jakiejś przestrzeni dyskowej.
-        /// </summary>
-        [NotMapped]
-        public byte[] Body { get; set; }
-
         public virtual DiskStructure DiskStructure { get; set; }
     }
 }

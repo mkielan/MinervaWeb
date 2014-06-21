@@ -8,19 +8,18 @@ using System.Threading.Tasks;
 
 namespace Minerva.Entities.Sources
 {
-    public class Resource
+    public class DiskStructureAccess
     {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        public int Id { get; set; }
+        [Key, ForeignKey("User")]
+        public string UserId { get; set; }
+        
+        public virtual ApplicationUser User { get; set; }
 
         public ICollection<DiskStructure> DiskStructures { get; set; }
 
-        public string Name { get; set; }
-
-        public Resource()
+        public DiskStructureAccess()
         {
-            DiskStructures = new List<DiskStructure>();
+            DiskStructures = new HashSet<DiskStructure>();
         }
     }
 }

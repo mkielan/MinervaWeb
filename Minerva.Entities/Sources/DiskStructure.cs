@@ -25,14 +25,21 @@ namespace Minerva.Entities.Sources
         
         public virtual File File { get; set; }
 
-        //public virtual ICollection<DiskStructure> Children { get; set; }
-
         public ICollection<Comment> Comments { get; set; }
 
-        //public virtual ICollection<ApplicationUser> AvailableFor { get; set; }
+        public ICollection<DiskStructureAccess> AvailabolFor { get; set; }
 
-        public virtual ICollection<Tag> Tags { get; set; }
+        public ICollection<Tag> Tags { get; set; }
 
         public ICollection<Resource> Resources { get; set; }
+
+        public DiskStructure()
+        {
+            //AvailableFor = new List<ApplicationUser>();
+            AvailabolFor = new HashSet<DiskStructureAccess>();
+            Comments = new HashSet<Comment>();
+            Tags = new HashSet<Tag>();
+            Resources = new HashSet<Resource>();
+        }
     }
 }
