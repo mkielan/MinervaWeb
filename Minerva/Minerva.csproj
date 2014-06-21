@@ -84,24 +84,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\EntityFramework.6.1.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
-    <Reference Include="Google.Apis">
-      <HintPath>..\packages\Google.Apis.1.8.1\lib\net40\Google.Apis.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth">
-      <HintPath>..\packages\Google.Apis.Auth.1.8.1\lib\net40\Google.Apis.Auth.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.Mvc4">
-      <HintPath>..\packages\Google.Apis.Auth.Mvc.1.8.1\lib\net40\Google.Apis.Auth.Mvc4.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Auth.PlatformServices">
-      <HintPath>..\packages\Google.Apis.Auth.1.8.1\lib\net40\Google.Apis.Auth.PlatformServices.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.Oauth2.v2">
-      <HintPath>..\packages\Google.Apis.Oauth2.v2.1.8.1.690\lib\portable-net4+sl4+wp71+win8\Google.Apis.Oauth2.v2.dll</HintPath>
-    </Reference>
-    <Reference Include="Google.Apis.PlatformServices">
-      <HintPath>..\packages\Google.Apis.1.8.1\lib\net40\Google.Apis.PlatformServices.dll</HintPath>
-    </Reference>
     <Reference Include="GridMvc">
       <HintPath>..\packages\Grid.Mvc.3.0.0\lib\net40\GridMvc.dll</HintPath>
     </Reference>
@@ -111,8 +93,11 @@
     <Reference Include="JavaScriptEngineSwitcher.Msie">
       <HintPath>..\packages\JavaScriptEngineSwitcher.Msie.1.1.2\lib\net40\JavaScriptEngineSwitcher.Msie.dll</HintPath>
     </Reference>
-    <Reference Include="log4net">
-      <HintPath>..\packages\log4net.2.0.0\lib\net40-full\log4net.dll</HintPath>
+    <Reference Include="Microsoft.AspNet.SignalR.Core">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.Core.2.1.0\lib\net45\Microsoft.AspNet.SignalR.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.SignalR.SystemWeb">
+      <HintPath>..\packages\Microsoft.AspNet.SignalR.SystemWeb.2.1.0\lib\net45\Microsoft.AspNet.SignalR.SystemWeb.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Owin, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -252,9 +237,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\WebGrease.1.6.0\lib\WebGrease.dll</HintPath>
     </Reference>
-    <Reference Include="Zlib.Portable">
-      <HintPath>..\packages\Zlib.Portable.1.9.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
@@ -283,16 +265,23 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\DiskItemController.cs" />
+    <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
+    <Compile Include="Helpers\DiskStructureHelper.cs" />
+    <Compile Include="Helpers\ObjectConverter.cs" />
     <Compile Include="Infrastructure\ApplicationOAuthProvider.cs" />
     <Compile Include="Infrastructure\ChallengeResult.cs" />
+    <Compile Include="Infrastructure\CommentsHub.cs" />
     <Compile Include="Infrastructure\ControllerFactory.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\FileActionResult.cs" />
+    <Compile Include="Infrastructure\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -304,6 +293,8 @@
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\Images\dir.png" />
+    <Content Include="Content\Images\file.png" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.css" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.min.css" />
     <Content Include="favicon.ico" />
@@ -373,10 +364,13 @@
     <Content Include="Scripts\gridmvc.min.js" />
     <Content Include="Scripts\jasny-bootstrap.js" />
     <Content Include="Scripts\jasny-bootstrap.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.js" />
-    <Content Include="Scripts\jquery-2.1.0.min.map" />
+    <Content Include="Scripts\jquery-2.1.1.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.js" />
+    <Content Include="Scripts\jquery-2.1.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <None Include="Scripts\jquery-2.1.1-vsdoc.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.0.js" />
+    <Content Include="Scripts\jquery.signalR-2.1.0.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
@@ -418,11 +412,12 @@
     <Content Include="Views\Shared\_NavMenuPartial.cshtml" />
     <Content Include="Views\Account\_ChangeDataPartial.cshtml" />
     <Content Include="Views\Shared\_AddDirectoryPartial.cshtml" />
+    <Content Include="Views\Shared\Comments.cshtml" />
+    <Content Include="Views\Shared\_ParentBreadcrumbs.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
-    <Folder Include="Views\Share\" />
+    <Folder Include="Views\DiskItem\" />
+    <Folder Include="Views\File\" />
     <Folder Include="Views\Storage\" />
   </ItemGroup>
   <ItemGroup>

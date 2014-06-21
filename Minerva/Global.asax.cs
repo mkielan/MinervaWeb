@@ -36,7 +36,7 @@ namespace Minerva
         }
 
         /// <summary>
-        /// Installl Windsor Castole IoC container
+        /// Installl Windsor Castle IoC container
         /// </summary>
         private static void InjectContainer()
         {

@@ -11,6 +11,11 @@ namespace Minerva.Controllers
     [Authorize]
     public class ShareController : Controller
     {
+        public ActionResult Index()
+        {
+            return RedirectToAction("ForYou");
+        }
+
         // GET: Share
         public ActionResult ForYou()
         {
@@ -29,5 +34,6 @@ namespace Minerva.Controllers
 
             return View("Storage", model);
         }
+
     }
 }

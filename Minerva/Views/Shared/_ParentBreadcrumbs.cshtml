@@ -1,0 +1,15 @@
+﻿@model ICollection<Minerva.Models.Web.Storage.BreadcrumbItem>
+
+@using res = Minerva.Resources;
+@{
+    var routeData = HttpContext.Current.Request.RequestContext.RouteData;
+    var action = routeData.Values["action"].ToString();
+}
+
+<ul class="barecrumb">
+    <li>@Html.ActionLink(@res.Layout.YourStorage, action, new { id = 1})</li>
+    @foreach (var item in Model)
+    {
+        <li>/ @Html.ActionLink(@item.Name, action, new { id = @item.Id })</li>
+    }
+</ul>

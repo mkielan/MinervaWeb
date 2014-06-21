@@ -11,21 +11,24 @@ using System.Threading.Tasks;
 using DirModels = Minerva.Models.Api.Directory;
 using FileModels = Minerva.Models.Api.File;
 using System.Collections;
+using Minerva.Helpers;
+using Minerva.Resources;
 
 namespace Minerva.ApiControllers
 {
     /// <summary>
     /// Api do zarządzania katalogami.
     /// </summary>
-    //todo [Authorize]
+    [Authorize]
     [RoutePrefix("api/Directory")]
     public class DirectoryController : ApiController
     {
-        private GenericFullRepository<MinervaDbContext, DiskStructure> _repository;
+        private IDiskStructureRepository<MinervaDbContext> _repository;
 
         public DirectoryController()
         {
-            _repository = new DiskStructureRepository();
+            var context = new MinervaDbContext();
+            _repository = new DiskStructureRepository(context);
         }
 
         // GET: api/Directory
@@ -33,45 +36,32 @@ namespace Minerva.ApiControllers
         /// Zwraca listę wszystkich folderów
         /// </summary>
         /// <returns></returns>
-        /// 
         public IEnumerable<DirModels.View> Get()
         {
-            // todo ograniczenie do katalogu 
-            
-            return (
-                from d in _repository.GetAll()
-                where d.File == null
-                select new DirModels.View
-                {
-                    Id = d.Id,
-                    Name = d.Name,
-                    Description = d.Description,
-                    Image = "", //todo
-                } 
-            );
+            var tmp = from d in _repository.GetAll()
+                      where d.File == null
+                        && d.CreatedBy.UserName == User.Identity.Name
+                      select d;
+
+            return ObjectConverter.ManyDirToApiView(tmp);
         }
 
         // GET: api/Directory/5
+        [HttpGet]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Get(int id)
         {
-            // todo ograniczenie co do własności
             var dir = _repository
                 .FindBy(
                     d => 
                         d.Id == id
                         && d.File == null
+                        && d.DeletedTime == null
+                        && d.CreatedBy.UserName == User.Identity.Name
                 ).FirstOrDefault();
             if (dir == null) return NotFound();
 
-            return Ok(
-                new DirModels.View
-                {
-                    Id = dir.Id,
-                    Name = dir.Name,
-                    Description = dir.Description,
-                    Image = "" //todo
-                }
-           );
+            return Ok(ObjectConverter.DirToApiView(dir));
         }
 
         // POST: api/Directory
@@ -80,22 +70,25 @@ namespace Minerva.ApiControllers
         /// </summary>
         /// <param name="directory"></param>
         /// <returns></returns>
+        [HttpPost]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Post([FromBody]DirModels.Add directory)
         {
-            // sprawdzenie czy istnieje taki rodzic
             DiskStructure parent = null;
+            var username = User.Identity.Name;
 
+            // sprawdzenie czy istnieje taki rodzic
             if (directory.ParentId>=0)
             {
                 try
                 {
-                    var a = _repository.FindBy(
+                    parent = _repository.FindBy(
                         ds => ds.Id == directory.ParentId 
                             && ds.File == null 
                             && ds.DeletedTime == null
-                    );
-
-                    parent = a.First();
+                            && ds.CreatedBy.UserName == username
+                            
+                    ).First();
 
                     var b =_repository.FindBy(
                         ds => ds.Parent.Id == parent.Id 
@@ -123,7 +116,7 @@ namespace Minerva.ApiControllers
                 Name = directory.Name,
                 Description = directory.Description,
                 Parent = parent,
-                CreatedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz")
+                CreatedBy = _repository.Context.Users.First(u => u.UserName == username)
             };
 
             _repository.Add(diskStructure);
@@ -139,19 +132,28 @@ namespace Minerva.ApiControllers
         /// <param name="id"></param>
         /// <param name="dir"></param>
         /// <returns></returns>
+        [HttpPut]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Put(int id, [FromBody]DirModels.Edit dir)
         {
-            var b = _repository.FindBy(ds => ds.Parent.Id ==id && ds.Name == dir.Name && ds.DeletedTime == null)
+            var b = _repository.FindBy(
+                ds => ds.Parent.Id ==id 
+                    && ds.Name == dir.Name 
+                    && ds.DeletedTime == null
+                    )
                         .Any();
             if (b)
             {
-                ModelState["ParentId"].Errors.Add("Item with this name already exist in this direcotry");
+                ModelState["ParentId"].Errors.Add(Validation.ItemExistInDirectory);
             }
 
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
+
+            var username = User.Identity.Name;
+            if (!HaveAccessToDirectory(id, username)) return NotFound();
 
             var com = _repository
                 .FindBy(
@@ -167,7 +169,7 @@ namespace Minerva.ApiControllers
 
             com.Name = dir.Name;
             com.Description = dir.Description;
-            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz"); 
+            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == username); 
 
             _repository.Edit(com);
             _repository.Save();
@@ -176,37 +178,49 @@ namespace Minerva.ApiControllers
         }
 
         // DELETE: api/Directory/5
+        [HttpDelete]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(int id)
         {
-            // todo ograniczenie tylko do swoich
+            var username = User.Identity.Name;
 
             var entity = _repository
                 .FindBy(
                     d => d.Id == id
                         && d.File == null
                         && d.DeletedTime == null
+                        && d.CreatedBy.UserName == username
                     );
 
             if (entity == null && !entity.Any())
                 return NotFound();
 
             var en = entity.FirstOrDefault();
-            en.DeletedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
-            _repository.Delete(en);
+            en.DeletedBy = _repository.Context.Users.First(u => u.UserName == username);
+            _repository.Remove(en);
+
             _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
+        // GET /api/directory/sharedforme
         [Route("SharedForMe")]
         public IEnumerable<DirModels.View> GetSharedForMe() {
-            return null;
+            //var tmp = _repository.FindShared("Mariusz" /*todo User.Identity.Name */, DiskItemType.Directory, PrivilageToDiskItemType.Shared);
+            var tmp = DiskStructureHelper.FindShared(_repository, User.Identity.Name, DiskItemType.Directory, PrivilageToDiskItemType.Shared);
+            
+            return ObjectConverter.ManyDirToApiView(tmp);
         }
 
+        // GET /api/directory/sharedbyme
         [Route("SharedByMe")]
         public IEnumerable<DirModels.View> GetSheredByMe()
         {
-            return null;
+            //var tmp = _repository.FindShared("Mariusz" /*todo User.Identity.Name */, DiskItemType.Directory, PrivilageToDiskItemType.Owner);
+            var tmp = DiskStructureHelper.FindShared(_repository, User.Identity.Name, DiskItemType.Directory, PrivilageToDiskItemType.Owner);
+            
+            return ObjectConverter.ManyDirToApiView(tmp);
         }
 
         /// <summary>
@@ -215,52 +229,96 @@ namespace Minerva.ApiControllers
         /// <param name="id">Id katalogu, null - root</param>
         /// <returns></returns>
         /// 
+        // GET /api/directory/5/files
+        [HttpGet]
         [Route("{id:int}/files")]
         public IEnumerable<FileModels.View> GetFiles(int id)
         {
+            var username = User.Identity.Name;
+
             var files = _repository.FindBy(
                     ds =>
                         id == ds.Parent.Id
+                        && ds.DeletedTime == null
                         && ds.File != null
+                        && (
+                        ds.CreatedBy.UserName == username
+                        || ds.AvailableFor.Select(a => a.UserName).Contains(username)
+                    )
                 );
 
-            var retFiles = files.Select(
-                f => new FileModels.View
-                {
-                    Id = f.Id,
-                    Name = f.Name,
-                    Description = f.Description
-                }
-            );
-
-            return retFiles;
+            return ObjectConverter.ManyFilesToApiView(files);
         }
 
-        [Route("{id:int}/directories")]
+        // GET /api/directory/5/directories
         /// <summary>
         /// Zwraca katalogi-dzieci danego katalogu.
         /// </summary>
         /// <param name="id">id katalogu</param>
         /// <returns></returns>
+        /// 
+        [HttpGet]
+        [Route("{id:int}/directories")]
         public IEnumerable<DirModels.View> GetDirectories(int id)
         {
+            var username = User.Identity.Name;
+
             var dirs = _repository.FindBy(
                     ds =>
                         id == ds.Parent.Id
+                        && ds.DeletedTime == null
                         && ds.File == null
+                        && (
+                            ds.CreatedBy.UserName == username
+                            || ds.AvailableFor.Select(a => a.UserName).Contains(username)
+                        )
                 );
 
-            var retDirs = dirs.Select(
-                f => new DirModels.View
-                {
-                    Id = f.Id,
-                    Name = f.Name,
-                    Description = f.Description,
-                    Image = "" // todo
-                }
-            );
+            return ObjectConverter.ManyDirToApiView(dirs);
+        }
 
-            return retDirs;
+        // GET /api/directory/5/share
+        [HttpGet]
+        [Route("{id:int}/share/{username}")]
+        public async Task<IHttpActionResult> ShareWith(int id, string username)
+        {
+            var usernameCur = User.Identity.Name;
+            try
+            {
+                var dir = _repository.FindBy(
+                        d => d.Id == id
+                            && d.DeletedTime == null
+                            && d.File == null
+                    ).First();
+
+                if (dir.CreatedBy.UserName == usernameCur)
+                {
+
+                    var tmp = DiskStructureHelper.ShareWith(_repository, dir, usernameCur);
+                    _repository.Save();
+
+                    return Ok(true);
+                }
+
+                return Ok(false);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
+        }
+
+        private bool HaveAccessToDirectory(int id, string username)
+        {
+            return _repository.FindBy(
+                    f => f.DeletedTime == null
+                        && f.Id == id
+                        && f.File == null
+                        && (
+                        f.CreatedBy.UserName == username
+                        || f.AvailableFor.Select(a => a.UserName).Contains(username)
+                        )
+                ).FirstOrDefault() != null;
         }
     }
 }

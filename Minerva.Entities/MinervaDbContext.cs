@@ -26,22 +26,17 @@ namespace Minerva.Entities
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
+            
             modelBuilder.Entity<DiskStructure>()
-                .HasOptional(ds => ds.File);
-
+                .HasOptional(ds => ds.File)
+                .WithRequired(f => f.DiskStructure);
+            
             modelBuilder.Entity<Tag>()
                 .HasMany(ds => ds.DiskStructures);
 
-            /*
-            modelBuilder.Entity<File>()
-                .HasRequired(f => f.DiskStructure)
-                .WithRequiredDependent();
-            
-            modelBuilder.Entity<Directory>()
-                .HasRequired(f => f.DiskStructureId)
-                .WithRequiredDependent(); */
-
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.AccessTo)
+                .WithMany(ds => ds.AvailableFor);
         }
     }
 }

@@ -32,13 +32,14 @@ namespace Minerva
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
                 AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
                 AllowInsecureHttp = true
-
             };
         }
 
         // For more information on configuring authentication, please visit http://go.microsoft.com/fwlink/?LinkId=301864
         public void ConfigureAuth(IAppBuilder app)
-        {/*
+        {
+
+            /*
             app.Use(async (context, next) =>
             {
                 IOwinRequest req = context.Request;

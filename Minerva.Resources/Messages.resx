@@ -123,6 +123,9 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>Your password has been changed.</value>
   </data>
+  <data name="DeleteConfirm" xml:space="preserve">
+    <value>Are you want delete selected items?</value>
+  </data>
   <data name="DirectoryAdded" xml:space="preserve">
     <value>Directory has been added!</value>
   </data>
@@ -149,6 +152,12 @@
   <data name="InfoYouDontHaveLocalLogin" xml:space="preserve">
     <value>You do not have a local username/password for this site. Add a local
     account so you can log in without an external login.</value>
+  </data>
+  <data name="NoSelectedItemsToShareWarning" xml:space="preserve">
+    <value>You didn't select any items to share.</value>
+  </data>
+  <data name="NotSelectedItemsToDeleteWarning" xml:space="preserve">
+    <value>You didn't select any items to delete.</value>
   </data>
   <data name="RemoveLoginSuccess" xml:space="preserve">
     <value>The external login was removed.</value>

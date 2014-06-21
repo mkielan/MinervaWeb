@@ -26,5 +26,12 @@ namespace Minerva.Entities.Sources
         public ICollection<ApplicationUser> SharedWith { get; set; }
         
         public ICollection<DiskStructure> DiskStructure { get;set; }
+
+        public Source()
+        {
+            Users = new List<ApplicationUser>();
+            SharedWith = new List<ApplicationUser>();
+            DiskStructure = new List<DiskStructure>();
+        }
     }
 }

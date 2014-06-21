@@ -70,6 +70,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Item with this name already exist in this directory..
+        /// </summary>
+        public static string ItemExistInDirectory {
+            get {
+                return ResourceManager.GetString("ItemExistInDirectory", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The new password and confirmation password do not match..
         /// </summary>
         public static string NewPasswordCompare {

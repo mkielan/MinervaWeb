@@ -1,6 +1,7 @@
 ﻿using Minerva.Entities;
 using Minerva.Entities.Sources;
 using Minerva.Repositories;
+using IO = System.IO;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -11,32 +12,38 @@ using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web;
 using Minerva.Models.Api.File;
+using Minerva.Helpers;
+using Minerva.Infrastructure;
 
 namespace Minerva.ApiControllers
 {
     /// <summary>
     /// Api do zarządzania plikami.
     /// </summary>
-    //todo dodać [Authorize]
+    [Authorize]
     [RoutePrefix("api/file")]
     public class FileController : ApiController
     {
-        private GenericRepository<MinervaDbContext, DiskStructure> _repository;
+        private IDiskStructureRepository<MinervaDbContext> _repository;
         private GenericRepository<MinervaDbContext, Tag> _tagRepository;
+        private string _path;
 
         public FileController()
         {
-            //string path = ConfigurationSettings.AppSettings["FilesStoragePath"];
-            _repository = new DiskStructureRepository();
-            _tagRepository = new TagRepository();
+            var context = new MinervaDbContext();
+            _repository = new DiskStructureRepository(context);
+            _tagRepository = new TagRepository(context);
+
+            _path = HttpContext.Current.Server.MapPath(ConfigurationSettings.AppSettings["FilesStoragePath"]);
         }
 
-        // GET api/<controller>/5
+        // GET api/file/5
+        [HttpGet]
+        [Route("{id:int}")]
         public IHttpActionResult Get(int id)
         {
-            // todo ograniczenie dla danego usera
             var file = _repository
-                .FindBy(f => f.Id == id && f.File != null)
+                .FindBy(f => f.Id == id && f.File != null && f.CreatedBy.UserName == User.Identity.Name)
                 .FirstOrDefault();
 
             if (file == null)
@@ -57,9 +64,11 @@ namespace Minerva.ApiControllers
             });
         }
 
-        // POST api/<controller>
+        // POST api/file
+        [HttpPost]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Post([FromBody]Add file)
-        {// todo ograniczenie dla danego usera
+        {
             DiskStructure parent = null;
 
             if (file.ParentId >= 0)
@@ -69,6 +78,7 @@ namespace Minerva.ApiControllers
                     var a = _repository.FindBy(
                         ds => ds.Id == file.ParentId 
                             && ds.File == null 
+                            && ds.CreatedBy.UserName == User.Identity.Name
                             && ds.DeletedTime == null
                     );
 
@@ -113,14 +123,20 @@ namespace Minerva.ApiControllers
 
             _repository.Save();
 
-            return Ok(true);
+            return Ok(diskStructure.Id);
         }
 
-        // PUT api/<controller>/5
+        // PUT api/file/5
+        [HttpPut]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Put(int id, [FromBody]Edit file)
         {// todo ograniczenie dla danego usera
+            var username = User.Identity.Name;
 
-            var b = _repository.FindBy(ds => ds.Parent.Id == id && ds.Name == file.Name && ds.DeletedTime == null)
+            var b = _repository.FindBy(
+                ds => ds.Parent.Id == id 
+                    && ds.Name == file.Name 
+                    && ds.DeletedTime == null)
                         .Any();
             if (b)
             {
@@ -132,6 +148,7 @@ namespace Minerva.ApiControllers
                 return BadRequest(ModelState);
             }
 
+            
             var com = _repository.FindBy(c => c.Id == id).FirstOrDefault();
 
             if (com == null)
@@ -141,8 +158,8 @@ namespace Minerva.ApiControllers
 
             com.Name = file.Name;
             com.Description = file.Description;
-            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
-            var user = _repository.Context.Users.First(u => u.UserName == "Mariusz");
+            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == username);
+            var user = _repository.Context.Users.First(u => u.UserName == username);
             if(file.Tags != null) {
 
                 if (com.Tags == null) com.Tags = new List<Tag>();
@@ -172,27 +189,33 @@ namespace Minerva.ApiControllers
             return Ok(true);
         }
 
-        // DELETE api/<controller>/5
+        // DELETE api/file/5
+        [HttpDelete]
+        [Route("{id:int}")]
         public async Task<IHttpActionResult> Delete(int id)
         {
-            // todo ograniczenie co do własności
+            var username = User.Identity.Name;
+
             var entity = _repository
-                .FindBy(f => f.Id == id && f.File != null && f.DeletedTime == null)
+                .FindBy(f => f.Id == id 
+                    && f.File != null 
+                    && f.DeletedTime == null
+                    && f.CreatedBy.UserName == username
+                    )
                 .FirstOrDefault();
 
             if (entity == null)
                 return NotFound();
 
-            entity.DeletedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
+            entity.DeletedBy = _repository.Context.Users.First(u => u.UserName == username);
             
-            _repository.Delete(entity);
+            _repository.Remove(entity);
             _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);
         }
 
-        //[Route("{tag}/FindByTag")]
-        //[ActionName("FindByTag")]
+        // GET api/file/findbytag/black
         [HttpGet]
         public IEnumerable<View> FindByTag(string id)
         {
@@ -203,6 +226,7 @@ namespace Minerva.ApiControllers
                     from t in _tag.DiskStructures 
                     where t.File != null
                         && t.DeletedTime == null
+                        && t.CreatedBy.UserName == User.Identity.Name
                     select new View
                     {
                         Id = t.Id,
@@ -218,7 +242,102 @@ namespace Minerva.ApiControllers
                             );
             }
             
-            return null; //todo
+            return null;
+        }
+
+        // GET api/file/GetSharedForMe
+        [Route("SharedForMe")]
+        public IEnumerable<View> GetSharedForMe()
+        {
+            //var tmp = _repository.FindShared("Mariusz" /*todo User.Identity.Name */, DiskItemType.File, PrivilageToDiskItemType.Shared);
+            var tmp = DiskStructureHelper.FindShared(_repository, User.Identity.Name, DiskItemType.File, PrivilageToDiskItemType.Shared);
+            return ObjectConverter.ManyFilesToApiView(tmp);
+        }
+
+        // GET api/file/GetSharedByMe
+        [Route("SharedByMe")]
+        public IEnumerable<View> GetSheredByMe()
+        {
+            //var tmp = _repository.FindShared("Mariusz" /*todo User.Identity.Name */, DiskItemType.File);
+            var tmp = DiskStructureHelper.FindShared(_repository, User.Identity.Name, DiskItemType.File);
+            return ObjectConverter.ManyFilesToApiView(tmp);
+        }
+
+        // GET api/file/id/share/Mariusz
+        [HttpGet]
+        [Route("{id:int}/share/{username}")]
+        public async Task<IHttpActionResult> ShareWith(int id, string username)
+        {
+            try
+            {
+                var dir = _repository.FindBy(
+                        d => d.Id == id
+                            && d.DeletedTime == null
+                            && d.File != null
+                            && d.CreatedBy.UserName == User.Identity.Name
+                    ).First();
+
+                //_repository.ShareWith(dir, username);
+                var tmp = DiskStructureHelper.ShareWith(_repository, dir, username);
+                _repository.Save();
+
+                return Ok(true);
+            }
+            catch (ArgumentNullException)
+            {
+                return NotFound();
+            }
+        }
+
+        // GET api/file/5/upload
+        [HttpPost]
+        [Route("{id:int}/upload")]
+        public async Task<IHttpActionResult> Upload(int id)
+        {
+            if (!HaveAccessToFile(id, User.Identity.Name))
+            {
+                return NotFound();
+            }
+
+            var httpRequest = HttpContext.Current.Request;
+
+            if (httpRequest.Files.Count == 1)
+            {
+                var postedFile = httpRequest.Files[0];
+                postedFile.SaveAs(_path + "//" + id);
+
+                return Ok(true);
+            }
+            else
+            {
+                return BadRequest();
+            }
+        }
+
+        // GET api/file/5/download
+        [HttpGet]
+        [Route("{id:int}/download")]
+        public async Task<IHttpActionResult> Download(int id)
+        {
+            if (!HaveAccessToFile(id, User.Identity.Name))
+            {
+                return NotFound();
+            }
+
+            return new FileActionResult(_path + "//" + id);
+        }
+
+        private bool HaveAccessToFile(int id, string username)
+        {
+            return _repository.FindBy(
+                    f => f.DeletedTime == null
+                        && f.Id == id
+                        && f.File != null
+                        && (
+                        f.CreatedBy.UserName == username
+                        || f.AvailableFor.Select(a => a.UserName).Contains(username)
+                        )
+                ).FirstOrDefault() != null;
         }
     }
 }

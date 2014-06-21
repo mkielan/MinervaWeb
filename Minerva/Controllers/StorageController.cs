@@ -6,25 +6,41 @@ using System.Web;
 using System.Web.Mvc;
 using Minerva.Resources;
 using Minerva.Repositories;
+using Minerva.Models.Web.Comment;
+using Minerva.Entities;
+using Minerva.Helpers;
 
 namespace Minerva.Controllers
 {
     [Authorize]
     public class StorageController : Controller
     {
-        private DiskStructureRepository _repository;
+        private IDiskStructureRepository<MinervaDbContext> _repository;
+        private ICommentRepository<MinervaDbContext> _commentRepository;
 
         public StorageController()
         {
-            _repository = new DiskStructureRepository();
+            var c = new MinervaDbContext();
+            _repository = new DiskStructureRepository(c);
+            _commentRepository = new CommentRepository(c);
         }
 
         // GET: Storage
-        public ActionResult Index(long? id)
+        public ActionResult Index(int? id)
         {
-            ViewBag.Title = Layout.YourStorage;
+            var itemId = id ?? 1;
+            var item = _repository.FindBy(ds => ds.Id == itemId).First();
+
+            if (item.File != null) throw new Exception("The item isn't directory!");
+
+            #region załadowanie ViewBaga
+
             ViewBag.Editing = true;
-            ViewBag.CurrentId = id.HasValue ? id : 1;
+            ViewBag.CurrentId = itemId;
+            ViewBag.ParentId = item.Parent == null ? null : (int?)item.Parent.Id;
+            ViewBag.Parents = DiskStructureHelper.GetBarecrumbParentFor(item);
+
+            #endregion
 
             var ret = _repository
                 .FindBy(d => 
@@ -40,6 +56,25 @@ namespace Minerva.Controllers
                 });
 
             return View("Storage", ret.ToList());
+        }
+
+        // GET: Storage/Comments
+        public ActionResult Comments(int? id)
+        {
+            var  itemId = id ?? 1;
+
+            return View(new ChatModel
+            {
+                ItemId = itemId,
+                UserName = User.Identity.Name,
+                Messages = _commentRepository
+                    .PrepareItemComments(itemId)
+                    .Select(c => new Item {
+                        Author = c.CreatedBy.UserName,
+                        Body = c.Body,
+                        SendTime = c.CreatedTime
+                     }).ToList()
+            });
         }
     }
 }

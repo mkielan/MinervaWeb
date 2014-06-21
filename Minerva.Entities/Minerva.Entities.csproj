@@ -82,6 +82,14 @@
     <Compile Include="Migrations\201406172223359_001.Designer.cs">
       <DependentUpon>201406172223359_001.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201406191014024_002.cs" />
+    <Compile Include="Migrations\201406191014024_002.Designer.cs">
+      <DependentUpon>201406191014024_002.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201406191134579_003.cs" />
+    <Compile Include="Migrations\201406191134579_003.Designer.cs">
+      <DependentUpon>201406191134579_003.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MinervaDbContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -132,6 +140,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201406172223359_001.resx">
       <DependentUpon>201406172223359_001.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406191014024_002.resx">
+      <DependentUpon>201406191014024_002.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201406191134579_003.resx">
+      <DependentUpon>201406191134579_003.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

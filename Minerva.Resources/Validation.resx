@@ -120,6 +120,9 @@
   <data name="Email" xml:space="preserve">
     <value>Filed {0} must be e-mail address.</value>
   </data>
+  <data name="ItemExistInDirectory" xml:space="preserve">
+    <value>Item with this name already exist in this directory.</value>
+  </data>
   <data name="NewPasswordCompare" xml:space="preserve">
     <value>The new password and confirmation password do not match.</value>
   </data>

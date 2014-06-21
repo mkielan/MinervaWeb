@@ -18,5 +18,10 @@ namespace Minerva.Entities.Sources
         public string Name { get; set; }
 
         public virtual ICollection<DiskStructure> DiskStructures { get; set; }
+
+        public Tag()
+        {
+            DiskStructures = new List<DiskStructure>();
+        }
     }
 }

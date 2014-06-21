@@ -29,10 +29,17 @@ namespace Minerva.Entities.Sources
 
         public ICollection<Comment> Comments { get; set; }
 
-        //public virtual ICollection<ApplicationUser> AvailableFor { get; set; }
+        public virtual ICollection<ApplicationUser> AvailableFor { get; set; }
 
         public virtual ICollection<Tag> Tags { get; set; }
 
-        public ICollection<Resource> Resources { get; set; }
+        public Resource Icon { get; set; }
+
+        public DiskStructure()
+        {
+            Comments = new List<Comment>();
+            AvailableFor = new List<ApplicationUser>();
+            Tags = new List<Tag>();
+        }
     }
 }

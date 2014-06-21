@@ -17,5 +17,10 @@ namespace Minerva.Entities.Sources
         public ICollection<DiskStructure> DiskStructures { get; set; }
 
         public string Name { get; set; }
+
+        public Resource()
+        {
+            DiskStructures = new List<DiskStructure>();
+        }
     }
 }
