@@ -30,31 +30,30 @@ namespace Minerva.Helpers
             return items;
         }
 
-
+        */
         public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, string username)
         {
             try
             {
-                var user = rep.Context.Users.Where(u => u.UserName == username).ToList();
+                var user = rep.Context.Users.First(u => u.UserName == username);
+                var dsa = rep.Context.DiskStructureAccess.FirstOrDefault(d => d.UserId == user.Id);
 
-                if (entity.AvailableFor == null)
+                if (dsa == null)
                 {
-                    entity.AvailableFor = user;
+                    dsa = new DiskStructureAccess {
+                        User = user
+                    };
                 }
-                else
-                {
-                    entity.AvailableFor.Add(user.First());
-                }
+
+                entity.AvailableFor.Add(dsa);
 
                 return true;
             }
             catch (ArgumentNullException)
             {
-
             }
             catch (InvalidOperationException)
             {
-
             }
 
             return false;
@@ -109,7 +108,7 @@ namespace Minerva.Helpers
                     )
                 && (
                     (privilage == PrivilageToDiskItemType.Owner && ds.CreatedBy.UserName == username && ds.AvailableFor.Any())
-                    || (privilage == PrivilageToDiskItemType.Shared && ds.AvailableFor.Select(a => a.UserName).Contains(username))
+                    || (privilage == PrivilageToDiskItemType.Shared && ds.AvailableFor.Select(a => a.User.UserName).Contains(username))
                     )
                 );
         }
@@ -138,9 +137,9 @@ namespace Minerva.Helpers
                     && ( // ograniczenie co do właściela
                         username == null //wszystkie
                         || (privilage == PrivilageToDiskItemType.Owner && ds.CreatedBy.UserName == username)
-                        || (privilage == PrivilageToDiskItemType.Shared && ds.AvailableFor.Contains(user))
+                        || (privilage == PrivilageToDiskItemType.Shared && ds.AvailableFor.Select(a => a.User.UserName).Contains(username))
                     )
                 );
-        }*/
+        }
     }
 }
