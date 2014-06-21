@@ -23,6 +23,8 @@ namespace Minerva.Entities
 
         public DbSet<Tag> Tags { get; set; }
 
+        public DbSet<DiskStructureAccess> DiskStructureAccess { get; set; }
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
@@ -35,7 +37,7 @@ namespace Minerva.Entities
                 .WithMany(t => t.Tags);
 
             modelBuilder.Entity<DiskStructure>()
-                .HasMany(ds => ds.AvailabolFor)
+                .HasMany(ds => ds.AvailableFor)
                 .WithMany(a => a.DiskStructures);
         }
     }

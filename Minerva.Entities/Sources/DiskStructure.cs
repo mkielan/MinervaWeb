@@ -27,7 +27,7 @@ namespace Minerva.Entities.Sources
 
         public ICollection<Comment> Comments { get; set; }
 
-        public ICollection<DiskStructureAccess> AvailabolFor { get; set; }
+        public ICollection<DiskStructureAccess> AvailableFor { get; set; }
 
         public ICollection<Tag> Tags { get; set; }
 
@@ -35,8 +35,7 @@ namespace Minerva.Entities.Sources
 
         public DiskStructure()
         {
-            //AvailableFor = new List<ApplicationUser>();
-            AvailabolFor = new HashSet<DiskStructureAccess>();
+            AvailableFor = new HashSet<DiskStructureAccess>();
             Comments = new HashSet<Comment>();
             Tags = new HashSet<Tag>();
             Resources = new HashSet<Resource>();
