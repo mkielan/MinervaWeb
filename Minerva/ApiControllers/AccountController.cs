@@ -41,20 +41,6 @@ namespace Minerva.ApiControllers
         public UserManager<ApplicationUser> UserManager { get; private set; }
         public ISecureDataFormat<AuthenticationTicket> AccessTokenFormat { get; private set; }
 
-        //tymczasowo
-        [AllowAnonymous]
-        public IHttpActionResult Login(LoginBindingModel model)
-        {
-            var user = UserManager.FindByName(model.Username);
-
-            if (user == null)
-            {
-                return NotFound();
-            }
-
-            return Ok(user.Id);
-        }
-
         // GET api/Account/UserInfo
         [HostAuthentication(DefaultAuthenticationTypes.ExternalBearer)]
         [Route("UserInfo")]
