@@ -301,6 +301,8 @@
   <ItemGroup>
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Gridmvc.css" />
+    <Content Include="Content\Images\dir.png" />
+    <Content Include="Content\Images\file.png" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.css" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.min.css" />
     <Content Include="favicon.ico" />
