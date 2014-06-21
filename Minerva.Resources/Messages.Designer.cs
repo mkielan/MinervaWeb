@@ -79,6 +79,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Are you want delete selected items?.
+        /// </summary>
+        public static string DeleteConfirm {
+            get {
+                return ResourceManager.GetString("DeleteConfirm", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Directory has been added!.
         /// </summary>
         public static string DirectoryAdded {
@@ -150,6 +159,24 @@ namespace Minerva.Resources {
         public static string InfoYouDontHaveLocalLogin {
             get {
                 return ResourceManager.GetString("InfoYouDontHaveLocalLogin", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You didn&apos;t select any items to share..
+        /// </summary>
+        public static string NoSelectedItemsToShareWarning {
+            get {
+                return ResourceManager.GetString("NoSelectedItemsToShareWarning", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You didn&apos;t select any items to delete..
+        /// </summary>
+        public static string NotSelectedItemsToDeleteWarning {
+            get {
+                return ResourceManager.GetString("NotSelectedItemsToDeleteWarning", resourceCulture);
             }
         }
         

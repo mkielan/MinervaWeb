@@ -261,4 +261,10 @@
   <data name="Optional" xml:space="preserve">
     <value>Optional</value>
   </data>
+  <data name="Send" xml:space="preserve">
+    <value>Send</value>
+  </data>
+  <data name="Up" xml:space="preserve">
+    <value>Up</value>
+  </data>
 </root>
