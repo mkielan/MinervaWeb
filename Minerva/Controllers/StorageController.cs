@@ -6,6 +6,7 @@ using System.Web;
 using System.Web.Mvc;
 using Minerva.Resources;
 using Minerva.Repositories;
+using Minerva.Entities;
 
 namespace Minerva.Controllers
 {
@@ -16,7 +17,7 @@ namespace Minerva.Controllers
 
         public StorageController()
         {
-            _repository = new DiskStructureRepository();
+            _repository = new DiskStructureRepository(new MinervaDbContext());
         }
 
         // GET: Storage

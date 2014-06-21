@@ -25,7 +25,7 @@ namespace Minerva.ApiControllers
 
         public DirectoryController()
         {
-            _repository = new DiskStructureRepository();
+            _repository = new DiskStructureRepository(new MinervaDbContext());
         }
 
         // GET: api/Directory
@@ -192,7 +192,7 @@ namespace Minerva.ApiControllers
 
             var en = entity.FirstOrDefault();
             en.DeletedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
-            _repository.Delete(en);
+            _repository.Remove(en);
             _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);

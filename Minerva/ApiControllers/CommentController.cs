@@ -19,7 +19,7 @@ namespace Minerva.ApiControllers
 
         public CommentController()
         {
-            _commentRepository = new CommentRepository();
+            _commentRepository = new CommentRepository(new MinervaDbContext());
         }
 
         // GET: api/Comment
@@ -87,7 +87,7 @@ namespace Minerva.ApiControllers
             if (entity == null)
                 return NotFound();
 
-            _commentRepository.Delete(entity);
+            _commentRepository.Remove(entity);
             _commentRepository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);

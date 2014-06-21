@@ -10,17 +10,21 @@ using System.Threading.Tasks;
 namespace Minerva.Repositories
 {
     public class GenericRepository<C, E> :
-        IRepository<E>
+        IRepository<C, E>
         where E : AbstractEntity
-        where C : DbContext, new()
+        where C : DbContext
     {
-
-        private C _entities = new C();
+        private C _entities;
 
         public C Context
         {
             get { return _entities; }
             set { _entities = value; }
+        }
+
+        public GenericRepository(C context)
+        {
+            _entities = context;
         }
 
         public virtual void Save()
@@ -38,7 +42,7 @@ namespace Minerva.Repositories
             _entities.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete(E entity)
+        public virtual void Remove(E entity)
         {
             _entities.Set<E>().Remove(entity);
         }

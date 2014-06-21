@@ -27,8 +27,9 @@ namespace Minerva.ApiControllers
         public FileController()
         {
             //string path = ConfigurationSettings.AppSettings["FilesStoragePath"];
-            _repository = new DiskStructureRepository();
-            _tagRepository = new TagRepository();
+            var context = new MinervaDbContext();
+            _repository = new DiskStructureRepository(context);
+            _tagRepository = new TagRepository(context);
         }
 
         // GET api/<controller>/5
@@ -185,7 +186,7 @@ namespace Minerva.ApiControllers
 
             entity.DeletedBy = _repository.Context.Users.First(u => u.UserName == "Mariusz");
             
-            _repository.Delete(entity);
+            _repository.Remove(entity);
             _repository.Save();
 
             return StatusCode(HttpStatusCode.NoContent);

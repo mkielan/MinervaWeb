@@ -10,5 +10,11 @@ namespace Minerva.Repositories
 {
     public class TagRepository : GenericFullRepository<MinervaDbContext, Tag>
     {
+        private MinervaDbContext context;
+
+        public TagRepository(MinervaDbContext context)
+            : base(context)
+        {
+        }
     }
 }
