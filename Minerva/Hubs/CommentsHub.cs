@@ -9,11 +9,6 @@ namespace Minerva.Hubs
 {
     public class CommentsHub : Hub
     {
-        public void Hello()
-        {
-            Clients.All.hello();
-        }
-
         public void Send(string name, int itemId, string msg)
         {
             var time = DateTime.Now;
