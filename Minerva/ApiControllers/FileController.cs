@@ -310,6 +310,7 @@ namespace Minerva.ApiControllers
 
         // GET api/file/5/upload
         [HttpPost]
+        [AllowAnonymous]
         [Route("{id:int}/upload")]
         public async Task<IHttpActionResult> Upload(int id)
         {
@@ -336,6 +337,7 @@ namespace Minerva.ApiControllers
 
         // GET api/file/5/download
         [HttpGet]
+        [AllowAnonymous]
         [Route("{id:int}/download")]
         public async Task<IHttpActionResult> Download(int id)
         {
