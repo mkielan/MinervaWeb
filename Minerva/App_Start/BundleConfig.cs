@@ -36,6 +36,12 @@ namespace Minerva
             jqueryvalBundle.Orderer = nullOrderer;
             bundles.Add(jqueryvalBundle);
 
+            var jquerySignalRBundle = new CustomScriptBundle("~/bundles/jquery-signalR");
+            jquerySignalRBundle.Include("~/Scripts/jquery.signalR-{version}.js");
+            jquerySignalRBundle.Include("~/signalr/hubs");
+            jquerySignalRBundle.Transforms.Add(jsTransformer);
+            jquerySignalRBundle.Orderer = nullOrderer;
+            bundles.Add(jquerySignalRBundle);
 
             // Use the development version of Modernizr to develop with and learn from. Then, when you're
             // ready for production, use the build tool at http://modernizr.com to pick only the tests you need.
