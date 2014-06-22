@@ -1,0 +1,14 @@
+﻿@model Minerva.Models.Web.Share.ShareModel
+
+@using res = Minerva.Resources;
+
+<fieldset>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Usernames)
+        @Html.TextBoxFor(m => m.Usernames, new { Class = "form-control", Placeholder = @res.Layout.EnterUsernames })
+    </div>
+</fieldset>
+
+<p>
+    @Html.Raw(res.Layout.InfoEnterUsernamesToShare)
+</p>

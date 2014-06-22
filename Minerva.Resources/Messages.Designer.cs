@@ -217,6 +217,24 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Sharing failed!.
+        /// </summary>
+        public static string ShareFailed {
+            get {
+                return ResourceManager.GetString("ShareFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing complete success!.
+        /// </summary>
+        public static string ShareSuccess {
+            get {
+                return ResourceManager.GetString("ShareSuccess", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Your personal data has been changed..
         /// </summary>
         public static string UserDataChangeSuccess {

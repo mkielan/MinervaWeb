@@ -104,5 +104,14 @@ namespace Minerva.Resources {
                 return ResourceManager.GetString("StringLength", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usernsmes not found, correct list of users..
+        /// </summary>
+        public static string UsernamesNotFound {
+            get {
+                return ResourceManager.GetString("UsernamesNotFound", resourceCulture);
+            }
+        }
     }
 }

@@ -267,4 +267,19 @@
   <data name="Up" xml:space="preserve">
     <value>Do góry</value>
   </data>
+  <data name="Sharing" xml:space="preserve">
+    <value>Udostępnianie</value>
+  </data>
+  <data name="EnterEmails" xml:space="preserve">
+    <value>Wprowadź e-maile</value>
+  </data>
+  <data name="EnterNames" xml:space="preserve">
+    <value>Wprowadź nazwy</value>
+  </data>
+  <data name="InfoEnterUsernamesToShare" xml:space="preserve">
+    <value>Wprowadź nazwy użytkowników, którym będzie udostępniony zasób. &lt;i&gt;(Jako separatorów używaj znaków: "," lub ";")&lt;/i&gt;</value>
+  </data>
+  <data name="EnterUsernames" xml:space="preserve">
+    <value>Wprawadź nazwy użytkowników</value>
+  </data>
 </root>

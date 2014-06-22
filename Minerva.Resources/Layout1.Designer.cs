@@ -223,11 +223,38 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter e-mails.
+        /// </summary>
+        public static string EnterEmails {
+            get {
+                return ResourceManager.GetString("EnterEmails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter name.
         /// </summary>
         public static string EnterName {
             get {
                 return ResourceManager.GetString("EnterName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter names.
+        /// </summary>
+        public static string EnterNames {
+            get {
+                return ResourceManager.GetString("EnterNames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter usernames.
+        /// </summary>
+        public static string EnterUsernames {
+            get {
+                return ResourceManager.GetString("EnterUsernames", resourceCulture);
             }
         }
         
@@ -273,6 +300,15 @@ namespace Minerva.Resources {
         public static string IfDontHaveLocalAccount {
             get {
                 return ResourceManager.GetString("IfDontHaveLocalAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Enter e-mails to share selected items. &lt;i&gt;(Items should be separated with &quot;,&quot; or &quot;;&quot;. .
+        /// </summary>
+        public static string InfoEnterUsernamesToShare {
+            get {
+                return ResourceManager.GetString("InfoEnterUsernamesToShare", resourceCulture);
             }
         }
         
@@ -453,6 +489,15 @@ namespace Minerva.Resources {
         public static string ShareTitle {
             get {
                 return ResourceManager.GetString("ShareTitle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Sharing.
+        /// </summary>
+        public static string Sharing {
+            get {
+                return ResourceManager.GetString("Sharing", resourceCulture);
             }
         }
         

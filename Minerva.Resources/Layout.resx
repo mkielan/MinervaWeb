@@ -267,4 +267,19 @@
   <data name="Up" xml:space="preserve">
     <value>Up</value>
   </data>
+  <data name="Sharing" xml:space="preserve">
+    <value>Sharing</value>
+  </data>
+  <data name="EnterEmails" xml:space="preserve">
+    <value>Enter e-mails</value>
+  </data>
+  <data name="EnterNames" xml:space="preserve">
+    <value>Enter names</value>
+  </data>
+  <data name="InfoEnterUsernamesToShare" xml:space="preserve">
+    <value>Enter e-mails to share selected items. &lt;i&gt;(Items should be separated with "," or ";". </value>
+  </data>
+  <data name="EnterUsernames" xml:space="preserve">
+    <value>Enter usernames</value>
+  </data>
 </root>

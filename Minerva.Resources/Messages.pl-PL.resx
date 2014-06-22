@@ -169,6 +169,12 @@
   <data name="SetPasswordSuccess" xml:space="preserve">
     <value>Twoje hasło zostało ustawione.</value>
   </data>
+  <data name="ShareFailed" xml:space="preserve">
+    <value>Udostępnienie nieudane!</value>
+  </data>
+  <data name="ShareSuccess" xml:space="preserve">
+    <value>Udostępnienie zakończone sukcesem!</value>
+  </data>
   <data name="UserDataChangeSuccess" xml:space="preserve">
     <value>Twoje dane osobowe zostały zmienione.</value>
   </data>

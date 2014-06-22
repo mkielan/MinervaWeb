@@ -151,11 +151,20 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to User name.
+        ///   Looks up a localized string similar to Username.
         /// </summary>
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Usernames.
+        /// </summary>
+        public static string Usernames {
+            get {
+                return ResourceManager.GetString("Usernames", resourceCulture);
             }
         }
     }

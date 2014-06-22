@@ -8,6 +8,7 @@ using Minerva.Entities;
 using Api = Minerva.Models.Api;
 using Minerva.Entities.Sources;
 using Minerva.Helpers;
+using Minerva.Models.Web.Share;
 
 namespace Minerva.Controllers
 {
@@ -127,6 +128,46 @@ namespace Minerva.Controllers
             }
 
             _repository.Save();
+
+            return Json(true);
+        }
+
+        [HttpPost]
+        public JsonResult Share(ShareModel model)
+        {
+            var usersString = model.Users();
+            var users = _repository.Context.Users.Where(u => usersString.Contains(u.UserName));
+            var count = 0;
+            try
+            {
+                count = users.Count();
+            }
+            catch
+            {
+            }
+            
+            if (usersString.Length == 0 || count == 0)
+            {
+                ModelState["Usernames"].Errors.Add(Resources.Validation.UsernamesNotFound);
+                
+                return Json(ModelState.ToSerializedDictionary());
+            }
+
+            if (!ModelState.IsValid)
+            {
+                return Json(ModelState.ToSerializedDictionary());
+            }
+            
+            var user = _repository.Context.Users.First(u => u.UserName == User.Identity.Name);
+            var items = _repository.FindBy(i => model.DiskItemIds.Contains(i.Id));
+            
+            foreach (var item in items)
+            {
+                DiskStructureHelper.ShareWith(_repository, item, usersString);
+            }
+
+            _repository.Save();
+
 
             return Json(true);
         }

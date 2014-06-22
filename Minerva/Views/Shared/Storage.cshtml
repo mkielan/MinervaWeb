@@ -3,6 +3,7 @@
 @using GridMvc.Html;
 @using GridMvc.Sorting;
 @using Minerva.Models.Web.Storage;
+@using Minerva.Models.Web.Share;
 @using res = Minerva.Resources;
 @using ItemType = Minerva.Models.Web.Storage.ItemType;
 
@@ -37,7 +38,7 @@
             <li>@Html.ActionLink(@res.Layout.Up, action, new { Id = parentId })</li>
         }
         <li><a class="can-disable-items" href="#" title="@res.Layout.DeleteTitle" onclick="deleteItems()">@res.Layout.Delete</a></li>
-        <li><a class="can-disable-items" href="#" title="@res.Layout.ShareTitle" onclick="shareItems()">@res.Layout.Share</a></li>
+        <li><a class="can-disable-items" href="#" title="@res.Layout.ShareTitle" onclick="shareItemsShow()">@res.Layout.Share</a></li>
     </ul>
 }
 
@@ -51,7 +52,7 @@
                 .Encoded(false)
                 .Sanitized(false)
                 .SetWidth(30)
-                .RenderValueAs(item => Html.CheckBox("checked", false, new { onclick = "checkedItem()" }));
+                .RenderValueAs(item => Html.CheckBox("checked", false, new { id = item.Id, onclick = "checkedItem()" }));
         }
         columns.Add(item => item.Name)
             .RenderValueAs(item =>
@@ -122,7 +123,29 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
-    
+    <div id="share-modal" class="modal fade">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">@res.Layout.Sharing</h4>
+                </div>
+                <div class="modal-body">
+                    <div id="share-alerts"></div>
+                    @using (Ajax.BeginForm("Share", "DiskItem", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "result" }))
+                    {
+                        @Html.ValidationSummary()
+                        @Html.Partial("_Share", new ShareModel())
+                    }
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">@res.Layout.Cancel</button>
+                    <button type="button" class="btn btn-primary" onclick="shareItems()">@res.Layout.Share</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <script type="text/javascript">
 
         $(function () {
@@ -137,6 +160,10 @@
                 $('.validation-summary-errors li').hide();
                 $('#add-dir-modal input').removeClass("input-validation-error");
                 $('#add-dir-modal form').validate().resetForm();
+            })
+
+            $('#share-modal').on('hidden.bs.modal', function (e) {
+                $('#share-modal input').val('');
             })
 
             $('div.grid-mvc thead tr').first().find('.grid-header-title span').first().append('<input type="checkbox" class="all-items" onclick="allItems()"/>');
@@ -176,12 +203,55 @@
             }
         }
 
+        function shareItemsShow() {
+            if (selectedCount() == 0) {
+                showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
+                return;
+            }
+
+            modalShow('#share-modal');
+        }
+
         function shareItems() {
             if (selectedCount() == 0) {
                 showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
                 return;
             }
 
+            var names = $('#share-modal input#Usernames').val();
+            console.log(names);
+            
+            var model = {
+                Usernames: names,
+                DiskItemIds: selectedItems()
+            }
+
+            $.ajax({
+                url: '@Url.Action("Share", "DiskItem")',
+                method: 'POST',
+                data: JSON.stringify(model),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                success: function (data) {
+                    if (data != true) {
+                        var txt = '';
+                        for (var i = 0; i < data.Usernames.length; i++) {
+                            txt += data.Usernames[i] + '<br/>';
+                        }
+                        console.log(txt);
+                        showAlert(txt, 'warning', '#share-modal #share-alerts');
+                        retur;
+                    }
+
+                    showAlert('@res.Messages.ShareSuccess', 'success');
+                    location.reload(true);
+                },
+                error: function (data) {
+                    showAlert('@res.Messages.ShareFailed', 'danger');
+                    $('share-modal').hide();
+                }
+            });
         }
 
         function deleteItems() {
@@ -190,7 +260,7 @@
                     showAlert('@res.Messages.NotSelectedItemsToDeleteWarning', 'warning');
                     return;
                 }
-                console.log(selectedItems());
+
                 $.ajax({
                     url: '@Url.Action("Delete", "DiskItem")',
                     method: 'POST',
@@ -215,11 +285,8 @@
             $('div.grid-mvc tbody input:checkbox').prop('checked', a);
         }
 
-        function checkedItem() {
-            console.log('item checked');
-            
+        function checkedItem() {            
             var allItemsCount = $('div.grid-mvc tbody input:checkbox').length;
-            //var selectedItems = $('div.grid-mvc tbody input:checked').length;
 
             $('div.grid-mvc .all-items').prop('checked', allItemsCount == selectedCount());
         }
@@ -233,7 +300,10 @@
         }
 
         function selectedItems() {
-            return $('div.grid-mvc tbody input:checked');
+            var ids = [];
+            $('div.grid-mvc tbody input:checked').each(function () { ids.push(this.id); });;
+
+            return ids;
         }
     </script>
 }
@@ -280,7 +350,8 @@
         $(param).modal('show');
     }
 
-    function showAlert(message, type) {
+    function showAlert(message, type, destination) {
+        destination = destination || '#alerts';
         if (type != 'warning' && type != 'info' && type == 'success' && type != 'danger') {
             type = 'info';
         }
@@ -289,10 +360,10 @@
         msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
         msg += message + "</div>";
 
-        $('#alerts').slideUp(function () {
-            $('#alerts').children().remove();
-            $('#alerts').append(msg);
-            $('#alerts').slideDown();
+        $(destination).slideUp(function () {
+            $(destination).children().remove();
+            $(destination).append(msg);
+            $(destination).slideDown();
         });
     }
 

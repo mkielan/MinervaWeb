@@ -132,4 +132,7 @@
   <data name="StringLength" xml:space="preserve">
     <value>{0} może mieć maksymalnie {2} liter.</value>
   </data>
+  <data name="UsernamesNotFound" xml:space="preserve">
+    <value>Nie udało się rozpoznać żadnego usera, popraw listę użytkowników.</value>
+  </data>
 </root>

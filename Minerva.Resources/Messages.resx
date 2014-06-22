@@ -171,6 +171,12 @@
   <data name="SetPasswordSuccess" xml:space="preserve">
     <value>Your password has been set.</value>
   </data>
+  <data name="ShareFailed" xml:space="preserve">
+    <value>Sharing failed!</value>
+  </data>
+  <data name="ShareSuccess" xml:space="preserve">
+    <value>Sharing complete success!</value>
+  </data>
   <data name="UserDataChangeSuccess" xml:space="preserve">
     <value>Your personal data has been changed.</value>
   </data>

@@ -30,11 +30,12 @@ namespace Minerva.Helpers
             return items;
         }
       
-        public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, string username)
+        public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, ApplicationUser user)
         {
+            if (user == null) return false;
+
             try
             {
-                var user = rep.Context.Users.First(u => u.UserName == username);
                 var dsa = rep.Context.DiskStructureAccess.FirstOrDefault(d => d.UserId == user.Id);
 
                 if (dsa == null)
@@ -44,7 +45,54 @@ namespace Minerva.Helpers
                     };
                 }
 
-                entity.AvailableFor.Add(dsa);
+                if(!entity.AvailableFor.Select(u => u.User.UserName).Contains(user.UserName))
+                    entity.AvailableFor.Add(dsa);
+
+                return true;
+            }
+            catch (ArgumentNullException)
+            {
+            }
+            catch (InvalidOperationException)
+            {
+            }
+
+            return false;
+        }
+
+        public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, string username)
+        {
+            var user = rep.Context.Users.FirstOrDefault(u => u.UserName == username);
+
+            return ShareWith(rep, entity, user);
+        }
+
+        /// <summary>
+        /// For many
+        /// </summary>
+        /// <param name="rep"></param>
+        /// <param name="entity"></param>
+        /// <param name="username"></param>
+        /// <returns></returns>
+        public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, string[] username)
+        {
+            try
+            {
+                var users = rep.Context.Users.Where(u => username.Contains(u.UserName));
+                
+                foreach(var user in users) {
+                    var dsa = rep.Context.DiskStructureAccess.FirstOrDefault(d => d.UserId == user.Id);
+
+                    if (dsa == null)
+                    {
+                        dsa = new DiskStructureAccess
+                        {
+                            User = user
+                        };
+                    }
+
+                    entity.AvailableFor.Add(dsa);
+                }
 
                 return true;
             }

@@ -297,6 +297,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Extensions\ModelState.cs" />
     <Compile Include="Infrastructure\FileActionResult.cs" />
     <Compile Include="Infrastructure\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -419,12 +420,12 @@
     <Content Include="Views\Shared\_AddDirectoryPartial.cshtml" />
     <Content Include="Views\Shared\Comments.cshtml" />
     <Content Include="Views\Shared\_ParentBreadcrumbs.cshtml" />
+    <Content Include="Views\Shared\EditorTemplates\ShareModel.cshtml" />
+    <Content Include="Views\Storage\_Share.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Views\DiskItem\" />
     <Folder Include="Views\Share\" />
-    <Folder Include="Views\Storage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
