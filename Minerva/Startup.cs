@@ -10,7 +10,9 @@ namespace Minerva
         public void Configuration(IAppBuilder app)
         {
             ConfigureAuth(app);
-            
+
+            // map signal r
+            app.MapSignalR();
         }
     }
 }
