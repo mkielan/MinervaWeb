@@ -138,6 +138,12 @@
   <data name="ErrorDuringRequestProcessing" xml:space="preserve">
     <value>An error occurred while processing your request.</value>
   </data>
+  <data name="FileAdded" xml:space="preserve">
+    <value>File has been added!</value>
+  </data>
+  <data name="FileNotAdded" xml:space="preserve">
+    <value>File has not been added!</value>
+  </data>
   <data name="InfoNoExternalAuth" xml:space="preserve">
     <value>There are no external authentication services configured.</value>
   </data>

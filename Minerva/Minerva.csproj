@@ -288,6 +288,7 @@
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
     <Compile Include="Helpers\DiskStructureHelper.cs" />
+    <Compile Include="Helpers\FileHelper.cs" />
     <Compile Include="Helpers\ObjectConverter.cs" />
     <Compile Include="Infrastructure\ApplicationOAuthProvider.cs" />
     <Compile Include="Infrastructure\ChallengeResult.cs" />

@@ -106,6 +106,13 @@ namespace Minerva.Helpers
             return false;
         }
 
+        public static DiskStructure GetFile<A>(IDiskStructureRepository<A> rep, int id) {
+            return rep.FindBy(f =>
+                f.DeletedBy == null
+                && f.Id == id
+                && f.File != null).FirstOrDefault();
+        }
+
         public static IEnumerable<DiskStructure> GetFiles(IDiskStructureRepository<MinervaDbContext> rep, string username)
         {
             return rep.FindBy(f =>

@@ -138,6 +138,12 @@
   <data name="ErrorDuringRequestProcessing" xml:space="preserve">
     <value>Wystąpił błąd podczas procesowania twojego żądania.</value>
   </data>
+  <data name="FileAdded" xml:space="preserve">
+    <value>Plik został dodany!</value>
+  </data>
+  <data name="FileNotAdded" xml:space="preserve">
+    <value>Nie udało się dodać pliku!</value>
+  </data>
   <data name="InfoNoExternalAuth" xml:space="preserve">
     <value>Nie ma skonfigurowanych zewnętrznych dostawców kont.</value>
   </data>

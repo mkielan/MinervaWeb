@@ -124,6 +124,24 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File has been added!.
+        /// </summary>
+        public static string FileAdded {
+            get {
+                return ResourceManager.GetString("FileAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File has not been added!.
+        /// </summary>
+        public static string FileNotAdded {
+            get {
+                return ResourceManager.GetString("FileNotAdded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to There are no external authentication services configured..
         /// </summary>
         public static string InfoNoExternalAuth {

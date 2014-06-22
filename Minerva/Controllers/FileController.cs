@@ -9,6 +9,8 @@ using Minerva.Repositories;
 using Minerva.Models.Web.Comment;
 using Minerva.Entities;
 using Minerva.Helpers;
+using System.Configuration;
+using System.IO;
 
 namespace Minerva.Controllers
 {
@@ -17,10 +19,15 @@ namespace Minerva.Controllers
     {
         private IDiskStructureRepository<MinervaDbContext> _repository;
 
+        private string _storagePath;
+        
         public FileController()
         {
             var c = new MinervaDbContext();
             _repository = new DiskStructureRepository(c);
+
+
+            _storagePath = Server.MapPath(ConfigurationSettings.AppSettings["FilesStoragePath"]);
         }
 
         public ActionResult Show(int id)
@@ -28,15 +35,24 @@ namespace Minerva.Controllers
             return View();
         }
 
-        public FileResult Download()
+        public FileResult Download(int id)
         {
-            return null;
+            var file = DiskStructureHelper.GetFile<MinervaDbContext>(_repository, id);
+
+            if (file == null) return null;
+
+            return File(_storagePath + "\\" + id, "application/force-download", "filename");
         }
 
         [HttpPost]
-        public JsonResult Upload()
+        public JsonResult Upload(int id)
         {
-            return Json(1);
+            var file = DiskStructureHelper.GetFile<MinervaDbContext>(_repository, id);
+
+            if (file == null) return Json(false);
+
+            var ret = FileHelper.Save(this.Request, _storagePath + "//" + id);
+            return Json(ret);
         }
     }
 }

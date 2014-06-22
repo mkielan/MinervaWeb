@@ -83,16 +83,24 @@
                     <h4 class="modal-title">@res.Layout.AddFile</h4>
                 </div>
                 <div class="modal-body">
+                    <div id="add-file-alerts"></div>
                     <form id="file-uploader" role="form">
-                        <div class="fileinput fileinput-new input-group" data-provides="fileinput">
-                            <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-                            <span class="input-group-addon btn btn-default btn-file">
-                                <span class="fileinput-new">@res.Layout.SelectFile</span>
-                                <span class="fileinput-exists">@res.Layout.Change</span>
-                                <input type="file" name="...">
-                            </span>
-                            <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">@res.Layout.Remove</a>
-                        </div>
+                        <fieldset>
+                            @Html.Label(@res.Model.File)
+                            <div class="fileinput fileinput-new input-group" data-provides="fileinput">
+                                <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
+                                <span class="input-group-addon btn btn-default btn-file">
+                                    <span class="fileinput-new">@res.Layout.SelectFile</span>
+                                    <span class="fileinput-exists">@res.Layout.Change</span>
+                                    <input type="file" name="...">
+                                </span>
+                                <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">@res.Layout.Remove</a>
+                            </div>
+                            <div class="form-group">
+                                @Html.Label(@res.Model.Description)
+                                <input id="description" type="text" class="form-control" placeholder="@res.Layout.Optional" />
+                            </div>
+                        </fieldset>
                     </form>
                 </div>
                 <div class="modal-footer">
@@ -148,163 +156,217 @@
 
     <script type="text/javascript">
 
-        $(function () {
-            $('#add-file-modal').on('hidden.bs.modal', function (e) {
-                $('#add-file-modal input').val('');
-            })
+    $(function () {
+        $('#add-file-modal').on('hidden.bs.modal', function (e) {
+            $('#add-file-modal input').val('');
+        })
 
-            $('#add-dir-modal').on('hidden.bs.modal', function (e) {
-                $('#add-dir-modal input').val('');
-                $('#add-dir-modal textarea').val('');
-                $('.validation-summary-errors li').empty();
-                $('.validation-summary-errors li').hide();
-                $('#add-dir-modal input').removeClass("input-validation-error");
-                $('#add-dir-modal form').validate().resetForm();
-            })
+        $('#add-dir-modal').on('hidden.bs.modal', function (e) {
+            $('#add-dir-modal input').val('');
+            $('#add-dir-modal textarea').val('');
+            $('.validation-summary-errors li').empty();
+            $('.validation-summary-errors li').hide();
+            $('#add-dir-modal input').removeClass("input-validation-error");
+            $('#add-dir-modal form').validate().resetForm();
+        })
 
-            $('#share-modal').on('hidden.bs.modal', function (e) {
-                $('#share-modal input').val('');
-            })
+        $('#share-modal').on('hidden.bs.modal', function (e) {
+            $('#share-modal input').val('');
+        })
 
-            $('div.grid-mvc thead tr').first().find('.grid-header-title span').first().append('<input type="checkbox" class="all-items" onclick="allItems()"/>');
-        });
+        $('div.grid-mvc thead tr').first().find('.grid-header-title span').first().append('<input type="checkbox" class="all-items" onclick="allItems()"/>');
+    });
 
-        function dirSave() {
-            var form = $('#add-dir-modal form');
-            var validator = form.validate();
-            
-            if (form.valid()) {
-                var name = $('#add-dir-modal input#Name').val();
-                var description = $('#add-dir-modal textarea#Description').val();
-                var currentId = $('input:hidden#CurrentId').val();
-                $('#add-dir-modal').modal('hide')
+    function dirSave() {
+        var form = $('#add-dir-modal form');
+        var validator = form.validate();
 
-                var sendData = {
-                    name: name,
-                    ParentId: currentId,
-                    description: description
-                };
+        if (form.valid()) {
+            var name = $('#add-dir-modal input#Name').val();
+            var description = $('#add-dir-modal textarea#Description').val();
+            var currentId = $('input:hidden#CurrentId').val();
+            $('#add-dir-modal').modal('hide')
 
-                $.ajax({
-                    url: '@Url.Action("AddDirectory", "DiskItem")',
-                    method: 'POST',
-                    data: JSON.stringify(sendData),
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    cache: false,
-                    success: function (data) {
-                        showAlert('@res.Messages.DirectoryAdded', 'success');
-                        location.reload(true);
-                    },
-                    error: function (data) {
-                        showAlert('@res.Messages.DirectoryNotAdded', 'danger');
-                    }
-                });
-            }
-        }
-
-        function shareItemsShow() {
-            if (selectedCount() == 0) {
-                showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
-                return;
-            }
-
-            modalShow('#share-modal');
-        }
-
-        function shareItems() {
-            if (selectedCount() == 0) {
-                showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
-                return;
-            }
-
-            var names = $('#share-modal input#Usernames').val();
-            console.log(names);
-            
-            var model = {
-                Usernames: names,
-                DiskItemIds: selectedItems()
-            }
+            var sendData = {
+                name: name,
+                ParentId: currentId,
+                description: description
+            };
 
             $.ajax({
-                url: '@Url.Action("Share", "DiskItem")',
+                url: '@Url.Action("AddDirectory", "DiskItem")',
                 method: 'POST',
-                data: JSON.stringify(model),
+                data: JSON.stringify(sendData),
                 dataType: 'json',
                 contentType: 'application/json; charset=utf-8',
                 cache: false,
                 success: function (data) {
-                    if (data != true) {
-                        var txt = '';
-                        for (var i = 0; i < data.Usernames.length; i++) {
-                            txt += data.Usernames[i] + '<br/>';
-                        }
-                        console.log(txt);
-                        showAlert(txt, 'warning', '#share-modal #share-alerts');
-                        retur;
-                    }
-
-                    showAlert('@res.Messages.ShareSuccess', 'success');
+                    showAlert('@res.Messages.DirectoryAdded', 'success');
                     location.reload(true);
                 },
                 error: function (data) {
-                    showAlert('@res.Messages.ShareFailed', 'danger');
-                    $('share-modal').hide();
+                    showAlert('@res.Messages.DirectoryNotAdded', 'danger');
                 }
             });
         }
+    }
 
-        function deleteItems() {
-            if (confirm('@res.Messages.DeleteConfirm')) {
-                if (selectedCount() == 0) {
-                    showAlert('@res.Messages.NotSelectedItemsToDeleteWarning', 'warning');
-                    return;
+    function shareItemsShow() {
+        if (selectedCount() == 0) {
+            showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
+            return;
+        }
+
+        modalShow('#share-modal');
+    }
+
+    function shareItems() {
+        if (selectedCount() == 0) {
+            showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
+            return;
+        }
+
+        var names = $('#share-modal input#Usernames').val();
+        console.log(names);
+
+        var model = {
+            Usernames: names,
+            DiskItemIds: selectedItems()
+        }
+
+        $.ajax({
+            url: '@Url.Action("Share", "DiskItem")',
+            method: 'POST',
+            data: JSON.stringify(model),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            cache: false,
+            success: function (data) {
+                if (data != true) {
+                    var txt = '';
+                    for (var i = 0; i < data.Usernames.length; i++) {
+                        txt += data.Usernames[i] + '<br/>';
+                    }
+                    console.log(txt);
+                    showAlert(txt, 'warning', '#share-modal #share-alerts');
+                    retur;
                 }
 
+                showAlert('@res.Messages.ShareSuccess', 'success');
+                location.reload(true);
+            },
+            error: function (data) {
+                showAlert('@res.Messages.ShareFailed', 'danger');
+                $('share-modal').hide();
+            }
+        });
+    }
+
+    function deleteItems() {
+        if (confirm('@res.Messages.DeleteConfirm')) {
+            if (selectedCount() == 0) {
+                showAlert('@res.Messages.NotSelectedItemsToDeleteWarning', 'warning');
+                return;
+            }
+
+            $.ajax({
+                url: '@Url.Action("Delete", "DiskItem")',
+                method: 'POST',
+                data: JSON.stringify(selectedItems()),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                success: function (data) {
+                    showAlert('@res.Messages.ItemsDeleted', 'success');
+                    location.reload(true);
+                },
+                error: function (data) {
+                    showAlert('@res.Messages.ItemsNotDeleted', 'danger');
+                }
+            });
+        }
+    }
+
+    function allItems() {
+        console.log('all items checked');
+        var a = $('div.grid-mvc .all-items').prop('checked');
+        $('div.grid-mvc tbody input:checkbox').prop('checked', a);
+    }
+
+    function checkedItem() {
+        var allItemsCount = $('div.grid-mvc tbody input:checkbox').length;
+
+        $('div.grid-mvc .all-items').prop('checked', allItemsCount == selectedCount());
+    }
+
+    function upload() {
+        var description = $('#add-file-modal input#description').val();
+
+        var filename = $('#add-file-modal input:file').val();
+
+        if (filename.length > 0) {
+            @* Dodanie pliku    *@
+            var currentId = $('input:hidden#CurrentId').val();
+            var fileId = -1;
+
+            var sendData = {
+                name: filename,
+                ParentId: currentId,
+                description: description
+            };
+            
+            $.ajax({
+                url: '@Url.Action("AddFile", "DiskItem")',
+                method: 'POST',
+                data: JSON.stringify(sendData),
+                dataType: 'json',
+                contentType: 'application/json; charset=utf-8',
+                cache: false,
+                success: function (data) {
+                    fileId = data;
+                },
+                error: function (data) {
+                    
+                }
+            });
+
+            @* Upload pliku     *@
+            if (fileId > 0) {
+                var formData = new FormData();
+                formData.append('files[]', $('#add-file-modal input:file').get(0).files[0]);
                 $.ajax({
-                    url: '@Url.Action("Delete", "DiskItem")',
-                    method: 'POST',
-                    data: JSON.stringify(selectedItems()),
-                    dataType: 'json',
-                    contentType: 'application/json; charset=utf-8',
-                    cache: false,
-                    success: function (data) {
-                        showAlert('@res.Messages.ItemsDeleted', 'success');
+                    type: 'POST',
+                    url: '@Url.Action("Upload", "File", new { id = 1 })',
+                    enctype: 'multipart/form-data',
+                    data: formData,
+                    success: function () {
+                        alert("Data Uploaded: ");
+
+                        showAlert('@res.Messages.FileAdded', 'success');
                         location.reload(true);
-                    },
-                    error: function (data) {
-                        showAlert('@res.Messages.ItemsNotDeleted', 'danger');
                     }
                 });
             }
+
+            @*  Gdy niepowodzenie *@
+            showAlert('@res.Messages.FileNotAdded', 'danger');
+            $('#add-file-modal').hide();
         }
-
-        function allItems() {
-            console.log('all items checked');
-            var a = $('div.grid-mvc .all-items').prop('checked');
-            $('div.grid-mvc tbody input:checkbox').prop('checked', a);
+        else {
+            showAlert('@string.Format(res.Validation.Required, res.Model.File)', 'warning', '#add-file-modal #add-file-alerts');
         }
+    }
 
-        function checkedItem() {            
-            var allItemsCount = $('div.grid-mvc tbody input:checkbox').length;
+    function selectedCount() {
+        return $('div.grid-mvc tbody input:checked').length;
+    }
 
-            $('div.grid-mvc .all-items').prop('checked', allItemsCount == selectedCount());
-        }
+    function selectedItems() {
+        var ids = [];
+        $('div.grid-mvc tbody input:checked').each(function () { ids.push(this.id); });;
 
-        function upload() {
-
-        }
-
-        function selectedCount() {
-            return $('div.grid-mvc tbody input:checked').length;
-        }
-
-        function selectedItems() {
-            var ids = [];
-            $('div.grid-mvc tbody input:checked').each(function () { ids.push(this.id); });;
-
-            return ids;
-        }
+        return ids;
+    }
     </script>
 }
 
