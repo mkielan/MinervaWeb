@@ -153,6 +153,12 @@
     <value>You do not have a local username/password for this site. Add a local
     account so you can log in without an external login.</value>
   </data>
+  <data name="ItemsDeleted" xml:space="preserve">
+    <value>Items has been deleted!</value>
+  </data>
+  <data name="ItemsNotDeleted" xml:space="preserve">
+    <value>Items has not been deleted!</value>
+  </data>
   <data name="NoSelectedItemsToShareWarning" xml:space="preserve">
     <value>You didn't select any items to share.</value>
   </data>

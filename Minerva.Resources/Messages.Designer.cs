@@ -163,6 +163,24 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Items has been deleted!.
+        /// </summary>
+        public static string ItemsDeleted {
+            get {
+                return ResourceManager.GetString("ItemsDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Items has not been deleted!.
+        /// </summary>
+        public static string ItemsNotDeleted {
+            get {
+                return ResourceManager.GetString("ItemsNotDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You didn&apos;t select any items to share..
         /// </summary>
         public static string NoSelectedItemsToShareWarning {

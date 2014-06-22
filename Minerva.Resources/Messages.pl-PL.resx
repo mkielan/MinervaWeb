@@ -151,6 +151,12 @@
   <data name="InfoYouDontHaveLocalLogin" xml:space="preserve">
     <value>Nie posiadasz lokalnego konta i hasła. Dodaj lokalne konto, aby móc logować się bez zewnętrznego konta.</value>
   </data>
+  <data name="ItemsDeleted" xml:space="preserve">
+    <value>Elementy zostały usunięte!</value>
+  </data>
+  <data name="ItemsNotDeleted" xml:space="preserve">
+    <value>Nie udało się usunąć elementów!</value>
+  </data>
   <data name="NoSelectedItemsToShareWarning" xml:space="preserve">
     <value>Nie zaznaczyłeś elementów do udostępnienia.</value>
   </data>
