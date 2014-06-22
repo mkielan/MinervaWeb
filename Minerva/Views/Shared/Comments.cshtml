@@ -1,0 +1,70 @@
+﻿@model Minerva.Models.Web.Comment.ChatModel
+
+@using res = Minerva.Resources
+
+<div class="comments-box">
+    @Html.HiddenFor(m => m.UserName)
+    @Html.HiddenFor(m => m.ItemId)
+    <h4>@res.Layout.Comments</h4>
+
+    <div class="before">
+        @foreach (var comment in Model.Messages)
+        {
+            <div class="commnet">
+                <div class="author">@comment.Author</div>
+                <div class="body">@comment.Body</div>
+                <div class="time">@comment.SendTime</div>
+            </div>
+        }
+    </div>
+    <div class="new">
+        <input type="text" class="form-control" id="comment" />
+        <input type="button" class="btn" id="send-comment" value="@res.Layout.Send" />
+    </div>
+    @section scripts {
+        <script src="~/Scripts/jquery.signalR-2.1.0.min.js"></script>
+        <script src="~/signalr/hubs"></script>
+        <script type="text/javascript">
+            $(function () {
+                // Reference the auto-generated proxy for the hub.
+                var chat = $.connection.commentsHub;
+
+                // Create a function that the hub can call back to display messages.
+                chat.client.addComment = function (username, message, dateTime) {
+                    // Build a message div
+                    var msg = '<div class="commnet">';
+                    msg += '<div class="author">' + htmlEncode(name) + '</div>';
+                    msg += '<div class="body">' + htmlEncode(message) + '</div>';
+                    msg += '<div class="time">' + htmlEncode(dateTime) + '</div></div>';
+
+                    // Add the message to the page.
+                    $('#comments-box').append(msg);
+                };
+
+                // Start the connection.
+                $.connection.hub.start().done(function () {
+                    $('#send-comment').click(function () {
+                        var comment = $('.new #comment').val();
+
+                        if (comment.length > 0) { //todo poprawna nazwa usera
+                            // Call the Send method on the hub.
+                            chat.server.comment($('input#ItemId').val(), $('input#UserName').val(), comment);
+
+                            // Clear the text box
+                            $('.new #comment').val('').focus();;
+                        }
+                    });
+                });
+            });
+
+            // This optional function html-encodes messages for display in the page.
+            function htmlEncode(value) {
+                var encodedValue = $('<div />').text(value).html();
+                return encodedValue;
+            }
+        </script>
+    }
+</div>
+
+
+

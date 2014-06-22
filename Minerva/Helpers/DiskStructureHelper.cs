@@ -10,7 +10,7 @@ using Minerva.Repositories;
 namespace Minerva.Helpers
 {
     public static class DiskStructureHelper
-    {/*
+    {
         public static ICollection<BreadcrumbItem> GetBarecrumbParentFor(DiskStructure ds)
         {
             var items = new List<BreadcrumbItem>();
@@ -29,8 +29,7 @@ namespace Minerva.Helpers
 
             return items;
         }
-
-        */
+      
         public static bool ShareWith(IDiskStructureRepository<MinervaDbContext> rep, DiskStructure entity, string username)
         {
             try

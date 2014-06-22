@@ -2,21 +2,24 @@
 
 @using GridMvc.Html;
 @using GridMvc.Sorting;
+@using Minerva.Models.Web.Storage;
 @using res = Minerva.Resources;
 @using ItemType = Minerva.Models.Web.Storage.ItemType;
 
 @{
-    ViewBag.Title = ViewBag.Title;
+    ViewBag.Title = res.Layout.YourStorage;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var editing = ViewBag.Editing != null && ViewBag.Editing;
     var routeData = HttpContext.Current.Request.RequestContext.RouteData;
     var action = routeData.Values["action"].ToString();
-    long? currentId = ViewBag.CurrentId;
+    int? currentId = ViewBag.CurrentId;
+    int? parentId = ViewBag.ParentId;
+    var parents = (ICollection<BreadcrumbItem>)ViewBag.Parents;
 }
 
 <h2>@ViewBag.Title</h2>
 
-<h4>@res.Layout.YouAreAt /folder name/</h4>
+@Html.Partial("_ParentBreadcrumbs", parents)
 
 @if (editing)
 {
@@ -30,6 +33,9 @@
                 <li><a href="#" title="@res.Layout.AddDirectoryTitle" onclick="modalShow('#add-dir-modal')">@res.Layout.Directory</a></li>
             </ul>
         </li>
+        @if(parentId.HasValue) {
+            <li>@Html.ActionLink(@res.Layout.Up, action, new { Id = parentId })</li>
+        }
         <li><a class="can-disable-items" href="#" title="@res.Layout.DeleteTitle" onclick="deleteItems()">@res.Layout.Delete</a></li>
         <li><a class="can-disable-items" href="#" title="@res.Layout.ShareTitle" onclick="shareItems()">@res.Layout.Share</a></li>
     </ul>
@@ -64,7 +70,7 @@
     }
 ).WithPaging(20)
 
-<h3>@res.Layout.Comments</h3>
+<!--Html.Partial("_Comments")-->
 
 @if (editing)
 {
@@ -76,18 +82,21 @@
                     <h4 class="modal-title">@res.Layout.AddFile</h4>
                 </div>
                 <div class="modal-body">
-                    <form role="form">
+                    <form id="file-uploader" role="form">
                         <div class="fileinput fileinput-new input-group" data-provides="fileinput">
                             <div class="form-control" data-trigger="fileinput"><i class="glyphicon glyphicon-file fileinput-exists"></i> <span class="fileinput-filename"></span></div>
-                            <span class="input-group-addon btn btn-default btn-file"><span class="fileinput-new">@res.Layout.SelectFile</span><span class="fileinput-exists">@res.Layout.Change</span><input type="file" name="..."></span>
+                            <span class="input-group-addon btn btn-default btn-file">
+                                <span class="fileinput-new">@res.Layout.SelectFile</span>
+                                <span class="fileinput-exists">@res.Layout.Change</span>
+                                <input type="file" name="...">
+                            </span>
                             <a href="#" class="input-group-addon btn btn-default fileinput-exists" data-dismiss="fileinput">@res.Layout.Remove</a>
                         </div>
-
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">@res.Layout.Cancel</button>
-                    <button type="button" class="btn btn-primary">@res.Layout.Add</button>
+                    <button type="button" class="btn btn-primary" onclick="upload()">@res.Layout.Add</button>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
@@ -116,7 +125,7 @@
     
     <script type="text/javascript">
 
-        $(document).ready(function () {
+        $(function () {
             $('#add-file-modal').on('hidden.bs.modal', function (e) {
                 $('#add-file-modal input').val('');
             })
@@ -145,12 +154,12 @@
 
                 var sendData = {
                     name: name,
-                    parent_id: currentId,
+                    ParentId: currentId,
                     description: description
                 };
 
                 $.ajax({
-                    url: 'http://localhost/Minerva/api/Directory',
+                    url: '@Url.Action("AddDirectory", "DiskItem")',
                     method: 'POST',
                     data: JSON.stringify(sendData),
                     dataType: 'json',
@@ -168,11 +177,36 @@
         }
 
         function shareItems() {
-            showAlert('Nie zaznaczono żadnych elementów do udostępnienia!', 'warning');
+            if (selectedCount() == 0) {
+                showAlert('@res.Messages.NoSelectedItemsToShareWarning', 'warning');
+                return;
+            }
+
         }
 
         function deleteItems() {
-            showAlert('Nie zaznaczono żadnych elementów do usunięcia!', 'warning');
+            if (confirm('@res.Messages.DeleteConfirm')) {
+                if (selectedCount() == 0) {
+                    showAlert('@res.Messages.NotSelectedItemsToDeleteWarning', 'warning');
+                    return;
+                }
+                console.log(selectedItems());
+                $.ajax({
+                    url: '@Url.Action("Delete", "DiskItem")',
+                    method: 'POST',
+                    data: JSON.stringify(selectedItems()),
+                    dataType: 'json',
+                    contentType: 'application/json; charset=utf-8',
+                    cache: false,
+                    success: function (data) {
+                        showAlert('@res.Messages.ItemsDeleted', 'success');
+                        location.reload(true);
+                    },
+                    error: function (data) {
+                        showAlert('@res.Messages.ItemsNotDeleted', 'danger');
+                    }
+                });
+            }
         }
 
         function allItems() {
@@ -185,9 +219,21 @@
             console.log('item checked');
             
             var allItemsCount = $('div.grid-mvc tbody input:checkbox').length;
-            var selectedItems = $('div.grid-mvc tbody input:checked').length;
+            //var selectedItems = $('div.grid-mvc tbody input:checked').length;
 
-            $('div.grid-mvc .all-items').prop('checked', allItemsCount == selectedItems);
+            $('div.grid-mvc .all-items').prop('checked', allItemsCount == selectedCount());
+        }
+
+        function upload() {
+
+        }
+
+        function selectedCount() {
+            return $('div.grid-mvc tbody input:checked').length;
+        }
+
+        function selectedItems() {
+            return $('div.grid-mvc tbody input:checked');
         }
     </script>
 }
@@ -219,6 +265,7 @@
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
 <script type="text/javascript">
 
     function showItem(id, type) {
@@ -250,6 +297,8 @@
     }
 
 </script>
+
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 }
