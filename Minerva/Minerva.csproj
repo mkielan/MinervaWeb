@@ -299,6 +299,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Extensions\ModelState.cs" />
+    <Compile Include="Infrastructure\Extensions\WebExtensions.cs" />
     <Compile Include="Infrastructure\FileActionResult.cs" />
     <Compile Include="Infrastructure\HttpStatusCodeWithMessageResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

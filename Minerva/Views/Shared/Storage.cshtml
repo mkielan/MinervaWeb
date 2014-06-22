@@ -1,5 +1,6 @@
 ﻿@model ICollection<Minerva.Models.Web.Storage.GridItem>
 
+@using Minerva.Infrastructure.Extensions;
 @using GridMvc.Html;
 @using GridMvc.Sorting;
 @using Minerva.Models.Web.Storage;
@@ -11,8 +12,6 @@
     ViewBag.Title = res.Layout.YourStorage;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var editing = ViewBag.Editing != null && ViewBag.Editing;
-    var routeData = HttpContext.Current.Request.RequestContext.RouteData;
-    var action = routeData.Values["action"].ToString();
     int? currentId = ViewBag.CurrentId;
     int? parentId = ViewBag.ParentId;
     var parents = (ICollection<BreadcrumbItem>)ViewBag.Parents;
@@ -35,7 +34,7 @@
             </ul>
         </li>
         @if(parentId.HasValue) {
-            <li>@Html.ActionLink(@res.Layout.Up, action, new { Id = parentId })</li>
+            <li>@Html.ActionLink(@res.Layout.Up, this.ActionName(), new { Id = parentId })</li>
         }
         <li><a class="can-disable-items" href="#" title="@res.Layout.DeleteTitle" onclick="deleteItems()">@res.Layout.Delete</a></li>
         <li><a class="can-disable-items" href="#" title="@res.Layout.ShareTitle" onclick="shareItemsShow()">@res.Layout.Share</a></li>
@@ -58,7 +57,7 @@
             .RenderValueAs(item =>
                 item.Type == ItemType.File
                     ? string.Format("<a href=\"#\" onclick=\"showItem({0}, '{1}')\">{2}</a>", item.Id, item.Type, item.Name)
-                    : Html.ActionLink(item.Name, action, new { id = item.Id}).ToString())
+                    : Html.ActionLink(item.Name, this.ActionName(), new { id = item.Id}).ToString())
             .Encoded(false)
             .Sanitized(false)
             .Titled(res.Model.Name)
