@@ -7,13 +7,13 @@
 }
 
 <h2>@res.Layout.Comments</h2>
-<div class="disqusion-container">
+<div id="comments-@Model.ItemId" class="container">
     <ul id="discussion"></ul>
     <input type="text" id="message" class="form-control" />
     <input type="button" id="sendmessage" class="btn" value="@res.Layout.Send" />
     <input type="hidden" id="username" value="@Model.UserName"/>
     <input type="hidden" id="itemId" value="@Model.ItemId" />
-    <div class="alerts-container"></div>
+    <div class="comments-alerts"></div>
 </div>
 
 @*  Script references. 
@@ -34,19 +34,18 @@
                 $('#discussion').append('<li><strong>' + htmlEncode(name)
                     + '</strong>: ' + htmlEncode(message) + '; '+ htmlEncode(time) + '</li>');
             };
-
-            comments.client.alert = function (message) {
-                var destination = '.disqusion-container .alerts-container';
-                var msg = '<div class="alert alert-warning alert-dismissable">';
+            
+            comments.client.addErrorMessage = function (message) {
+                var msg = '<div class="alert alert-danger alert-dismissable">';
                 msg += '<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>';
                 msg += message + "</div>";
 
-                $(destination).slideUp(function () {
-                    $(destination).children().remove();
-                    $(destination).append(msg);
-                    $(destination).slideDown();
+                $('.comments-alerts').slideUp(function () {
+                    $('.comments-alerts').children().remove();
+                    $('.comments-alerts').append(msg);
+                    $('.comments-alerts').slideDown();
                 });
-            }
+            };
 
             // Start the connection.
             $.connection.hub.start().done(function () {

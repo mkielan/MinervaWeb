@@ -165,6 +165,9 @@
   <data name="ItemsNotDeleted" xml:space="preserve">
     <value>Items has not been deleted!</value>
   </data>
+  <data name="MessageNotSend" xml:space="preserve">
+    <value>Message not send.</value>
+  </data>
   <data name="NoSelectedItemsToShareWarning" xml:space="preserve">
     <value>You didn't select any items to share.</value>
   </data>

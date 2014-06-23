@@ -199,6 +199,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Message not send..
+        /// </summary>
+        public static string MessageNotSend {
+            get {
+                return ResourceManager.GetString("MessageNotSend", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to You didn&apos;t select any items to share..
         /// </summary>
         public static string NoSelectedItemsToShareWarning {

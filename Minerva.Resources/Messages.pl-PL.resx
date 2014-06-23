@@ -163,6 +163,9 @@
   <data name="ItemsNotDeleted" xml:space="preserve">
     <value>Nie udało się usunąć elementów!</value>
   </data>
+  <data name="MessageNotSend" xml:space="preserve">
+    <value>Nie udało się wysłać wiadomości.</value>
+  </data>
   <data name="NoSelectedItemsToShareWarning" xml:space="preserve">
     <value>Nie zaznaczyłeś elementów do udostępnienia.</value>
   </data>

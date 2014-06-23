@@ -44,8 +44,15 @@ namespace Minerva.Hubs
                     .addNewMessage(name, msg, time.ToString("f"));
             }
             catch(Exception){
-                // todo wywołanie metody klienta o poinformowaniu o błędzie
+                // wywołanie metody klienta o poinformowaniu o błędzie
+                Clients.Client(Context.ConnectionId)
+                    .addErrorMessage(Resources.Messages.MessageNotSend);
             }
+        }
+
+        public void GetBeforeMessages(int itemId, DateTime time)
+        {
+
         }
         
         public Task JoinItemGroup(int itemId)
