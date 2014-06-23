@@ -290,6 +290,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\DiskItemController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\FileController.cs" />
     <Compile Include="Controllers\ShareController.cs" />
     <Compile Include="Controllers\StorageController.cs" />
@@ -435,6 +436,8 @@
     <Content Include="Views\Shared\EditorTemplates\ShareModel.cshtml" />
     <Content Include="Views\Storage\_Share.cshtml" />
     <Content Include="Views\Storage\Comments.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DiskItem\" />

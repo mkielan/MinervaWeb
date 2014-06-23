@@ -123,6 +123,12 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>Your password has been changed.</value>
   </data>
+  <data name="code404" xml:space="preserve">
+    <value>Could not find the page</value>
+  </data>
+  <data name="code404Big" xml:space="preserve">
+    <value>Looking for something?</value>
+  </data>
   <data name="DeleteConfirm" xml:space="preserve">
     <value>Are you want delete selected items?</value>
   </data>
@@ -174,6 +180,9 @@
   <data name="NotSelectedItemsToDeleteWarning" xml:space="preserve">
     <value>You didn't select any items to delete.</value>
   </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Page not found</value>
+  </data>
   <data name="RemoveLoginSuccess" xml:space="preserve">
     <value>The external login was removed.</value>
   </data>
@@ -188,5 +197,8 @@
   </data>
   <data name="UserDataChangeSuccess" xml:space="preserve">
     <value>Your personal data has been changed.</value>
+  </data>
+  <data name="code500" xml:space="preserve">
+    <value>Internal server error.</value>
   </data>
 </root>

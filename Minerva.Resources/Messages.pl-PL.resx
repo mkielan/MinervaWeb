@@ -123,6 +123,12 @@
   <data name="ChangePasswordSuccess" xml:space="preserve">
     <value>Twoje hasło zostało zmienione.</value>
   </data>
+  <data name="code404" xml:space="preserve">
+    <value>Nie możemy znaleźć szukanej przez Ciebie strony</value>
+  </data>
+  <data name="code404Big" xml:space="preserve">
+    <value>Szukasz czegoś?</value>
+  </data>
   <data name="DeleteConfirm" xml:space="preserve">
     <value>Czy chcesz usunąć zaznaczone elementy?</value>
   </data>
@@ -172,6 +178,9 @@
   <data name="NotSelectedItemsToDeleteWarning" xml:space="preserve">
     <value>Nie zaznaczyłeś elementów do usunięcia.</value>
   </data>
+  <data name="PageNotFound" xml:space="preserve">
+    <value>Strona nie odnaleziona</value>
+  </data>
   <data name="RemoveLoginSuccess" xml:space="preserve">
     <value>Zewnętrzny login został usunięty.</value>
   </data>
@@ -186,5 +195,8 @@
   </data>
   <data name="UserDataChangeSuccess" xml:space="preserve">
     <value>Twoje dane osobowe zostały zmienione.</value>
+  </data>
+  <data name="code500" xml:space="preserve">
+    <value>Błąd serwera.</value>
   </data>
 </root>

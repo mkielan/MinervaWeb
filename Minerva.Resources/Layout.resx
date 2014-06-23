@@ -282,4 +282,10 @@
   <data name="EnterUsernames" xml:space="preserve">
     <value>Enter usernames</value>
   </data>
+  <data name="GoBackTo" xml:space="preserve">
+    <value>Go back to the </value>
+  </data>
+  <data name="PreviousPage" xml:space="preserve">
+    <value>previous page</value>
+  </data>
 </root>

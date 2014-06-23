@@ -277,6 +277,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Go back to the .
+        /// </summary>
+        public static string GoBackTo {
+            get {
+                return ResourceManager.GetString("GoBackTo", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Hello {0}!.
         /// </summary>
         public static string HelloUser {
@@ -372,6 +381,15 @@ namespace Minerva.Resources {
         public static string Optional {
             get {
                 return ResourceManager.GetString("Optional", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to previous page.
+        /// </summary>
+        public static string PreviousPage {
+            get {
+                return ResourceManager.GetString("PreviousPage", resourceCulture);
             }
         }
         
