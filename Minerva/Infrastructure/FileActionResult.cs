@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Minerva.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -35,13 +36,19 @@ namespace Minerva.Infrastructure
             HttpResponseMessage response = new HttpResponseMessage();
             response.StatusCode = HttpStatusCode.OK;
             response.Content = new StreamContent(File.OpenRead(_path));
-            response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
             if (!string.IsNullOrEmpty(_filename))
             {
+                response.Content.Headers.ContentType = 
+                    new MediaTypeHeaderValue(FileHelper.ExtensionToMimetype(_filename.Split('.').Last()));
+
                 response.Content.Headers.ContentDisposition = new ContentDispositionHeaderValue("attachment")
                 {
                     FileName = _filename
                 };
+            }
+            else
+            {
+                response.Content.Headers.ContentType = new MediaTypeHeaderValue("text/plain");
             }
             
             return Task.FromResult(response);
