@@ -9,7 +9,6 @@
 @using ItemType = Minerva.Models.Web.Storage.ItemType;
 
 @{
-    ViewBag.Title = res.Layout.YourStorage;
     Layout = "~/Views/Shared/_Layout.cshtml";
     var editing = ViewBag.Editing != null && ViewBag.Editing;
     int? currentId = ViewBag.CurrentId;
@@ -19,10 +18,11 @@
 
 <h2>@ViewBag.Title</h2>
 
-@Html.Partial("_ParentBreadcrumbs", parents)
 
 @if (editing)
 {
+    @Html.Partial("_ParentBreadcrumbs", parents)
+    
     <div id="alerts"></div>
     
     <ul class="nav nav-pills">

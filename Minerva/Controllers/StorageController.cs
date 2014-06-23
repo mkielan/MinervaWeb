@@ -55,6 +55,8 @@ namespace Minerva.Controllers
                     LastModification = d.ModificationTime
                 });
 
+            ViewBag.Title = Resources.Layout.YourStorage;
+
             return View("Storage", ret.ToList());
         }
 

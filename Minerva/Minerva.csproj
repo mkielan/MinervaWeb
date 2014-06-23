@@ -373,6 +373,7 @@
     </None>
     <Content Include="Content\Site.less" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.css.map" />
+    <None Include="Properties\PublishProfiles\minerva-drive.pubxml" />
     <None Include="Scripts\jquery-2.1.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
