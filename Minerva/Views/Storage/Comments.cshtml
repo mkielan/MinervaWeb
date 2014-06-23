@@ -47,7 +47,6 @@
         };
 
         comments.client.addBeforeMessages = function (messages) {
-            console.log(messages);
             for (var i = 0; i < messages.length; i++) {
                 var m = prepareMessage(messages[i].Author, messages[i].Body, messages[i].SendTime);
                 $('#discussion').append(m);
@@ -68,13 +67,25 @@
             comments.server.getBeforeMessages($('#itemId').val(), new Date());
 
             $('#sendmessage').click(function () {
+                sendMessage();
+            });
+            $('#message').keypress(function (e) {
+                if (e.which == 13) {
+                    @*  Send message if press ENTER *@
+                    sendMessage();
+                }
+            });
+        });
+
+        function sendMessage() {
+            if ($('#message').val().length > 0) {
                 @* Call the Send method on the hub.                 *@
                 comments.server.send($('#username').val(), $('#itemId').val(), $('#message').val());
 
                 @* Clear text box and reset focus for next comment. *@
                 $('#message').val('').focus();
-            });
-        });
+            }
+        }
     });
 
     function htmlEncode(value) {
