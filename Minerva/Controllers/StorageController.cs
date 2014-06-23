@@ -67,13 +67,13 @@ namespace Minerva.Controllers
             {
                 ItemId = itemId,
                 UserName = User.Identity.Name,
-                Messages = _commentRepository
+                /*Messages = _commentRepository
                     .PrepareItemComments(itemId)
                     .Select(c => new Item {
                         Author = c.CreatedBy.UserName,
                         Body = c.Body,
                         SendTime = c.CreatedTime
-                     }).ToList()
+                     }).ToList()*/
             });
         }
     }
