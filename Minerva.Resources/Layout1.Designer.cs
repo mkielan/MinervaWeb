@@ -223,6 +223,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Download.
+        /// </summary>
+        public static string DoDownload {
+            get {
+                return ResourceManager.GetString("DoDownload", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter e-mails.
         /// </summary>
         public static string EnterEmails {

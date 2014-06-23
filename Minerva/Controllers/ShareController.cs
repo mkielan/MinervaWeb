@@ -37,7 +37,8 @@ namespace Minerva.Controllers
                     Id = d.Id,
                     Name = d.Name,
                     Type = d.File == null ? ItemType.Directory : ItemType.File,
-                    LastModification = d.ModificationTime
+                    LastModification = d.ModificationTime,
+                    Creator = d.CreatedBy.UserName
                 }).ToList();
 
             return View("Storage", model);
@@ -57,7 +58,8 @@ namespace Minerva.Controllers
                     Id = d.Id,
                     Name = d.Name,
                     Type = d.File == null ? ItemType.Directory : ItemType.File,
-                    LastModification = d.ModificationTime
+                    LastModification = d.ModificationTime,
+                    Creator = d.CreatedBy.UserName
                 }).ToList();
 
             return View("Storage", model);

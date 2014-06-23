@@ -306,6 +306,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Infrastructure\Extensions\Html.cs" />
     <Compile Include="Infrastructure\Extensions\ModelState.cs" />
     <Compile Include="Infrastructure\Extensions\WebExtensions.cs" />
     <Compile Include="Infrastructure\FileActionResult.cs" />
@@ -317,6 +318,7 @@
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\Gridmvc.css" />
     <Content Include="Content\Images\dir.png" />
+    <Content Include="Content\Images\down.png" />
     <Content Include="Content\Images\file.png" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.css" />
     <Content Include="Content\jasny-bootstrap\jasny-bootstrap.min.css" />

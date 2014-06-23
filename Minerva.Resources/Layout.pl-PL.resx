@@ -288,4 +288,7 @@
   <data name="PreviousPage" xml:space="preserve">
     <value>poprzedniej strony</value>
   </data>
+  <data name="DoDownload" xml:space="preserve">
+    <value>Pobierz</value>
+  </data>
 </root>

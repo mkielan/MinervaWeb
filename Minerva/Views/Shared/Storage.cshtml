@@ -63,10 +63,21 @@
             .Titled(res.Model.Name)
             .SortInitialDirection(GridSortDirection.Descending)
             .Sortable(true);
+        columns.Add(item => item.Creator)
+            .Titled(res.Model.Creator)
+            .Sortable(true);
         columns.Add(item => item.LastModification)
             .Titled(res.Model.LastModification)
             .Sortable(true)
             .Format("{0:dd/MM/yyyy}");
+        columns.Add()
+            //.SetWidth(30)
+            .Encoded(false)
+            .Sanitized(false)
+            .RenderValueAs(item =>
+                item.Type == ItemType.File
+                    ? Html.ImageActionLink(Url.Content("~/Content/Images/down.png"), Url.Action("Download", "File", new { id = item.Id}), res.Layout.DoDownload, true)
+                    : Html.Raw(""));
     }
 ).WithPaging(20)
 
@@ -342,7 +353,6 @@
             $.ajax({
                 type: 'POST',
                 url: '@Url.Action("Upload", "File")/' + fileId,
-                //enctype: 'multipart/form-data',
                 data: formData,
                 processData: false,
                 contentType: false,

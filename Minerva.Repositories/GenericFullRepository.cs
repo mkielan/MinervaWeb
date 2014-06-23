@@ -21,6 +21,7 @@ namespace Minerva.Repositories
         public virtual void Add(T entity)
         {
             entity.CreatedTime = DateTime.Now;
+            entity.ModificationTime = entity.CreatedTime;
 
             base.Add(entity);
             Context.Set<T>().Add(entity);

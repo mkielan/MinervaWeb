@@ -120,6 +120,9 @@
   <data name="ConfirmNewPassword" xml:space="preserve">
     <value>Confirm new password</value>
   </data>
+  <data name="Creator" xml:space="preserve">
+    <value>Creator</value>
+  </data>
   <data name="CurrentPassword" xml:space="preserve">
     <value>Current password</value>
   </data>

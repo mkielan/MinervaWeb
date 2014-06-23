@@ -13,6 +13,8 @@ namespace Minerva.Models.Web.Storage
 
         public string Name { get; set; }
 
+        public string Creator { get; set; }
+
         public DateTime? LastModification { get; set; }
 
         public ItemType Type { get; set; }
