@@ -11,6 +11,7 @@ using Minerva.Entities;
 using Minerva.Helpers;
 using System.Configuration;
 using System.IO;
+using System.Web.Hosting;
 
 namespace Minerva.Controllers
 {
@@ -25,9 +26,7 @@ namespace Minerva.Controllers
         {
             var c = new MinervaDbContext();
             _repository = new DiskStructureRepository(c);
-
-
-            _storagePath = Server.MapPath(ConfigurationSettings.AppSettings["FilesStoragePath"]);
+            _storagePath = HostingEnvironment.MapPath(ConfigurationSettings.AppSettings["FilesStoragePath"]);
         }
 
         public ActionResult Show(int id)
@@ -41,7 +40,11 @@ namespace Minerva.Controllers
 
             if (file == null) return null;
 
-            return File(_storagePath + "\\" + id, "application/force-download", "filename");
+            return File(
+                _storagePath + "\\" + id, 
+                FileHelper.ExtensionToMimetype(file.Name.Split('.').Last()), 
+                file.Name
+                );
         }
 
         [HttpPost]
