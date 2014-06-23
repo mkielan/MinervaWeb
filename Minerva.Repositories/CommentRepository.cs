@@ -18,18 +18,7 @@ namespace Minerva.Repositories
 
         public void AddComment(int itemId, string username, string message, DateTime time)
         {
-            var item = Context.DiskStructures.First(ds => ds.Id == itemId);
-            var user = Context.Users.First(u => u.UserName == username);
-
-            var comment = new Comment
-            {
-                DiskStructure = item,
-                CreatedBy = user,
-                Body = message,
-                CreatedTime = time
-            };
-
-            Context.Set<Comment>().Add(comment);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Comment> PrepareItemComments(int itemId)
