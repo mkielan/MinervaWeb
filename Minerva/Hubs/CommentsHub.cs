@@ -52,7 +52,17 @@ namespace Minerva.Hubs
 
         public void GetBeforeMessages(int itemId, DateTime time)
         {
+            var messages = _repository
+                .FindBy(c => c.DiskStructure.Id == itemId)
+                .OrderBy(c => c.CreatedTime)
+                .AsEnumerable()
+                .Select(c => new Minerva.Models.Web.Comment.HubItem { 
+                    Author = c.CreatedBy.UserName,
+                    Body = c.Body,
+                    SendTime = c.CreatedTime.ToString("f")
+                });
 
+            Clients.Client(Context.ConnectionId).addBeforeMessages(messages.ToArray());
         }
         
         public Task JoinItemGroup(int itemId)
