@@ -48,7 +48,7 @@ namespace Minerva.Controllers
                     Extension = tmp.Length > 1 ? tmp.Last() : null
                 };
 
-                _repository.Add(diskStructure);
+                _repository.Context.Files.Add(f);
                 _repository.Save();
 
                 return Json(diskStructure.Id, JsonRequestBehavior.AllowGet);

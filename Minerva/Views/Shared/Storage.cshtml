@@ -303,57 +303,64 @@
 
         var filename = $('#add-file-modal input:file').val();
 
-        if (filename.length > 0) {
-            @* Dodanie pliku    *@
-            var currentId = $('input:hidden#CurrentId').val();
-            var fileId = -1;
+        if (filename.length == 0) {
+            showAlert('@string.Format(res.Validation.Required, res.Model.File)', 'warning', '#add-file-modal #add-file-alerts');
+            return;
+        }
 
-            var sendData = {
-                name: filename,
-                ParentId: currentId,
-                description: description
-            };
-            
+        @* Dodanie pliku    *@
+        var currentId = $('input:hidden#CurrentId').val();
+        var fileId = -1;
+
+        var sendData = {
+            name: filename,
+            ParentId: currentId,
+            description: description
+        };
+
+        $.ajax({
+            url: '@Url.Action("AddFile", "DiskItem")',
+            method: 'POST',
+            data: JSON.stringify(sendData),
+            dataType: 'json',
+            contentType: 'application/json; charset=utf-8',
+            cache: false,
+            success: function (data) {
+                upload2(data);
+            },
+            error: function (data) {
+                uploadFaild();
+            }
+        });
+    }
+
+    function upload2(fileId) {
+        @* Upload pliku     *@
+        if (fileId > 0) {
+            var formData = new FormData();
+            formData.append('files[]', $('#add-file-modal input:file').get(0).files[0]);
             $.ajax({
-                url: '@Url.Action("AddFile", "DiskItem")',
-                method: 'POST',
-                data: JSON.stringify(sendData),
-                dataType: 'json',
-                contentType: 'application/json; charset=utf-8',
-                cache: false,
-                success: function (data) {
-                    fileId = data;
+                type: 'POST',
+                url: '@Url.Action("Upload", "File")/' + fileId,
+                //enctype: 'multipart/form-data',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function () {    
+                    showAlert('@res.Messages.FileAdded', 'success');
+                    location.reload(true);
                 },
-                error: function (data) {
-                    
+                error: function () {
+                    uploadFaild();
                 }
             });
-
-            @* Upload pliku     *@
-            if (fileId > 0) {
-                var formData = new FormData();
-                formData.append('files[]', $('#add-file-modal input:file').get(0).files[0]);
-                $.ajax({
-                    type: 'POST',
-                    url: '@Url.Action("Upload", "File", new { id = 1 })',
-                    enctype: 'multipart/form-data',
-                    data: formData,
-                    success: function () {
-                        alert("Data Uploaded: ");
-
-                        showAlert('@res.Messages.FileAdded', 'success');
-                        location.reload(true);
-                    }
-                });
-            }
-
-            @*  Gdy niepowodzenie *@
-            showAlert('@res.Messages.FileNotAdded', 'danger');
-            $('#add-file-modal').hide();
         }
-        else {
-            showAlert('@string.Format(res.Validation.Required, res.Model.File)', 'warning', '#add-file-modal #add-file-alerts');
-        }
+    }
+
+    @*  Gdy niepowodzenie *@
+    function uploadFaild() {
+        showAlert('@res.Messages.FileNotAdded', 'danger');
+        $('#add-file-modal').modal('hide');
     }
 
     function selectedCount() {
