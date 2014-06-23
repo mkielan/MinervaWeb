@@ -21,5 +21,8 @@ namespace Minerva.Models.Api.File
         [MaxLength(200)]
         [JsonProperty("description")]
         public string Description { get; set;}
+
+        [JsonProperty("tags")]
+        public string[] Tags { get; set; }
     }
 }

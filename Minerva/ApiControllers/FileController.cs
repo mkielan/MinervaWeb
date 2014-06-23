@@ -127,6 +127,32 @@ namespace Minerva.ApiControllers
                 DiskStructure = diskStructure,
                 Extension = tmp.Length > 1 ? tmp.Last() : null
             };
+
+            #region dodanie tagów
+            if (file.Tags != null)
+            {
+                if (diskStructure.Tags == null) diskStructure.Tags = new List<Tag>();
+
+                foreach (var tag in file.Tags)
+                {
+                    var tagEntity = _repository.Context.Tags.FirstOrDefault(t => t.Name == tag);
+
+                    if (tagEntity == null)
+                    {
+                        tagEntity = new Tag { Name = tag };
+                        tagEntity.CreatedTime = DateTime.Now;
+                        tagEntity.CreatedBy = user;
+                        _repository.Context.Tags.Add(tagEntity);
+                    }
+                    diskStructure.Tags.Add(tagEntity);
+                }
+            }
+            else
+            {
+                if (diskStructure.Tags != null) diskStructure.Tags.Clear();
+            }
+            #endregion
+
             _repository.Context.Files.Add(f);
 
             _repository.Save();
@@ -162,11 +188,12 @@ namespace Minerva.ApiControllers
                 return NotFound();
             }
 
+            var user = _repository.Context.Users.First(u => u.UserName == username);
+
             com.Name = file.Name;
             com.Description = file.Description;
-            com.ModifiedBy = _repository.Context.Users.First(u => u.UserName == username);
+            com.ModifiedBy = user;
 
-            var user = _repository.Context.Users.First(u => u.UserName == username);
             if(file.Tags != null) {
                 if (com.Tags == null) com.Tags = new List<Tag>();
 
