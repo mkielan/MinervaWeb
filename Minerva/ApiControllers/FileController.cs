@@ -374,21 +374,23 @@ namespace Minerva.ApiControllers
                 return NotFound();
             }
 
-            return new FileActionResult(_path + "//" + id);
+            var filename = _repository.FindBy(f => f.Id == id).First().Name;
+
+            return new FileActionResult(_path + "//" + id, filename);
         }
 
         private bool HaveAccessToFile(int id, string username)
         {
-            return true;/* _repository.FindBy(
+            return _repository.FindBy(
                      f => f.DeletedTime == null
                          && f.Id == id
                          && f.File != null
-                         && (
+                         //&& (
                          //f.CreatedBy.UserName == username
                          //|| 
-                             f.AvailableFor.Select(a => a.User.UserName).Contains(username)
-                         )
-                 ).FirstOrDefault() != null;*/
+                         //    f.AvailableFor.Select(a => a.User.UserName).Contains(username)
+                         //)
+                 ).FirstOrDefault() != null;
         }
     }
 }
