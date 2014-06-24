@@ -82,6 +82,8 @@
 
 <!--Html.Partial("_Comments")-->
 
+@Html.Action("CommentsChat", new { id = @currentId })
+
 @if (editing)
 {
     <div id="add-file-modal" class="modal fade">

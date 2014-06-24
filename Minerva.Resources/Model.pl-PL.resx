@@ -120,6 +120,9 @@
   <data name="AvailableFor" xml:space="preserve">
     <value>Dostępne dla</value>
   </data>
+  <data name="Comments" xml:space="preserve">
+    <value>Komentarze</value>
+  </data>
   <data name="ConfirmNewPassword" xml:space="preserve">
     <value>Powtórz nowe hasło</value>
   </data>

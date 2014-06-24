@@ -1,14 +1,19 @@
-﻿using System;
+﻿using Minerva.Models.Web.Comment;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Minerva.Models.Web.File
 {
     public class Details
     {
+        [HiddenInput(DisplayValue=false)]
+        public int Id { get; set; }
+
         [Display(Name = "Name", ResourceType = typeof(Resources.Model))]
         public string Name { get; set; }
 

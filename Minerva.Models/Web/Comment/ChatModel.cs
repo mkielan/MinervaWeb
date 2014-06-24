@@ -11,7 +11,5 @@ namespace Minerva.Models.Web.Comment
         public int ItemId { get; set; }
 
         public string UserName { get; set; }
-
-        public ICollection<Item> Messages { get; set;}
     }
 }

@@ -79,5 +79,17 @@ namespace Minerva.Controllers
                      }).ToList()*/
             });
         }
+
+        [ChildActionOnly]
+        public ActionResult CommentsChat(int id)
+        {
+            var model = new ChatModel
+            {
+                ItemId = id,
+                UserName = User.Identity.Name
+            };
+
+            return (ActionResult)PartialView("_CommentsChat", model);
+        }
     }
 }

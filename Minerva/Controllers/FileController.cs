@@ -38,6 +38,7 @@ namespace Minerva.Controllers
 
             var model = new Details
             {
+                Id = item.Id,
                 Name = item.Name,
                 Creator = item.CreatedBy.UserName,
                 CreatedTime = item.CreatedTime,

@@ -70,6 +70,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Comments.
+        /// </summary>
+        public static string Comments {
+            get {
+                return ResourceManager.GetString("Comments", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm new password.
         /// </summary>
         public static string ConfirmNewPassword {

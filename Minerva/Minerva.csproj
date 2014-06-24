@@ -441,6 +441,8 @@
     <Content Include="Views\Error\NotFound.cshtml" />
     <Content Include="Views\Error\ServerError.cshtml" />
     <Content Include="Views\File\Details.cshtml" />
+    <Content Include="Views\Shared\DisplayTemplates\ChatModel.cshtml" />
+    <Content Include="Views\Shared\_CommentsChat.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\DiskItem\" />
