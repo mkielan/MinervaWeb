@@ -12,6 +12,7 @@ using Minerva.Helpers;
 using System.Configuration;
 using System.IO;
 using System.Web.Hosting;
+using Minerva.Models.Web.File;
 
 namespace Minerva.Controllers
 {
@@ -29,9 +30,26 @@ namespace Minerva.Controllers
             _storagePath = HostingEnvironment.MapPath(ConfigurationSettings.AppSettings["FilesStoragePath"]);
         }
 
-        public ActionResult Show(int id)
+        public ActionResult Details(int id)
         {
-            return View();
+            var item = _repository.FindBy(ds =>
+                ds.Id == id
+                && ds.DeletedTime == null).First();
+
+            var model = new Details
+            {
+                Name = item.Name,
+                Creator = item.CreatedBy.UserName,
+                CreatedTime = item.CreatedTime,
+                ModificationTime = item.ModificationTime,
+                Description = item.Description,
+                LastModificator = item.ModifiedBy == null ? "-" : item.ModifiedBy.UserName,
+                AvailabeFor = item.AvailableFor
+                    .Where(a => a.User.UserName != User.Identity.Name)
+                    .Select(i => i.User.UserName).ToArray()
+            };
+
+            return View(model);
         }
 
         public FileResult Download(int id)

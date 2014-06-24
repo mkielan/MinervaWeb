@@ -331,6 +331,15 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to {0} details.
+        /// </summary>
+        public static string ItemDetails {
+            get {
+                return ResourceManager.GetString("ItemDetails", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Use a local account to log in..
         /// </summary>
         public static string LocalAccountLogin {
@@ -381,6 +390,15 @@ namespace Minerva.Resources {
         public static string ManageAccount {
             get {
                 return ResourceManager.GetString("ManageAccount", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Not shared.
+        /// </summary>
+        public static string NotShared {
+            get {
+                return ResourceManager.GetString("NotShared", resourceCulture);
             }
         }
         

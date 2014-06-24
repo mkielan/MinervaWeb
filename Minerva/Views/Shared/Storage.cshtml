@@ -56,8 +56,8 @@
         columns.Add(item => item.Name)
             .RenderValueAs(item =>
                 item.Type == ItemType.File
-                    ? string.Format("<a href=\"#\" onclick=\"showItem({0}, '{1}')\">{2}</a>", item.Id, item.Type, item.Name)
-                    : Html.ActionLink(item.Name, this.ActionName(), new { id = item.Id}).ToString())
+                    ? Html.ActionLink(item.Name, "Details", "File", new { id = item.Id }, null)
+                    : Html.ActionLink(item.Name, this.ActionName(), new { id = item.Id }))
             .Encoded(false)
             .Sanitized(false)
             .Titled(res.Model.Name)
@@ -71,7 +71,6 @@
             .Sortable(true)
             .Format("{0:dd/MM/yyyy}");
         columns.Add()
-            //.SetWidth(30)
             .Encoded(false)
             .Sanitized(false)
             .RenderValueAs(item =>

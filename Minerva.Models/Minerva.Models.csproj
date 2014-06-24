@@ -61,6 +61,7 @@
     <Compile Include="Web\Comment\ChatModel.cs" />
     <Compile Include="Web\Comment\HubItem.cs" />
     <Compile Include="Web\Comment\Item.cs" />
+    <Compile Include="Web\File\Details.cs" />
     <Compile Include="Web\Share\ShareModel.cs" />
     <Compile Include="Web\Storage\BreadcrumbItem.cs" />
     <Compile Include="Web\Storage\GridItem.cs" />

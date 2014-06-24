@@ -291,4 +291,10 @@
   <data name="DoDownload" xml:space="preserve">
     <value>Download</value>
   </data>
+  <data name="ItemDetails" xml:space="preserve">
+    <value>{0} details</value>
+  </data>
+  <data name="NotShared" xml:space="preserve">
+    <value>Not shared</value>
+  </data>
 </root>

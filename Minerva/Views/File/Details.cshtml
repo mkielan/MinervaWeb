@@ -1,0 +1,67 @@
+﻿@model Minerva.Models.Web.File.Details
+
+@using res = Minerva.Resources;
+
+@{
+    ViewBag.Title = string.Format(res.Layout.ItemDetails, Model.Name);
+}
+
+<h2>@ViewBag.Title</h2>
+
+<fieldset>
+    @*<div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Name, new { @class = "form-control" })
+        </div>
+    </div>*@
+    <div class="form-group">
+        @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @readonly="readonly" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Creator, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Creator, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CreatedTime, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.CreatedTime, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastModificator, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.LastModificator, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.ModificationTime, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.ModificationTime, new { @class = "form-control" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.AvailabeFor, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <ul>
+                @if (Model.AvailabeFor == null || Model.AvailabeFor.Length == 0)
+                {
+                    <li>@res.Layout.NotShared</li>
+                }
+                else
+                {
+                    foreach (var user in Model.AvailabeFor)
+                    {
+                        <li>@user</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</fieldset>
+

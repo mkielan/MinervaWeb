@@ -61,11 +61,29 @@ namespace Minerva.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Available for.
+        /// </summary>
+        public static string AvailableFor {
+            get {
+                return ResourceManager.GetString("AvailableFor", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Confirm new password.
         /// </summary>
         public static string ConfirmNewPassword {
             get {
                 return ResourceManager.GetString("ConfirmNewPassword", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Created.
+        /// </summary>
+        public static string Created {
+            get {
+                return ResourceManager.GetString("Created", resourceCulture);
             }
         }
         
@@ -120,6 +138,15 @@ namespace Minerva.Resources {
         public static string LastModification {
             get {
                 return ResourceManager.GetString("LastModification", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Last modificator.
+        /// </summary>
+        public static string LastModificator {
+            get {
+                return ResourceManager.GetString("LastModificator", resourceCulture);
             }
         }
         
