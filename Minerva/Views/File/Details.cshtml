@@ -6,68 +6,78 @@
     ViewBag.Title = string.Format(res.Layout.ItemDetails, Model.Name);
 }
 
-<h2>@ViewBag.Title</h2>
-
 <div class="row">
-    <div class="col-sm-5 col-md-6">
-        @Html.HiddenFor(m => m.Id)
+    <div class="col-sm-6">
         @*<div class="form-group">
             @Html.LabelFor(m => m.Name, new { @class = "col-md-2 control-label" })
             <div class="col-md-10">
                 @Html.DisplayFor(m => m.Name, new { @class = "form-control" })
             </div>
         </div>*@
-        <div class="form-group">
-            @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @readonly = "readonly" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.Creator, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.Creator, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.CreatedTime, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.CreatedTime, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.LastModificator, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.LastModificator, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.ModificationTime, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                @Html.DisplayFor(m => m.ModificationTime, new { @class = "form-control" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(m => m.AvailabeFor, new { @class = "col-md-2 control-label" })
-            <div class="col-md-10">
-                <ul>
-                    @if (Model.AvailabeFor == null || Model.AvailabeFor.Length == 0)
-                    {
-                        <li>@res.Layout.NotShared</li>
-                    }
-                    else
-                    {
-                        foreach (var user in Model.AvailabeFor)
-                        {
-                            <li>@user</li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div>
+        <div class="row">
 
+            <h2>@ViewBag.Title</h2>
+            <hr />
+            @Html.HiddenFor(m => m.Id)
+        </div>
+        <div class="row">
+            <div class="form-group">
+                @Html.LabelFor(m => m.Description, new { @class = "col-md-2 control-label" })
+                <div class="col-md-10">
+                    @Html.TextAreaFor(m => m.Description, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+            </div></div><div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Creator, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.Creator, new { @class = "form-control" })
+        </div>
     </div>
-    <div class="col-sm-5 col-md-6">
+</div><div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.CreatedTime, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.CreatedTime, new { @class = "form-control" })
+        </div>
+    </div>
+</div><div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.LastModificator, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.LastModificator, new { @class = "form-control" })
+        </div>
+    </div>
+</div><div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.ModificationTime, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.DisplayFor(m => m.ModificationTime, new { @class = "form-control" })
+        </div>
+    </div>
+</div><div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.AvailabeFor, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            <ul>
+                @if (Model.AvailabeFor == null || Model.AvailabeFor.Length == 0)
+                {
+                    <li>@res.Layout.NotShared</li>
+                }
+                else
+                {
+                    foreach (var user in Model.AvailabeFor)
+                    {
+                        <li>@user</li>
+                    }
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+
+</div>
+
+    <div class="col-sm-6">
         @Html.Action("CommentsChat", "Storage", new { id = Model.Id })
     </div>
 </div>
