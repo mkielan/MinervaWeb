@@ -80,9 +80,10 @@
     }
 ).WithPaging(20)
 
-<!--Html.Partial("_Comments")-->
-
-@Html.Action("CommentsChat", new { id = @currentId })
+@if (this.ActionName() == "Index")
+{
+    @Html.Action("CommentsChat", "Storage", new { id = @currentId })
+}
 
 @if (editing)
 {

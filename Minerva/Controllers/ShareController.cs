@@ -25,6 +25,7 @@ namespace Minerva.Controllers
         public ActionResult ForYou()
         {
             ViewBag.Title = Layout.SharedForYou;
+            ViewBag.Comments = true;
 
             var model = DiskStructureHelper.FindShared(
                 _repository,
@@ -47,6 +48,7 @@ namespace Minerva.Controllers
         public ActionResult ByYou()
         {
             ViewBag.Title = Layout.SharedByYou;
+            ViewBag.Comments = true;
 
             var model = DiskStructureHelper.FindShared(
                 _repository, 
